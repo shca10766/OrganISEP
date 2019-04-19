@@ -36,11 +36,11 @@ public class LoginServlet extends HttpServlet {
 		
 		if (userValidate.equals("SUCCESS")) {
 			request.setAttribute("email", email); 
-			//request.getRequestDispatcher("/Home.jsp").forward(request, response);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		} 
 		else {
 			request.setAttribute("errMessage", userValidate);
-			this.getServletContext().getRequestDispatcher("/connexion.jsp").forward( request, response );
+			this.getServletContext().getRequestDispatcher("/index.jsp").forward( request, response );
 		}
 	}
 

@@ -36,6 +36,6 @@ public class LoginDao {
  		catch(SQLException e) {
  			e.printStackTrace();
  		}
- 		return "Invalid user credentials"; // Just returning appropriate message otherwise
+ 		return "Combinaison email et mot de passe invalide."; // Just returning appropriate message otherwise
 	}
  }
