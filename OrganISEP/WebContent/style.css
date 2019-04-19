@@ -1,0 +1,87 @@
+@charset "ISO-8859-1";
+
+html {
+	height: 100%;
+    font-family: Segoe UI; 
+	color: rgb(112, 112, 112);
+}
+
+.btn {
+	background-color: #A8334A;
+	color: white;
+	font-weight: bold;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+	height: 30px;
+}
+
+.btn:hover {
+	background-color: #5D0012;
+}
+
+a {
+	color: rgb(112, 112, 112);
+    text-decoration: none;
+}
+
+a:hover {
+	color: #A8334A;
+	font-weight: bold;
+}
+
+input:focus {
+	outline: none;
+}
+
+.errorMessage {
+	color: red;
+	font-size: 11px;
+	margin-left: 5px;
+}
+
+#body_co {
+	background-image: url("img/fond_login.png");
+	display: flex;
+	height: 90%;
+}
+
+#logoisep {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+#body_co #logo {
+	text-align: center;
+}
+
+#body_co #content_form {
+	background-color: rgba(255, 255, 255, 0.83);
+	margin: auto;
+	padding: 20px 40px 40px 40px;
+	border-radius: 20px;
+	width: 315px;
+}
+
+#body_co #content_form form div {
+	margin: 20px auto;
+}
+
+#body_co #content_form label {
+	font-size: 15px;
+}
+
+#body_co #content_form input {
+	width: 100%;
+	padding: 6px 6px;
+}
+
+#body_co #content_form input[type="submit"] {
+	width: 329px!important;
+	margin-top: 10px;
+}
+
+#body_co #content_form a {
+	font-size: 13px;
+}

@@ -1,4 +1,4 @@
-package organisep.Model;
+package organisep.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
