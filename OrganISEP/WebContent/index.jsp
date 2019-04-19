@@ -7,9 +7,6 @@
 <title>Mysql Database Connection using jsp, servlet and tomcat</title>
 </head>
 <body>
-<h1>Md. Alamgir Hossain</h1>
-<h1>Dept. of Computer Science & Engineering</h1>
-<h1>Jessore University of Science & Technology</h1>
 
 <form action="firstdbserv" method="Post">
             Name : <input type="text" name="name"><br><br>     
