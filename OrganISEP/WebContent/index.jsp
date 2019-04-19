@@ -13,10 +13,6 @@
 
 <form action="firstdbserv" method="Post">
             Name : <input type="text" name="name"><br><br>     
-        User Name : <input type="text" name="uname"><br><br>
-        Password : <input type="password" name="pass"><br><br>
-        Email : <input type="text" name="email"><br><br>
-        Subject : <input type="text" name="subject"><br><br>
         <input type="submit" value="Submit"><br>
     </form>
 </body>

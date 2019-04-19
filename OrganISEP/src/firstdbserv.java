@@ -41,10 +41,6 @@ public class firstdbserv extends HttpServlet {
         doGet(request, response);        
         PrintWriter out = response.getWriter();
         String name = request.getParameter("name");
-        String uname = request.getParameter("uname");
-        String password = request.getParameter("pass");
-        String email = request.getParameter("email");
-        String subject = request.getParameter("subject");   
 
         try {
 
@@ -54,7 +50,7 @@ public class firstdbserv extends HttpServlet {
 
             Statement st = conn.createStatement();
 
-            String sql = "insert into student (Name,Uname,Password,Email,Subject) values('"+name+"','"+uname+"','"+password+"','"+email+"','"+subject+"')";
+            String sql = "insert into salle (salle_nom, nombre_de_place) values('"+name+"', 100)";
 
             st.executeUpdate(sql);
             out.println("Data is Successfully Inserted into Student Table");
