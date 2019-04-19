@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import organisep.bean.LoginBean;
 import organisep.model.LoginDao;
@@ -35,7 +36,9 @@ public class LoginServlet extends HttpServlet {
 		String userValidate = loginDao.authenticateUser(loginBean);
 		
 		if (userValidate.equals("SUCCESS")) {
-			request.setAttribute("email", email); 
+			loginDao.sessionUser(loginBean);
+			HttpSession session = request.getSession();
+			session.setAttribute("user", loginBean);
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		} 
 		else {

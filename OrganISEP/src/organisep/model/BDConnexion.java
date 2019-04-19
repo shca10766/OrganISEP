@@ -7,16 +7,16 @@ public class BDConnexion {
 	public static Connection createConnection() {
 		Connection con = null;
 		String url = "jdbc:mysql://localhost:3306/organisep?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-		String username = "root"; // MySQL username
-		String password = "root"; // MySQL password
+		String username = "root";
+		String password = "root";
 
 		try {
 			try {
-				Class.forName("com.mysql.cj.jdbc.Driver"); // loading mysql driver
+				Class.forName("com.mysql.cj.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			con = DriverManager.getConnection(url, username, password); // attempting to connect to MySQL database
+			con = DriverManager.getConnection(url, username, password);
 			System.out.println("Printing connection object " + con);
 		} catch (Exception e) {
 			e.printStackTrace();
