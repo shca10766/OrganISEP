@@ -1,0 +1,11 @@
+nav{
+	background-color: white;
+	border-bottom: solid 2px #d2afb6;
+	height: 80px;
+}
+
+#organIsep{
+	border-right: solid 2px #d2afb6;
+	height: 72px;
+	width : 14%;
+}
