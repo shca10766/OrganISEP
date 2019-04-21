@@ -5,6 +5,7 @@ public class LoginBean {
 	private String mdp;
 	private String nom;
 	private int statut;
+	private String image;
 	
 	public LoginBean(String email, String mdp) {
 		this.email = email;
@@ -22,4 +23,7 @@ public class LoginBean {
 	
 	public int getStatut() { return statut; }
 	public void setStatut(int statut) { this.statut = statut; }
+	
+	public String getImage() { return image; }
+	public void setImage(String image) { this.image = image; }
 }

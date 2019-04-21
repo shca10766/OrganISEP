@@ -57,6 +57,7 @@ public class LoginDao {
  			while (resultSet.next()) {
  				loginBean.setNom(resultSet.getString("utilisateur_nom"));
  				loginBean.setStatut(resultSet.getInt("utilisateur_statut"));
+ 				loginBean.setImage(resultSet.getString("utilisateur_image"));
  			}
  		}
  		catch(SQLException e) {
