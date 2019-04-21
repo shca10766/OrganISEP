@@ -27,20 +27,26 @@
 			<div id="content_template">
 				<!-- List group -->
 				<div class="list-group" id="list_nav" role="tablist">
-					  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
+					  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
 					  <% if( user.getStatut() == 2 ) { %>
-					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
+					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
 					  <% } %>
-					  <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab"><i class="fas fa-cog"></i> Paramètres</a>
+					  <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab"><i class="fas fa-cog"></i> Paramètres</a>
 				</div>
 				
 				<!-- Tab panes -->
 				<div class="tab-content">
-					  <div class="tab-pane active" id="home" role="tabpanel">Test</div>
+					  <div class="tab-pane active" id="dashboard" role="tabpanel">
+					  	<%@include file="dashboard.jsp" %>
+					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
-					  	<div class="tab-pane" id="profile" role="tabpanel">Test2</div>
+					  	<div class="tab-pane" id="edit" role="tabpanel">
+					  		<%@include file="newEvent.jsp" %>
+					  	</div>
 					  <% } %>
-					  <div class="tab-pane" id="messages" role="tabpanel">Test3</div>
+					  <div class="tab-pane" id="settings" role="tabpanel">
+					  	<%@include file="settings.jsp" %>
+					  </div>
 				</div>
 			</div>
 		
