@@ -13,7 +13,7 @@
   	<body>
     	<nav class="navbar sticky-top navbar-light">
     		<span id="organIsep">
-    			<img src="./img/Logo_Organ'ISEP.png" width="100" alt="logo_Organisep">
+    			<img src="./img/logo_organisep.png" width="100" alt="logo_Organisep">
     		</span>
     		<div id="infoUser">
 	  			<img src="./img/logots.png" width="100" alt="logo_user">  
