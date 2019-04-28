@@ -9,6 +9,10 @@
     	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 		<title><%=(request.getAttribute("action") == null) ? "OrganISEP" : request.getAttribute("action") + " | OrganISEP"%></title>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"> </script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   	</head>
   	<body>
   		<% try { %>		
@@ -27,11 +31,11 @@
 			<div id="content_template">
 				<!-- List group -->
 				<div class="list-group" id="list_nav" role="tablist">
-					  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
+					  <a class="list-group-item list-group-item-action active" onclick="getData()" data-toggle="list" href="#dashboard" id="item_dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
 					  <% if( user.getStatut() == 2 ) { %>
-					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
+					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
 					  <% } %>
-					  <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab"><i class="fas fa-cog"></i> Paramètres</a>
+					  <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" id="item_settings" role="tab"><i class="fas fa-cog"></i> Paramètres</a>
 				</div>
 				
 				<!-- Tab panes -->
@@ -56,11 +60,61 @@
 			request.getRequestDispatcher("/index.jsp").include(request, response);
 		} %>
 	
+	<script>
+		window.addEventListener("load", function(event) {
+	    	var action = "<%= request.getAttribute("action") %>" ;
+	    	getData();
+	    	
+	    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
+	    	else if (action == "Nouveau Evènement") { var result = "edit"; }
+	    	else { var result = "settings"; }
+	    	
+	    	var listItems = document.getElementById("list_nav").children;
+    		for (var i = 0; i < listItems.length; i++) {
+    			if (!listItems[i].classList.contains("active") && listItems[i].id == "item_" + result) {
+    				listItems[i].classList.add("active");
+    				document.getElementById(result).classList.add("active");
+    			}
+    			else if (listItems[i].classList.contains("active") && listItems[i].id != "item_" + result) {
+    				listItems[i].classList.remove("active");
+    				document.getElementById(result).classList.remove("active");
+    			}
+    		}
+	  	});
+		
+		function getData() {
+			var xhr = getXMLHttpRequest();
+			
+			xhr.onreadystatechange = function() {
+		        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+		        	console.log(xhr.responseText);
+		        }
+			};
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+			xhr.open("GET", "EventServlet", true);
+			xhr.send(null);
+		}
+		
+		function getXMLHttpRequest() {
+			var xhr = null;
+			
+			if (window.XMLHttpRequest || window.ActiveXObject) {
+				if (window.ActiveXObject) {
+					try {
+						xhr = new ActiveXObject("Msxml2.XMLHTTP");
+					} catch(e) {
+						xhr = new ActiveXObject("Microsoft.XMLHTTP");
+					}
+				} else {
+					xhr = new XMLHttpRequest(); 
+				}
+			} else {
+				alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+				return null;
+			}
+			
+			return xhr;
+		}
+	</script>	
   </body>
 </html>

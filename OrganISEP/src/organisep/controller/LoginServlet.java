@@ -39,7 +39,8 @@ public class LoginServlet extends HttpServlet {
 			loginDao.sessionUser(loginBean);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", loginBean);
-			request.setAttribute("action", "Tableau de bord");
+			
+			request.setAttribute("action", "Tableau de bord");			
 			request.getRequestDispatcher("/template.jsp").forward(request, response);
 		} 
 		else {
