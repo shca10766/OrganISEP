@@ -32,13 +32,14 @@ public class EventDao {
  				Date dateEvent = resultSet.getDate("evenement_date");
  				String imEvent = resultSet.getString("evenement_image");
  				ArrayList<String> salles = getSalle(idEvent);
- 				String creat = getCreateur(idCreat);
+ 				String creat = getCreateur(idCreat, "nom");
+ 				String imCreat = getCreateur(idCreat, "image");
  				
  				int valEvent = resultSet.getInt("evenement_validation");
  				int statutEvent = resultSet.getInt("evenement_statut");
  				
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, imEvent, salles, creat, valEvent, statutEvent);
+ 				EventBean event = new EventBean(titreEvent, dateEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent);
  				events.addEvent(event);
  			}
  		}
@@ -71,7 +72,7 @@ public class EventDao {
 		return salles;
 	}
 	
-	public String getCreateur(int idCreat) {
+	public String getCreateur(int idCreat, String type) {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
  		ResultSet rs = null;
@@ -79,13 +80,13 @@ public class EventDao {
 		
 		try {
  			con = BDConnexion.createConnection();
- 			String selectSQL = "SELECT utilisateur_nom FROM utilisateurs WHERE utilisateur_id = ?";
+ 			String selectSQL = "SELECT utilisateur_" + type + " FROM utilisateurs WHERE utilisateur_id = ?";
  			preparedStatement = con.prepareStatement(selectSQL);
  			preparedStatement.setInt(1, idCreat);
  			rs = preparedStatement.executeQuery();
  
  			while(rs.next()) { 
- 				createur = rs.getString("utilisateur_nom");		
+ 				createur = rs.getString("utilisateur_" + type);		
  			}
  		}
  		catch(SQLException e) {

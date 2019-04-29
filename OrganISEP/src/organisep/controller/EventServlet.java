@@ -1,7 +1,6 @@
 package organisep.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import organisep.bean.EventBean;
+import com.google.gson.Gson;
+
 import organisep.bean.EventsBean;
 import organisep.model.EventDao;
 
@@ -18,6 +18,7 @@ import organisep.model.EventDao;
  */
 @WebServlet("/EventServlet")
 public class EventServlet extends HttpServlet {
+	private Gson gson = new Gson();
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -37,11 +38,10 @@ public class EventServlet extends HttpServlet {
 		EventDao eventDao = new EventDao();
 		
 		eventsBean = eventDao.getEvents(eventsBean);
+		String events = this.gson.toJson(eventsBean);
 		
-		System.out.println(eventsBean.getEvents().get(1).getCreat());
-		
-		response.setContentType("text/plain");
-		response.getWriter().write("bim");
+		response.setContentType("application/json");
+		response.getWriter().write(events);
 	}
 
 	/**

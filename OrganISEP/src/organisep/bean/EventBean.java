@@ -10,17 +10,19 @@ public class EventBean {
 	private String titre;
 	private String creat;
 	private String image;
+	private String imCreat;
 	
 	private int validation;
 	private int statut;
 	private int etat;
 		
-	public EventBean(String titreEvent, Date dateEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, int valEvent, int statutEvent) {
+	public EventBean(String titreEvent, Date dateEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent) {
 		salles = sallesEvent;
 		date = dateEvent;
 		titre = titreEvent;
 		creat = creatEvent;
 		image = imEvent;
+		imCreat = imCreatEvent;
 		
 		validation = valEvent;
 		statut = statutEvent;
@@ -66,6 +68,14 @@ public class EventBean {
 
 	public void setCreat(String creat) {
 		this.creat = creat;
+	}
+	
+	public String getImCreat() {
+		return imCreat;
+	}
+
+	public void setImCreat(String imCreat) {
+		this.imCreat = imCreat;
 	}
 
 	public String getImage() {

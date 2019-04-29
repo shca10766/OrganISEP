@@ -30,6 +30,7 @@ body {
 a {
 	color: rgb(112, 112, 112);
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:hover {
@@ -159,4 +160,83 @@ nav {
 
 #body_co #content_form a {
 	font-size: 13px;
+}
+
+/* ------------------------------------ -->
+<!-- --------- DASHBOARD ----------- -->
+<!-- ------------------------------------ */
+
+#dashboard #filtre_statut, #dashboard #filtre_statut a {
+	font-weight: bold;
+	font-size: 14px;
+	color: rgb(112, 112, 112);
+}
+
+#dashboard #filtre_statut .active, #dashboard #filtre_statut a:hover {
+	color: #a93049;
+	text-decoration: none;
+}
+
+#dashboard #dashEvents {
+	width: 85%;
+	margin: 30px auto;
+}
+
+#dashboard #filtre_events {
+	display: flex;
+	justify-content: space-between;
+}
+
+#dashboard .etiquette {
+	background-color: white;
+	box-shadow: 1px 0px 4px rgb(112, 112, 112);
+	margin-bottom: 30px;
+	display: flex;
+	color: rgb(112, 112, 112);
+	position: relative;
+}
+
+#dashboard .etiquette .content_img {
+	width: 40%;
+}
+
+#dashboard .etiquette .content_event {
+	padding: 10px 0 10px 20px;
+	width: 60%;
+}
+
+#dashboard .etiquette .content_event .titre_event {
+	max-width: 50%;
+	margin-bottom: 20px;
+	color: #A8334A;
+	font-weight: bold;
+}
+
+#dashboard .etiquette .content_event .sousTitre_event {
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+
+#dashboard .etiquette .creat_content {
+	position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 70px;
+    text-align: center;
+}
+
+#dashboard .etiquette .creat_content img {
+	width: 50px;
+}
+
+#dashboard .etiquette .validation_content {
+	position: absolute;
+    top: 17px;
+    right: 100px;
+    width: 15%;
+    text-align: center;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: bold;
+    color: #B46437;
 }

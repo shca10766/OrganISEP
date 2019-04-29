@@ -31,7 +31,7 @@
 			<div id="content_template">
 				<!-- List group -->
 				<div class="list-group" id="list_nav" role="tablist">
-					  <a class="list-group-item list-group-item-action active" onclick="getData()" data-toggle="list" href="#dashboard" id="item_dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
+					  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#dashboard" id="item_dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
 					  <% } %>
@@ -41,7 +41,9 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					  <div class="tab-pane active" id="dashboard" role="tabpanel">
-					  	<%@include file="dashboard.jsp" %>
+					  	<jsp:include page="dashboard.jsp" >
+						  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+						</jsp:include>
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
@@ -59,62 +61,29 @@
 		catch (Exception e) {
 			request.getRequestDispatcher("/index.jsp").include(request, response);
 		} %>
-	
-	<script>
-		window.addEventListener("load", function(event) {
-	    	var action = "<%= request.getAttribute("action") %>" ;
-	    	getData();
-	    	
-	    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
-	    	else if (action == "Nouveau Evènement") { var result = "edit"; }
-	    	else { var result = "settings"; }
-	    	
-	    	var listItems = document.getElementById("list_nav").children;
-    		for (var i = 0; i < listItems.length; i++) {
-    			if (!listItems[i].classList.contains("active") && listItems[i].id == "item_" + result) {
-    				listItems[i].classList.add("active");
-    				document.getElementById(result).classList.add("active");
-    			}
-    			else if (listItems[i].classList.contains("active") && listItems[i].id != "item_" + result) {
-    				listItems[i].classList.remove("active");
-    				document.getElementById(result).classList.remove("active");
-    			}
-    		}
-	  	});
 		
-		function getData() {
-			var xhr = getXMLHttpRequest();
-			
-			xhr.onreadystatechange = function() {
-		        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-		        	console.log(xhr.responseText);
-		        }
-			};
-
-			xhr.open("GET", "EventServlet", true);
-			xhr.send(null);
-		}
+		<script>
+			window.addEventListener("load", function(event) {
+		    	var action = "<%= request.getAttribute("action") %>" ;
+		    	getData();
+		    	
+		    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
+		    	else if (action == "Nouveau Evènement") { var result = "edit"; }
+		    	else { var result = "settings"; }
+		    	
+		    	var listItems = document.getElementById("list_nav").children;
+	    		for (var i = 0; i < listItems.length; i++) {
+	    			if (!listItems[i].classList.contains("active") && listItems[i].id == "item_" + result) {
+	    				listItems[i].classList.add("active");
+	    				document.getElementById(result).classList.add("active");
+	    			}
+	    			else if (listItems[i].classList.contains("active") && listItems[i].id != "item_" + result) {
+	    				listItems[i].classList.remove("active");
+	    				document.getElementById(result).classList.remove("active");
+	    			}
+	    		}
+		  	});
+	  	</script>
 		
-		function getXMLHttpRequest() {
-			var xhr = null;
-			
-			if (window.XMLHttpRequest || window.ActiveXObject) {
-				if (window.ActiveXObject) {
-					try {
-						xhr = new ActiveXObject("Msxml2.XMLHTTP");
-					} catch(e) {
-						xhr = new ActiveXObject("Microsoft.XMLHTTP");
-					}
-				} else {
-					xhr = new XMLHttpRequest(); 
-				}
-			} else {
-				alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
-				return null;
-			}
-			
-			return xhr;
-		}
-	</script>	
   </body>
 </html>
