@@ -17,7 +17,7 @@ public class BDConnexion {
 				e.printStackTrace();
 			}
 			con = DriverManager.getConnection(url, username, password);
-			System.out.println("Printing connection object " + con);
+			//System.out.println("Printing connection object " + con);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
