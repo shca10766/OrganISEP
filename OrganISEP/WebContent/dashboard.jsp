@@ -1,5 +1,5 @@
 <div id="filtre_statut">
-	<a href="#" class="active">Tous les événements</a> | <a href="#">Mes évènments</a> | <a href="#">Brouillons</a>
+	<a href="#" class="active">Tous les événements</a> | <a href="#">Mes événements</a> | <a href="#">Brouillons</a>
 </div>
 
 <div id="dashEvents">
