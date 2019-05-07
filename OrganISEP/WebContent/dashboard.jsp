@@ -6,15 +6,15 @@
 	<div id="filtre_events">
 		<div id="filtre_date">
 			Date : 
-			<input type="checkbox" id="passe" name="passe"><label for="passe">Passé</label>
-			<input type="checkbox" id="futur" name="futur" checked><label for="futur">A venir</label>
+			<input type="checkbox" id="passe" name="passe" onclick="filtre_feature()"><label for="passe">Passé</label>
+			<input type="checkbox" id="futur" name="futur" onclick="filtre_feature()" checked><label for="futur">A venir</label>
 		</div>
 		<div id="filtre_validation">
 			Statut : 
-			<input type="checkbox" id="statut_val" name="statut_val" checked><label for="statut_val">Validé</label>
-			<input type="checkbox" id="statut_vsr" name="statut_vsr"><label for="statut_vsr">Validé sous réserve</label>
-			<input type="checkbox" id="statut_cours" name="statut_cours"><label for="statut_cours">En cours</label>
-			<input type="checkbox" id="statut_ref" name="statut_ref"><label for="statut_ref">Refusé</label>
+			<input type="checkbox" id="statut_val" name="statut_val" onclick="filtre_feature()" checked><label for="statut_val">Validé</label>
+			<input type="checkbox" id="statut_vsr" name="statut_vsr" onclick="filtre_feature()"><label for="statut_vsr">Validé sous réserve</label>
+			<input type="checkbox" id="statut_cours" name="statut_cours" onclick="filtre_feature()"><label for="statut_cours">En cours</label>
+			<input type="checkbox" id="statut_ref" name="statut_ref" onclick="filtre_feature()"><label for="statut_ref">Refusé</label>
 		</div>
 	</div>
 	<div id="list_events">
@@ -31,19 +31,19 @@
 			etiquette.classList.add("etiquette");
 			
 			if (r.events[i].validation == 1) { 
-				etiquette.classList.add("valide");
+				etiquette.classList.add("statut_val");
 				validation = "Validé";
 			}
 			else if (r.events[i].validation == 2) { 
-				etiquette.classList.add("vsr");
+				etiquette.classList.add("statut_vsr");
 				validation = "Validé sous réserve";
 			}
 			else if (r.events[i].validation == 3) { 
-				etiquette.classList.add("cours"); 
+				etiquette.classList.add("statut_cours"); 
 				validation = "En cours";
 			}
 			else { 
-				etiquette.classList.add("refuse"); 
+				etiquette.classList.add("statut_ref"); 
 				validation = "Refusé";
 			}
 			
@@ -157,21 +157,31 @@
 		var box_date = document.getElementById("filtre_date").getElementsByTagName("input");
 		var box_statut = document.getElementById("filtre_validation").getElementsByTagName("input");
 		
+		var filtre_date = [];
 		for (var i = 0; i < box_date.length; i++) {
-			if (box_date[i].checked && box_date[i].id == "futur") {
-				//display_etiquette("futur");
+			if (box_date[i].checked) {
+				filtre_date.push(box_date[i].id);
 			}
 		}
+		var filtre_statut = [];
+		for (var j = 0; j < box_statut.length; j++) {
+			if (box_statut[j].checked) {
+				filtre_statut.push(box_statut[j].id);
+			}
+		}
+		display_etiquette(filtre_date, filtre_statut);
 	}
 	
-	function display_etiquette(filtre) {
+	function display_etiquette(filtre_date, filtre_statut) {
 		var etiquettes = document.getElementsByClassName("etiquette");
 		for (var i = 0 ; i < etiquettes.length; i++) {
-			if (etiquettes[i].classList.contains(filtre)) {
-					etiquettes[i].style.display = "flex";
-			}
-			else {
-				etiquettes[i].style.display = "none";
+			etiquettes[i].style.display = "none";
+			for (var j = 0 ; j < filtre_date.length ; j++) {
+				for (var k = 0; k < filtre_statut.length ; k++) {
+					if (etiquettes[i].classList.contains(filtre_date[j]) && etiquettes[i].classList.contains(filtre_statut[k])) {
+						etiquettes[i].style.display = "flex";
+					}
+				}
 			}
 		}
 	}
