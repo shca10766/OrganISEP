@@ -6,12 +6,12 @@
 	<div id="filtre_events">
 		<div id="filtre_date">
 			Date : 
-			<input type="checkbox" id="date_passe" name="date_passe"><label for="date_passe">Passé</label>
-			<input type="checkbox" id="date_venir" name="date_venir"><label for="date_venir">A venir</label>
+			<input type="checkbox" id="passe" name="passe"><label for="passe">Passé</label>
+			<input type="checkbox" id="futur" name="futur" checked><label for="futur">A venir</label>
 		</div>
 		<div id="filtre_validation">
 			Statut : 
-			<input type="checkbox" id="statut_val" name="statut_val"><label for="statut_val">Validé</label>
+			<input type="checkbox" id="statut_val" name="statut_val" checked><label for="statut_val">Validé</label>
 			<input type="checkbox" id="statut_vsr" name="statut_vsr"><label for="statut_vsr">Validé sous réserve</label>
 			<input type="checkbox" id="statut_cours" name="statut_cours"><label for="statut_cours">En cours</label>
 			<input type="checkbox" id="statut_ref" name="statut_ref"><label for="statut_ref">Refusé</label>
@@ -112,6 +112,9 @@
 			creat_content.appendChild(nom_creat);
 			
 			content_event.appendChild(validation_content);
+			
+			filtre_feature();
+			
 		}
 	}
 	
@@ -148,6 +151,29 @@
 		}
 		
 		return xhr;
+	}
+	
+	function filtre_feature() {
+		var box_date = document.getElementById("filtre_date").getElementsByTagName("input");
+		var box_statut = document.getElementById("filtre_validation").getElementsByTagName("input");
+		
+		for (var i = 0; i < box_date.length; i++) {
+			if (box_date[i].checked && box_date[i].id == "futur") {
+				//display_etiquette("futur");
+			}
+		}
+	}
+	
+	function display_etiquette(filtre) {
+		var etiquettes = document.getElementsByClassName("etiquette");
+		for (var i = 0 ; i < etiquettes.length; i++) {
+			if (etiquettes[i].classList.contains(filtre)) {
+					etiquettes[i].style.display = "flex";
+			}
+			else {
+				etiquettes[i].style.display = "none";
+			}
+		}
 	}
 </script>
 

@@ -1,3 +1,5 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 @charset "ISO-8859-1";
 
 /* ------------------------------------ -->
@@ -55,6 +57,7 @@ nav {
 	background-color: white;
 	border-bottom: solid 1px #a93049;
 	padding: 0!important;
+	min-width: 1300px;
 }
 
 #organIsep{
@@ -80,6 +83,7 @@ nav {
 	display: flex;
     min-height: calc(100% - 62px);
     width: 100%;
+    min-width: 1300px;
     background-color: rgba(104,169,151,0.09);
 }
 
@@ -194,6 +198,7 @@ nav {
 	display: flex;
 	color: rgb(112, 112, 112);
 	position: relative;
+	min-width: 900px;
 }
 
 #dashboard .etiquette .content_img {
@@ -240,3 +245,25 @@ nav {
     font-weight: bold;
     color: #B46437;
 }
+
+#dashboard #dashEvents input[type=checkbox] { 
+	display:none; 
+}
+
+#dashboard #dashEvents input[type=checkbox] + label:before, #dashboard #dashEvents label {
+	cursor: pointer;
+}
+
+#dashboard #dashEvents input[type=checkbox] + label:before { 
+  	font-family: FontAwesome;
+  	display: inline-block;
+	content: "\f096"; 
+	color: #a93049;	
+    font-size: 18px;
+    margin: 0 0 -1px 4px;
+}
+
+#dashboard #dashEvents input[type=checkbox] + label:before { letter-spacing: 5px; }
+
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 

@@ -29,8 +29,8 @@ public class EventBean {
 		
 		Date auj = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
-		if (sdf.format(date).compareTo(sdf.format(auj)) > 0) {
+
+		if (date.compareTo(auj) > 0) {
             etat = 1;
         }
 		else {
