@@ -1,5 +1,5 @@
 <div id="filtre_statut">
-	<a href="#" class="active">Tous les événements</a> | <a href="#">Mes événements</a> | <a href="#">Brouillons</a>
+	<a href="#" class="active" onclick="display_myEtiq(this, 'all')">Tous les événements</a> | <a href="#" onclick="display_myEtiq(this, 'my')">Mes événements</a> | <a href="#">Brouillons</a>
 </div>
 
 <div id="dashEvents">
@@ -182,6 +182,29 @@
 						etiquettes[i].style.display = "flex";
 					}
 				}
+			}
+		}
+	}
+	
+	function display_myEtiq(e, type) {
+		if (!e.classList.contains("active")) {
+			var filtres = document.getElementById("filtre_statut").children;
+			for (var i = 0; i < filtres.length; i++) {
+				if (filtres[i].classList.contains("active")) {
+					filtres[i].classList.remove("active");
+				}
+			}
+			e.classList.add("active");
+		}
+		var etiquettes = document.getElementsByClassName("etiquette");
+		for (var j  = 0; j < etiquettes.length; j++) {
+			if (type == "all") {
+				etiquettes[j].style.display = "flex";
+				filtre_feature();
+			}
+			else if (type == "my" && !etiquettes[j].classList.contains("creat")) {
+				filtre_feature();
+				etiquettes[j].style.display = "none";
 			}
 		}
 	}
