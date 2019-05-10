@@ -15,7 +15,7 @@ body {
 	height: 100%;
 }
 
-.btn {
+.btn, .btnModal {
 	background-color: #A8334A;
 	color: white;
 	font-weight: bold;
@@ -23,9 +23,11 @@ body {
 	border-radius: 20px;
 	cursor: pointer;
 	height: 30px;
+	font-size: 13.5px;
+	font-family: Segoe UI; 
 }
 
-.btn:hover {
+.btn:hover, .btnModal:hover {
 	background-color: #5D0012;
 }
 
@@ -47,6 +49,73 @@ input:focus {
 	color: red;
 	font-size: 13px;
 	margin-left: 5px;
+}
+
+input[type=checkbox] { 
+	display:none; 
+}
+
+input[type=checkbox] + label:before, label {
+	cursor: pointer;
+}
+
+input[type=checkbox] + label:before { 
+  	font-family: FontAwesome;
+  	display: inline-block;
+	content: "\f096"; 
+	color: #a93049;	
+    font-size: 18px;
+    margin: 0 0 -1px 4px;
+}
+
+input[type=checkbox] + label:before { letter-spacing: 5px; }
+
+input[type=checkbox]:checked + label:before { content: "\f046"; }
+input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+
+/* ------------------------------------ -->
+<!-- --------- CSS MODAL ------------- -->
+<!-- ------------------------------------ */
+.modal {
+	border-radius: 0;
+}
+.modal-header {
+	background-color: #a93049;
+	border-radius: 0!important;
+    font-family: Segoe UI;
+    padding: 10px!important;
+}
+
+.modal-title, .modal-header button, .modal-header button:hover {
+	color: white;
+	opacity: 1;
+	font-size: 15px;
+}
+
+.modal-header button:focus {
+	outline: none;
+}
+
+.modal-body {
+	text-align: center;
+	color: rgb(112, 112, 112);
+	background-color: rgba(104,169,151,0.09);
+}
+
+.modal-body .text_modal {
+	text-align: left;
+    margin-bottom: 14px;
+}
+
+.modal-footer {
+	background-color: rgba(104,169,151,0.09);
+}
+
+.btnModal {
+	padding: 10px 20px!important;
+    min-width: 100px;
+    height: auto;
+    font-weight: 600;
 }
 
 /* ------------------------------------ -->
@@ -248,24 +317,25 @@ nav {
     color: #B46437;
 }
 
-#dashboard #dashEvents input[type=checkbox] { 
-	display:none; 
+
+/* ------------------------------------ -->
+<!-- ------- CREATION D'EVENT --------- -->
+<!-- ------------------------------------ */
+
+#edit {
+	background-color: white;
+    margin: 18px 30px;
 }
 
-#dashboard #dashEvents input[type=checkbox] + label:before, #dashboard #dashEvents label {
-	cursor: pointer;
+#edit h3 {
+	color: #a93049;
+	text-align: center;
 }
 
-#dashboard #dashEvents input[type=checkbox] + label:before { 
-  	font-family: FontAwesome;
-  	display: inline-block;
-	content: "\f096"; 
-	color: #a93049;	
-    font-size: 18px;
-    margin: 0 0 -1px 4px;
+#edit #formCreatEvent {
+	padding: 30px;
 }
 
-#dashboard #dashEvents input[type=checkbox] + label:before { letter-spacing: 5px; }
-
-#dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
-#dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+#formSalles {
+	margin-bottom: -20px;
+}
