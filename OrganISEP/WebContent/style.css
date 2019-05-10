@@ -110,12 +110,14 @@ nav {
 
 #content_template .list-group-item.active, #content_template .list-group-item:hover {
 	background-color: #5D0012;
+	text-decoration: none;
 }
 
 #content_template .tab-content {
 	padding: 10px 30px;
     width: calc(100% - 181px);
 }
+
 
 /* ------------------------------------ -->
 <!-- --------- PAGE CONNEXION ----------- -->
