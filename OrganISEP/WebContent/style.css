@@ -15,7 +15,7 @@ body {
 	height: 100%;
 }
 
-.btn, .btnModal {
+.btn, .btnModal, .btnForm {
 	background-color: #A8334A;
 	color: white;
 	font-weight: bold;
@@ -27,7 +27,7 @@ body {
 	font-family: Segoe UI; 
 }
 
-.btn:hover, .btnModal:hover {
+.btn:hover, .btnModal:hover, .btnForm:hover {
 	background-color: #5D0012;
 }
 
@@ -76,9 +76,6 @@ input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; }
 /* ------------------------------------ -->
 <!-- --------- CSS MODAL ------------- -->
 <!-- ------------------------------------ */
-.modal {
-	border-radius: 0;
-}
 .modal-header {
 	background-color: #a93049;
 	border-radius: 0!important;
@@ -92,18 +89,16 @@ input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; }
 	font-size: 15px;
 }
 
-.modal-header button:focus {
+.modal-header button:focus, .btnModal:focus, .btnForm:focus {
 	outline: none;
 }
 
 .modal-body {
-	text-align: center;
 	color: rgb(112, 112, 112);
 	background-color: rgba(104,169,151,0.09);
 }
 
 .modal-body .text_modal {
-	text-align: left;
     margin-bottom: 14px;
 }
 
@@ -111,11 +106,12 @@ input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; }
 	background-color: rgba(104,169,151,0.09);
 }
 
-.btnModal {
+.btnModal, .btnForm {
 	padding: 10px 20px!important;
     min-width: 100px;
     height: auto;
     font-weight: 600;
+    margin-left: 15px;
 }
 
 /* ------------------------------------ -->
@@ -325,9 +321,11 @@ nav {
 #edit {
 	background-color: white;
     margin: 18px 30px;
+    box-shadow: 1px 0px 4px rgb(112, 112, 112);
 }
 
 #edit h3 {
+	padding-top: 20px;
 	color: #a93049;
 	text-align: center;
 }
@@ -338,4 +336,36 @@ nav {
 
 #formSalles {
 	margin-bottom: -20px;
+}
+
+#edit .input-group-prepend {
+	cursor: pointer;
+}
+
+.iconInput:after {
+	font-family: FontAwesome;
+    display: inline-block;
+    content: "\f153";
+    color: rgb(112, 112, 112);
+    font-size: 18px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+}
+
+#formRess .form-row {
+	margin: 10px 0 20px 0;
+	padding: 20px 10px 0 10px;
+	border: 1px solid #a93049;
+	border-radius: 10px;
+	box-shadow: 1px 0px 4px rgb(112, 112, 112);
+}
+
+#formRess, #divDesc {
+	margin-top: 30px;
+}
+
+#btnFormEvent {
+	text-align: end;
+	padding: 0 30px 30px 0;
 }
