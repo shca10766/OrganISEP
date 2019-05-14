@@ -1,5 +1,5 @@
 <h3>Créer un événement</h3>
-<form id="formCreatEvent">
+<form id="formCreatEvent" method="post" action="/OrganISEP/ReservationServlet">
 	<div class="form-row">
     	<div class="form-group col-md-8">
     		<label for="inputNom">Nom de l'événement</label>
@@ -35,13 +35,13 @@
       		</div>
     	</div>
     	<div class="form-group col-md-6">
-      		<label for="inputLieu">Lien de l'événement</label>
-      		<input type="text" class="form-control" id="inputLieu" >
+      		<label for="inputLien">Lien de l'événement</label>
+      		<input type="text" class="form-control" id="inputLien" >
     	</div>
   	</div>
   	<div id="formRess">
   		Ressources
-		<div class="form-row">
+		<div class="form-row" id="list_ress">
 			<div class="form-group col-md-3">
 				<input type="checkbox" id="ressWifi" name="ressWifi"><label for="ressWifi">Accès Wifi</label>
 			</div>
@@ -80,12 +80,12 @@
 	<div class="form-group" id="divDesc">
     	<label for="textDesc">Description de l'événement</label>
     	<textarea class="form-control" id="textDesc" rows="3"></textarea>
-  	</div>
+  	</div>  	
+  	<div id="btnFormEvent">
+		<button class="btnForm">Enregistrer (Brouillon)</button>
+		<buttton class="btnForm" id="addEventForm">Enregistrer et Envoyer</buttton>
+	</div>
 </form>
-<div id="btnFormEvent">
-	<button type="button" class="btnForm">Enregistrer (Brouillon)</button>
-	<button type="button" class="btnForm">Enregistrer et Envoyer</button>
-</div>
 
 <div class="modal fade" id="modalSalle" tabindex="-1" role="dialog" aria-labelledby="modalSalle" aria-hidden="true">
   	<div class="modal-dialog" role="document">
@@ -115,9 +115,10 @@
 
 $('#modalSalle').on('show.bs.modal', function (event) {
 	var date = $('#inputDate').val();
-    $.get('ReservationServlet', {
+    $.get('EventServlet', {
     	date : date,
     	type: 'salle',
+    	action: 'salle'
     }, function(responseText) {
     	selectSalles(responseText);
     });
@@ -184,5 +185,49 @@ function addRess() {
 	div.appendChild(input);
 	div.appendChild(label);	
 }
+
+$('#addEventForm').click(function(event) {
+	event.preventDefault();
+    
+    var nom = $('#inputNom').val();
+    var nbrPart = $('#inputPart').val();
+    var date = $('#inputDate').val();
+    var time = $('#inputTime').val();
+    var budget = $('#inputBudget').val();
+    
+    var allSalles = [];
+    $('#formSalles > div').each(function() {
+    	if($(this)[0].children[0].checked) {
+    		allSalles.push($(this)[0].innerText);
+    	}
+    });
+    
+    var lien = $('#inputLien').val();
+    
+
+	var allRess = [];
+    $('#list_ress > div').each(function() {
+    	if($(this)[0].children[0].checked) {
+    		allRess.push($(this)[0].innerText);
+    	}
+    });
+
+	var desc = $('#textDesc').val();
+	
+	$.post('EventServlet', {
+    	Nom : nom,
+    	Nbr : nbrPart,
+    	Date: date,
+    	Time : time,
+    	Budget: budget,
+    	Salles: allSalles,
+    	Lien: lien,
+    	Ress: allRess,
+    	Desc: desc,
+    	}, function(responseText) {
+    		
+    	});
+    
+});
 
 </script>

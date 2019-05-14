@@ -20,7 +20,7 @@ body {
 	color: white;
 	font-weight: bold;
 	border: none;
-	border-radius: 20px;
+	border-radius: 10px;
 	cursor: pointer;
 	height: 30px;
 	font-size: 13.5px;
@@ -367,5 +367,5 @@ nav {
 
 #btnFormEvent {
 	text-align: end;
-	padding: 0 30px 30px 0;
+	padding-top: 30px;
 }

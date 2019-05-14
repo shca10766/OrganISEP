@@ -25,20 +25,20 @@
 <script>
 
 	function displayEvents(r) {
-		for (var i = 0; i < r.events.length; i++) {
+		for (var i = 0; i < r.length; i++) {
 			var validation = "";
 			var etiquette = document.createElement("div");
 			etiquette.classList.add("etiquette");
 			
-			if (r.events[i].validation == 1) { 
+			if (r[i].validation == 1) { 
 				etiquette.classList.add("statut_val");
 				validation = "Validé";
 			}
-			else if (r.events[i].validation == 2) { 
+			else if (r[i].validation == 2) { 
 				etiquette.classList.add("statut_vsr");
 				validation = "Validé sous réserve";
 			}
-			else if (r.events[i].validation == 3) { 
+			else if (r[i].validation == 3) { 
 				etiquette.classList.add("statut_cours"); 
 				validation = "En cours";
 			}
@@ -47,10 +47,10 @@
 				validation = "Refusé";
 			}
 			
-			if (r.events[i].etat == 1) { etiquette.classList.add("futur"); }
+			if (r[i].etat == 1) { etiquette.classList.add("futur"); }
 			else { etiquette.classList.add("passe"); }
 			
-			if ("<%= request.getParameter("creat")%>" == r.events[i].creat) {
+			if ("<%= request.getParameter("creat")%>" == r[i].creat) {
 				etiquette.classList.add("creat");
 			}
 			
@@ -58,7 +58,7 @@
 			content_img.classList.add("content_img");
 			
 			var imgEvent = document.createElement("img");
-			imgEvent.setAttribute("src", r.events[i].image);
+			imgEvent.setAttribute("src", r[i].image);
 			imgEvent.setAttribute("width", "100%");
 			
 			var content_event = document.createElement("div");
@@ -66,21 +66,21 @@
 			
 			var titre_event = document.createElement("h3");
 			titre_event.classList.add("titre_event");
-			titre_event.innerText = r.events[i].titre;
+			titre_event.innerText = r[i].titre;
 			
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");
-			sousTitre_event.innerText = "Le " +  r.events[i].date;
+			sousTitre_event.innerText = "Le " +  r[i].date;
 			
 			var salle_event = document.createElement("div");
 			salle_event.classList.add("salle_event");
 			salle_event.innerText = "Salles : ";
-			for (var j = 0; j < r.events[i].salles.length; j++) {
-				if (j == r.events[i].salles.length - 1) {
-					salle_event.innerText += r.events[i].salles[j];
+			for (var j = 0; j < r[i].salles.length; j++) {
+				if (j == r[i].salles.length - 1) {
+					salle_event.innerText += r[i].salles[j];
 				}
 				else {
-					salle_event.innerText += r.events[i].salles[j] + " | ";
+					salle_event.innerText += r[i].salles[j] + " | ";
 				}
 			}
 			
@@ -88,10 +88,10 @@
 			creat_content.classList.add("creat_content");
 			
 			var imCreat = document.createElement("img");
-			imCreat.setAttribute("src", r.events[i].imCreat);
+			imCreat.setAttribute("src", r[i].imCreat);
 			
 			var nom_creat = document.createElement("figcaption");
-			nom_creat.innerText = r.events[i].creat;
+			nom_creat.innerText = r[i].creat;
 			
 			var validation_content = document.createElement("div");
 			validation_content.classList.add("validation_content");
@@ -128,7 +128,7 @@
 	        }
 		};
 
-		xhr.open("GET", "EventServlet", true);
+		xhr.open("GET", "EventServlet?action=etiquettes", true);
 		xhr.send(null);
 	}
 	

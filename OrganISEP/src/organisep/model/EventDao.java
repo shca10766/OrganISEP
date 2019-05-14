@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import organisep.bean.EventBean;
-import organisep.bean.EventsBean;
 import organisep.model.BDConnexion;
 
 public class EventDao {
-	public EventsBean getEvents(EventsBean events) {
+	public ArrayList<EventBean> getEvents(ArrayList<EventBean> events) {
 		Connection con = null;
  		Statement statement = null;
  		ResultSet resultSet = null;
@@ -40,7 +39,7 @@ public class EventDao {
  				
  				
  				EventBean event = new EventBean(titreEvent, dateEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent);
- 				events.addEvent(event);
+ 				events.add(event);
  			}
  		}
  		catch(SQLException e) {
@@ -93,5 +92,26 @@ public class EventDao {
  			e.printStackTrace();
  		}
 		return createur;
+	}
+	
+	public ArrayList<String> getListSalles(String d) {
+		Connection con = null;
+ 		Statement statement = null;
+ 		ResultSet resultSet = null;
+ 		ArrayList<String> salles = new ArrayList<String>();
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			statement = con.createStatement();
+ 			resultSet = statement.executeQuery("select * from salle");
+ 
+ 			while(resultSet.next()) { 
+ 				salles.add(resultSet.getString("salle_nom"));
+ 			}
+ 		}
+ 		catch(SQLException e) {
+ 			e.printStackTrace();
+ 		}
+		return salles;
 	}
 }
