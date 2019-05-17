@@ -1,22 +1,23 @@
 <h3>Créer un événement</h3>
-<form id="formCreatEvent" method="post" action="/OrganISEP/ReservationServlet">
+<form id="formCreatEvent" method="post" action="/OrganISEP/EventServlet">
+	<div id="msgErrorCreat"  style="display: none;"><i class="fas fa-exclamation-triangle"></i>Les champs comportant une * sont obligatoires</div>
 	<div class="form-row">
     	<div class="form-group col-md-8">
-    		<label for="inputNom">Nom de l'événement</label>
+    		<label for="inputNom">Nom de l'événement *</label>
     		<input type="text" class="form-control" id="inputNom">
     	</div>
     	<div class="form-group col-md-4">
-      		<label for="inputPart">Nombre approximatif de participants</label>
+      		<label for="inputPart">Nombre approximatif de participants *</label>
       		<input type="number" class="form-control" id="inputPart">
     	</div>
   	</div>
 	<div class="form-row">
     	<div class="form-group col-md-4">
-      		<label for="inputDate">Date</label>
+      		<label for="inputDate">Date *</label>
       		<input type="date" class="form-control" id="inputDate">
     	</div>
     	<div class="form-group col-md-4">
-      		<label for="inputTime">Heure de début</label>
+      		<label for="inputTime">Heure de début *</label>
       		<input type="time" class="form-control" id="inputTime">
     	</div>
     	<div class="form-group col-md-4">
@@ -83,7 +84,7 @@
   	</div>  	
   	<div id="btnFormEvent">
 		<button class="btnForm">Enregistrer (Brouillon)</button>
-		<buttton class="btnForm" id="addEventForm">Enregistrer et Envoyer</buttton>
+		<button class="btnForm" id="addEventForm">Enregistrer et Envoyer</button>
 	</div>
 </form>
 
@@ -128,7 +129,7 @@ function selectSalles(l_salles) {
 	var form = document.getElementById("formSalles");
 	if (!form.classList.contains("loadData")) {
 		form.classList.add("loadData");
-		for (var i = 0; i < l_salles.length; i++) {
+		for (var i = 0; i < l_salles.length; i = i+2) {
 			var div = document.createElement("div");
 			div.classList.add("form-group");
 			div.classList.add("col-md-3");
@@ -136,11 +137,11 @@ function selectSalles(l_salles) {
 			var input = document.createElement("input");
 			input.setAttribute("type", "checkbox");
 			input.setAttribute("onchange", "displaySalles()")
-			input.setAttribute("name", l_salles[i]);
-			input.id = l_salles[i];
+			input.setAttribute("name", l_salles[i] + "_" + l_salles[i]);
+			input.id = l_salles[i] + "_" + l_salles[i+1];
 			
 			var label = document.createElement("label");
-			label.setAttribute("for", l_salles[i]);
+			label.setAttribute("for", l_salles[i] + "_" + l_salles[i+1]);
 			label.innerText = l_salles[i];
 			
 			form.appendChild(div);
@@ -195,38 +196,47 @@ $('#addEventForm').click(function(event) {
     var time = $('#inputTime').val();
     var budget = $('#inputBudget').val();
     
-    var allSalles = [];
-    $('#formSalles > div').each(function() {
-    	if($(this)[0].children[0].checked) {
-    		allSalles.push($(this)[0].innerText);
-    	}
-    });
-    
-    var lien = $('#inputLien').val();
-    
+    if (nom != "" && nbrPart != "" && date != "" && time != "") {
+    	var allSalles = [];
+        $('#formSalles > div').each(function() {
+        	if($(this)[0].children[0].checked) {
+        		allSalles.push($(this)[0].children[0].id);
+        	}
+        });
+        
+        var lien = $('#inputLien').val();
+        
 
-	var allRess = [];
-    $('#list_ress > div').each(function() {
-    	if($(this)[0].children[0].checked) {
-    		allRess.push($(this)[0].innerText);
-    	}
-    });
+    	var allRess = [];
+        $('#list_ress > div').each(function() {
+        	if($(this)[0].children[0].checked) {
+        		allRess.push($(this)[0].innerText);
+        	}
+        });
 
-	var desc = $('#textDesc').val();
-	
-	$.post('EventServlet', {
-    	Nom : nom,
-    	Nbr : nbrPart,
-    	Date: date,
-    	Time : time,
-    	Budget: budget,
-    	Salles: allSalles,
-    	Lien: lien,
-    	Ress: allRess,
-    	Desc: desc,
-    	}, function(responseText) {
-    		
-    	});
+    	var desc = $('#textDesc').val();
+    	
+    	$.post('EventServlet', {
+        	Nom : nom,
+        	Nbr : nbrPart,
+        	Date: date,
+        	Time : time,
+        	Budget: budget,
+        	Salles: allSalles,
+        	Lien: lien,
+        	Ress: allRess,
+        	Desc: desc,
+        	IdCreat: "<%= request.getParameter("id")%>"
+        	}, function(responseText) {
+        		
+        	});
+    }
+	else {
+		$('#msgErrorCreat').css("display", "block");
+		$('html,body').animate({
+            scrollTop: 0
+        }, 300);
+	}
     
 });
 

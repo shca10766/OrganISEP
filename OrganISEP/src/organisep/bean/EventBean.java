@@ -1,11 +1,15 @@
 package organisep.bean;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class EventBean {
 	private ArrayList<String> salles;
-	private Date date;
+	private String date;
+	private String time;
 	private String titre;
 	private String creat;
 	private String image;
@@ -19,11 +23,15 @@ public class EventBean {
 	
 	private int validation;
 	private int statut;
+
 	private int etat;
 		
-	public EventBean(String titreEvent, Date dateEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent) {
+	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent) {
 		salles = sallesEvent;
-		date = dateEvent;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat tf = new SimpleDateFormat("HH:mm");
+	    date = df.format(dateEvent);
+		time = tf.format(timeEvent);
 		titre = titreEvent;
 		creat = creatEvent;
 		image = imEvent;
@@ -34,7 +42,7 @@ public class EventBean {
 		
 		Date auj = new Date();
 
-		if (date.compareTo(auj) > 0) {
+		if (dateEvent.compareTo(auj) > 0) {
             etat = 1;
         }
 		else {
@@ -42,18 +50,18 @@ public class EventBean {
 		}
 	}
 	
-	public EventBean(String titreEvent, Date dateEvent, String imEvent, 
-					ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int participantsEvent, 
+	public EventBean(String titreEvent, String dateEvent, String timeEvent, String imEvent, 
+					String creatEvent, int participantsEvent, 
 					int budgetEvent, String lienEvent, ArrayList<String> ressourcesEvent, String descEvent) {
 		
-		salles = sallesEvent;
 		date = dateEvent;
+		time = timeEvent;
 		titre = titreEvent;
 		creat = creatEvent;
 		image = imEvent;
-		imCreat = imCreatEvent;
 		
-		validation = 0;
+		validation = 3;
+		etat = 1;
 		statut = 1;
 		
 		participants = participantsEvent;
@@ -61,6 +69,14 @@ public class EventBean {
 		lien = lienEvent;
 		ressources = ressourcesEvent;
 		description = descEvent;
+	}
+	
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public ArrayList<String> getSalles() {
@@ -71,11 +87,11 @@ public class EventBean {
 		this.salles = salles;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

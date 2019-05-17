@@ -1,6 +1,7 @@
 package organisep.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,34 +76,63 @@ public class EventServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		/*String nom = request.getParameter("Nom");
-		int nbr_participant = Integer.parseInt(request.getParameter("Nbr"));
+		// TODO Auto-generated method stub		
+		String nom = request.getParameter("Nom");
 		String d = request.getParameter("Date");
 		String t = request.getParameter("Time");
-		int budget = Integer.parseInt(request.getParameter("Budget"));
-		String lien = request.getParameter("Lien");
-		
-		String[] salles = request.getParameterValues("Salles");
-		ArrayList<String> listSalles = new ArrayList<String>(Arrays.asList(salles));
-		String[] ressources = request.getParameterValues("Ress");
-		ArrayList<String> listRessources = new ArrayList<String>(Arrays.asList(ressources));
-		
+		String lien = request.getParameter("Lien");		
 		String desc = request.getParameter("Desc");
 		
-		String imagelogo = "img/imgUser/logoJunior.png";
-		String imageEvent = "img/noImage.png";
-		String creat = "Junior isep";
+		int idCreat = 0;
+		if (!request.getParameter("IdCreat").equals("")) {
+			idCreat = Integer.parseInt(request.getParameter("IdCreat"));
+		}
 		
+		int nbr_participant = 0;
+		if (!request.getParameter("Nbr").equals("")) {
+			nbr_participant = Integer.parseInt(request.getParameter("Nbr"));
+		}
+		
+		int budget = 0;
+		if (!request.getParameter("Budget").equals("")) {
+			budget = Integer.parseInt(request.getParameter("Budget"));
+		}
+		
+		String[] salles = request.getParameterValues("Salles[]");
+		ArrayList<Integer> listSalles = new ArrayList<Integer>();
+		if (salles != null) {
+			for (int i = 0; i < salles.length; i++) {
+				String[] idSalle = salles[i].split("_");
+				listSalles.add(Integer.parseInt(idSalle[1]));
+			}
+		}		
+		String[] ressources = request.getParameterValues("Ress[]");
+		ArrayList<String> listRessources = new ArrayList<String>();
+		if (ressources != null) {
+			listRessources = new ArrayList<String>(Arrays.asList(ressources));
+		}
+		
+		String imageEvent = "img/imgEvent/noImage.png";
+		
+		SimpleDateFormat old_sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		Date da;
 		try {
-			Date da = sdf.parse(d);
-			EventBean e = new EventBean(nom, da, imagelogo, listSalles, creat, imageEvent, nbr_participant, budget, lien, listRessources, desc);
-			EventDao ed = new EventDao();
-		} catch (ParseException e) {
+			da = old_sdf.parse(d);
+			d = sdf.format(da);
+			EventDao eventDao = new EventDao();
+			String creat = eventDao.getCreateur(idCreat, "nom");
+			EventBean eventBean = new EventBean(nom, d, t, imageEvent, creat, nbr_participant, budget, lien, listRessources, desc);
+			int idEvent = eventDao.createEvent(eventBean, idCreat);
+			
+			for (int j = 0; j < listSalles.size(); j++) {
+				eventDao.reservSalle(listSalles.get(j), idEvent);
+			}
+		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+			e1.printStackTrace();
+		}
 	}
 
 }

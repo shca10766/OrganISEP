@@ -49,7 +49,9 @@
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
-					  		<%@include file="newEvent.jsp" %>
+						  	<jsp:include page="newEvent.jsp" >
+							  	<jsp:param name="id" value="<%= user.getId() %>" />
+							</jsp:include>
 					  	</div>
 					  <% } %>
 					  <div class="tab-pane" id="settings" role="tabpanel">

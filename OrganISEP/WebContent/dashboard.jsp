@@ -70,7 +70,8 @@
 			
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");
-			sousTitre_event.innerText = "Le " +  r[i].date;
+			var myDate = new Date("\'" + r[i].date + "\'");
+			sousTitre_event.innerText = "Le " +  r[i].date + " à " + r[i].time;
 			
 			var salle_event = document.createElement("div");
 			salle_event.classList.add("salle_event");

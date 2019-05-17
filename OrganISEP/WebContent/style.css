@@ -330,11 +330,20 @@ nav {
 	text-align: center;
 }
 
+#edit #msgErrorCreat {
+	color: red;
+	margin-bottom: 10px;
+}
+
+#edit #msgErrorCreat i {
+	margin-right: 5px;
+}
+
 #edit #formCreatEvent {
 	padding: 30px;
 }
 
-#formSalles {
+#edit #formSalles {
 	margin-bottom: -20px;
 }
 
@@ -353,7 +362,7 @@ nav {
     top: 50%;
 }
 
-#formRess .form-row {
+#edit #formRess .form-row {
 	margin: 10px 0 20px 0;
 	padding: 20px 10px 0 10px;
 	border: 1px solid #a93049;
@@ -361,11 +370,11 @@ nav {
 	box-shadow: 1px 0px 4px rgb(112, 112, 112);
 }
 
-#formRess, #divDesc {
+#edit #formRess, #divDesc {
 	margin-top: 30px;
 }
 
-#btnFormEvent {
+#edit #btnFormEvent {
 	text-align: end;
 	padding-top: 30px;
 }
