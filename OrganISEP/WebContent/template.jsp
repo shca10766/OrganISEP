@@ -72,11 +72,11 @@
 		<script>
 			window.addEventListener("load", function(event) {
 		    	var action = "<%= request.getAttribute("action") %>";
+		    	console.log(action);
 		    	getData();
 		    	
 		    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
 		    	else if (action == "Nouveau Evènement") { var result = "edit"; }
-		    	else if (action == "Event") {var result = "event"; }
 		    	else { var result = "settings"; }
 		    	
 		    	var listItems = document.getElementById("list_nav").children;
