@@ -228,7 +228,7 @@ $('#addEventForm').click(function(event) {
         	Desc: desc,
         	IdCreat: "<%= request.getParameter("id")%>"
         	}, function(responseText) {
-        		
+        		document.location.reload(true);
         	});
     }
 	else {

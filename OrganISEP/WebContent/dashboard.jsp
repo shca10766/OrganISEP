@@ -6,15 +6,15 @@
 	<div id="filtre_events">
 		<div id="filtre_date">
 			Date : 
-			<input type="checkbox" id="passe" name="passe" onclick="filtre_feature()"><label for="passe">Passé</label>
-			<input type="checkbox" id="futur" name="futur" onclick="filtre_feature()" checked><label for="futur">A venir</label>
+			<input type="checkbox" id="passe" name="passe" onclick="filtre_function()"><label for="passe">Passé</label>
+			<input type="checkbox" id="futur" name="futur" onclick="filtre_function()" checked><label for="futur">A venir</label>
 		</div>
 		<div id="filtre_validation">
 			Statut : 
-			<input type="checkbox" id="statut_val" name="statut_val" onclick="filtre_feature()" checked><label for="statut_val">Validé</label>
-			<input type="checkbox" id="statut_vsr" name="statut_vsr" onclick="filtre_feature()"><label for="statut_vsr">Validé sous réserve</label>
-			<input type="checkbox" id="statut_cours" name="statut_cours" onclick="filtre_feature()"><label for="statut_cours">En cours</label>
-			<input type="checkbox" id="statut_ref" name="statut_ref" onclick="filtre_feature()"><label for="statut_ref">Refusé</label>
+			<input type="checkbox" id="statut_val" name="statut_val" onclick="filtre_function()" checked><label for="statut_val">Validé</label>
+			<input type="checkbox" id="statut_vsr" name="statut_vsr" onclick="filtre_function()"><label for="statut_vsr">Validé sous réserve</label>
+			<input type="checkbox" id="statut_cours" name="statut_cours" onclick="filtre_function()"><label for="statut_cours">En cours</label>
+			<input type="checkbox" id="statut_ref" name="statut_ref" onclick="filtre_function()"><label for="statut_ref">Refusé</label>
 		</div>
 	</div>
 	<div id="list_events">
@@ -209,7 +209,16 @@
 			}
 		}
 	}
+	
+	function filtre_function() {
+		var statut = document.getElementById("filtre_statut").children;
+		console.log(statut[0].classList);
+		if (statut[0].classList.contains("active")) {
+			display_myEtiq(statut[0], 'all');
+		}
+		else {
+			display_myEtiq(statut[1], 'my');
+		}
+	}
 </script>
-
-
 

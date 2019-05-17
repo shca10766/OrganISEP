@@ -185,4 +185,23 @@ public class EventDao {
  			ex.printStackTrace();
  		}
 	}
+	
+	public void reservRess(String ress, int idEvent) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "INSERT INTO ressources (evenement_id, ressource_nom) VALUES (?, ?)";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setInt(1, idEvent);
+ 			preparedStatement.setString(2, ress);
+ 		
+ 			
+ 			preparedStatement.executeUpdate();
+ 		}
+ 		catch(SQLException ex) {
+ 			ex.printStackTrace();
+ 		}
+	}
 }

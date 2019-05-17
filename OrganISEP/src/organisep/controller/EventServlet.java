@@ -129,6 +129,9 @@ public class EventServlet extends HttpServlet {
 			for (int j = 0; j < listSalles.size(); j++) {
 				eventDao.reservSalle(listSalles.get(j), idEvent);
 			}
+			for (int k = 0; k < listRessources.size(); k++) {
+				eventDao.reservRess(listRessources.get(k), idEvent);
+			}
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
