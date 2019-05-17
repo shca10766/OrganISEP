@@ -34,14 +34,22 @@ public class EventServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		EventsBean eventsBean = new EventsBean();
-		EventDao eventDao = new EventDao();
+		String action = request.getParameter("action");
 		
-		eventsBean = eventDao.getEvents(eventsBean);
-		String events = this.gson.toJson(eventsBean);
+		if (action.equals("Event")) {
+			request.getRequestDispatcher("/template.jsp").forward(request, response);
+		}
+		else {
+			EventsBean eventsBean = new EventsBean();
+			EventDao eventDao = new EventDao();
+				
+			eventsBean = eventDao.getEvents(eventsBean);
+			String events = this.gson.toJson(eventsBean);
+			
+			response.setContentType("application/json");
+			response.getWriter().write(events);	
+		}
 		
-		response.setContentType("application/json");
-		response.getWriter().write(events);
 	}
 
 	/**

@@ -64,8 +64,9 @@
 			var content_event = document.createElement("div");
 			content_event.classList.add("content_event");
 			
-			var titre_event = document.createElement("h3");
+			var titre_event = document.createElement("a");
 			titre_event.classList.add("titre_event");
+			titre_event.setAttribute("href", "javascript:getEvent()");
 			titre_event.innerText = r.events[i].titre;
 			
 			var sousTitre_event = document.createElement("h5");
@@ -174,6 +175,13 @@
 				etiquettes[i].style.display = "none";
 			}
 		}
+	}
+	
+	function getEvent() {
+		var xhr = getXMLHttpRequest();
+
+		xhr.open("GET", "EventServlet?action=Event", true);
+		xhr.send(null);
 	}
 </script>
 

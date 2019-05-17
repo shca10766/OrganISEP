@@ -53,6 +53,11 @@
 					  <div class="tab-pane" id="settings" role="tabpanel">
 					  	<%@include file="settings.jsp" %>
 					  </div>
+					  <div class="tab-pane active" id="event" role="tabpanel">
+					  	<jsp:include page="event.jsp" >
+						  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+						</jsp:include>
+					  </div>
 				</div>
 			</div>
 		
@@ -69,6 +74,7 @@
 		    	
 		    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
 		    	else if (action == "Nouveau Evènement") { var result = "edit"; }
+		    	else if (action == "Event") {var result = "event"; }
 		    	else { var result = "settings"; }
 		    	
 		    	var listItems = document.getElementById("list_nav").children;
