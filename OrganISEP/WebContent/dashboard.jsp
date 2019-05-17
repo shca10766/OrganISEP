@@ -129,7 +129,7 @@
 	        }
 		};
 
-		xhr.open("GET", "EventServlet", true);
+		xhr.open("GET", "EventServlet?action=etiquettes", true);
 		xhr.send(null);
 	}
 	
