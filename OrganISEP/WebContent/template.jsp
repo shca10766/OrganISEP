@@ -41,9 +41,16 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					  <div class="tab-pane active" id="dashboard" role="tabpanel">
-					  	<jsp:include page="dashboard.jsp" >
-						  	<jsp:param name="creat" value="<%= user.getNom() %>" />
-						</jsp:include>
+					  	<% if( request.getAttribute("action").equals("Tableau de bord") ) { %>
+						  	<jsp:include page="dashboard.jsp" >
+							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+							</jsp:include>
+						<% }
+					  	else { %>
+							<jsp:include page="event.jsp" >
+							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+							</jsp:include>
+						<% } %>
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
@@ -52,11 +59,6 @@
 					  <% } %>
 					  <div class="tab-pane" id="settings" role="tabpanel">
 					  	<%@include file="settings.jsp" %>
-					  </div>
-					  <div class="tab-pane active" id="event" role="tabpanel">
-					  	<jsp:include page="event.jsp" >
-						  	<jsp:param name="creat" value="<%= user.getNom() %>" />
-						</jsp:include>
 					  </div>
 				</div>
 			</div>
@@ -69,7 +71,7 @@
 		
 		<script>
 			window.addEventListener("load", function(event) {
-		    	var action = "<%= request.getAttribute("action") %>" ;
+		    	var action = "<%= request.getAttribute("action") %>";
 		    	getData();
 		    	
 		    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
