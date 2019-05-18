@@ -66,7 +66,7 @@
 			
 			var titre_event = document.createElement("a");
 			titre_event.classList.add("titre_event");
-			titre_event.setAttribute("href", "javascript:getEvent()");
+			titre_event.setAttribute("onclick", "getEvent()");
 			titre_event.innerText = r.events[i].titre;
 			
 			var sousTitre_event = document.createElement("h5");
@@ -179,6 +179,12 @@
 	
 	function getEvent() {
 		var xhr = getXMLHttpRequest();
+		
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+				document.location = "http://localhost:8080/OrganISEP/index.jsp";
+	        }
+		};
 
 		xhr.open("GET", "EventServlet?action=Event", true);
 		xhr.send(null);

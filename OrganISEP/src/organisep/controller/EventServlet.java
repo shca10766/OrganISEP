@@ -35,9 +35,9 @@ public class EventServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
-		System.out.println(action);
+		
+		
 		if (action.equals("Event")) {
-			request.getRequestDispatcher("/template.jsp").forward(request, response);
 		}
 		else {
 			EventsBean eventsBean = new EventsBean();

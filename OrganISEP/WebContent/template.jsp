@@ -75,7 +75,7 @@
 		    	console.log(action);
 		    	getData();
 		    	
-		    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
+		    	if (action == "Tableau_de_bord" || action == "Evenement") { var result = "dashboard"; }
 		    	else if (action == "Nouveau Evènement") { var result = "edit"; }
 		    	else { var result = "settings"; }
 		    	
