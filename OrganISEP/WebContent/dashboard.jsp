@@ -64,10 +64,14 @@
 			var content_event = document.createElement("div");
 			content_event.classList.add("content_event");
 			
-			var titre_event = document.createElement("a");
+			var titre_event = document.createElement("h3");
 			titre_event.classList.add("titre_event");
-			titre_event.setAttribute("onclick", "getEvent()");
 			titre_event.innerText = r.events[i].titre;
+			
+			var localCount = r.events[i]; // Using a local copy in case `count` is modified
+			titre_event.onclick = function() {
+				getEvent(localCount);
+			};
 			
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");
@@ -177,10 +181,12 @@
 		}
 	}
 	
-	function getEvent() {
+	function getEvent(event) {
+		
 		var pageDash = document.getElementById("dashboard").children;
 		pageDash[0].style.display = "none";
 		pageDash[1].style.display = "block";
+		displayDetails(event);
 	}
 </script>
 

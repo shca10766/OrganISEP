@@ -11,18 +11,20 @@ public class EventBean {
 	private String creat;
 	private String image;
 	private String imCreat;
+	private String description;
 	
 	private int validation;
 	private int statut;
 	private int etat;
 		
-	public EventBean(String titreEvent, Date dateEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent) {
+	public EventBean(String titreEvent, Date dateEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent) {
 		salles = sallesEvent;
 		date = dateEvent;
 		titre = titreEvent;
 		creat = creatEvent;
 		image = imEvent;
 		imCreat = imCreatEvent;
+		description = descriptionEvent;
 		
 		validation = valEvent;
 		statut = statutEvent;
@@ -109,4 +111,14 @@ public class EventBean {
 	public void setEtat(int etat) {
 		this.etat = etat;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 }

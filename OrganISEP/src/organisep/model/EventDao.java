@@ -31,15 +31,17 @@ public class EventDao {
  				String titreEvent = resultSet.getString("evenement_titre");
  				Date dateEvent = resultSet.getDate("evenement_date");
  				String imEvent = resultSet.getString("evenement_image");
+ 				String descriptionEvent = resultSet.getString("evenement_description");
  				ArrayList<String> salles = getSalle(idEvent);
  				String creat = getCreateur(idCreat, "nom");
  				String imCreat = getCreateur(idCreat, "image");
+ 				
  				
  				int valEvent = resultSet.getInt("evenement_validation");
  				int statutEvent = resultSet.getInt("evenement_statut");
  				
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent);
+ 				EventBean event = new EventBean(titreEvent, dateEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent);
  				events.addEvent(event);
  			}
  		}

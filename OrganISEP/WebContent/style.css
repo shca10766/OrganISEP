@@ -199,6 +199,7 @@ nav {
 	color: rgb(112, 112, 112);
 	position: relative;
 	min-width: 900px;
+	flex-wrap: wrap;
 }
 
 #dashboard .etiquette .content_img {
@@ -215,6 +216,11 @@ nav {
 	margin-bottom: 20px;
 	color: #A8334A;
 	font-weight: bold;
+}
+
+#dashboard .etiquette .content_event .titre_event:hover{
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 #dashboard .etiquette .content_event .sousTitre_event {
@@ -267,3 +273,64 @@ nav {
 
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+
+/* ------------------------------------ -->
+<!-- --------- CSS EVENT ------------- -->
+<!-- ------------------------------------ */
+
+#detail .etiquette {
+	padding: 20px;
+}
+
+#detail .etiquette .content_event .titre_event:hover{
+	cursor: default;
+	text-decoration: none;
+}
+
+#detail .etiquette .content_img {
+	width: 30%;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">"!important;
+    color: #A8334A!important;
+    font-weight: bold;
+}
+
+#detail ol{
+	background-color: #f1f7f6;
+}
+
+#detail li{
+	font-weight: bold;
+	color: rgb(112, 112, 112);
+}
+
+#detail ol #modif{
+	position: absolute;
+	right: 10px;
+	font-weight: bold;
+	color: rgb(112, 112, 112);
+}
+
+#detail ol p:hover{
+	cursor: pointer;
+}
+
+#detail .event_details{
+	margin-top : 20px;
+	width: 100%;
+}
+
+#detail .sousTitre_detail{
+	font-style: italic;
+}
+
+#detail .verticalLine{
+	width: 100%;
+	border-top: 1px solid rgb(112, 112, 112);
+}
+
+#detail span{
+	font-weight: bold;
+}
