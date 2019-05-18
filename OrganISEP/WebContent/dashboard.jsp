@@ -178,16 +178,9 @@
 	}
 	
 	function getEvent() {
-		var xhr = getXMLHttpRequest();
-		
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-				document.location = "http://localhost:8080/OrganISEP/index.jsp";
-	        }
-		};
-
-		xhr.open("GET", "EventServlet?action=Event", true);
-		xhr.send(null);
+		var pageDash = document.getElementById("dashboard").children;
+		pageDash[0].style.display = "none";
+		pageDash[1].style.display = "block";
 	}
 </script>
 
