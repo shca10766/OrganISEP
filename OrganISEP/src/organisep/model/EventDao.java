@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +14,6 @@ import com.google.protobuf.TextFormat.ParseException;
 
 import organisep.bean.CommentBean;
 import organisep.bean.EventBean;
-import organisep.bean.EventsBean;
 import organisep.model.BDConnexion;
 
 public class EventDao {
@@ -34,6 +34,7 @@ public class EventDao {
  				
  				String titreEvent = resultSet.getString("evenement_titre");
  				Date dateEvent = resultSet.getDate("evenement_date");
+ 				Time timeEvent = resultSet.getTime("evenement_time");
  				String imEvent = resultSet.getString("evenement_image");
  				String descriptionEvent = resultSet.getString("evenement_description");
  				ArrayList<String> salles = getSalle(idEvent);
@@ -45,7 +46,7 @@ public class EventDao {
  				int statutEvent = resultSet.getInt("evenement_statut");
  				
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
+ 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
  				events.add(event);
  			}
  		}
