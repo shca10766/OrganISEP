@@ -15,17 +15,19 @@ body {
 	height: 100%;
 }
 
-.btn {
+.btn, .btnModal, .btnForm {
 	background-color: #A8334A;
 	color: white;
 	font-weight: bold;
 	border: none;
-	border-radius: 20px;
+	border-radius: 10px;
 	cursor: pointer;
 	height: 30px;
+	font-size: 13.5px;
+	font-family: Segoe UI; 
 }
 
-.btn:hover {
+.btn:hover, .btnModal:hover, .btnForm:hover {
 	background-color: #5D0012;
 }
 
@@ -47,6 +49,69 @@ input:focus {
 	color: red;
 	font-size: 13px;
 	margin-left: 5px;
+}
+
+input[type=checkbox] { 
+	display:none; 
+}
+
+input[type=checkbox] + label:before, label {
+	cursor: pointer;
+}
+
+input[type=checkbox] + label:before { 
+  	font-family: FontAwesome;
+  	display: inline-block;
+	content: "\f096"; 
+	color: #a93049;	
+    font-size: 18px;
+    margin: 0 0 -1px 4px;
+}
+
+input[type=checkbox] + label:before { letter-spacing: 5px; }
+
+input[type=checkbox]:checked + label:before { content: "\f046"; }
+input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+
+/* ------------------------------------ -->
+<!-- --------- CSS MODAL ------------- -->
+<!-- ------------------------------------ */
+.modal-header {
+	background-color: #a93049;
+	border-radius: 0!important;
+    font-family: Segoe UI;
+    padding: 10px!important;
+}
+
+.modal-title, .modal-header button, .modal-header button:hover {
+	color: white;
+	opacity: 1;
+	font-size: 15px;
+}
+
+.modal-header button:focus, .btnModal:focus, .btnForm:focus {
+	outline: none;
+}
+
+.modal-body {
+	color: rgb(112, 112, 112);
+	background-color: rgba(104,169,151,0.09);
+}
+
+.modal-body .text_modal {
+    margin-bottom: 14px;
+}
+
+.modal-footer {
+	background-color: rgba(104,169,151,0.09);
+}
+
+.btnModal, .btnForm {
+	padding: 10px 20px!important;
+    min-width: 100px;
+    height: auto;
+    font-weight: 600;
+    margin-left: 15px;
 }
 
 /* ------------------------------------ -->
@@ -110,12 +175,14 @@ nav {
 
 #content_template .list-group-item.active, #content_template .list-group-item:hover {
 	background-color: #5D0012;
+	text-decoration: none;
 }
 
 #content_template .tab-content {
 	padding: 10px 30px;
     width: calc(100% - 181px);
 }
+
 
 /* ------------------------------------ -->
 <!-- --------- PAGE CONNEXION ----------- -->
@@ -246,24 +313,68 @@ nav {
     color: #B46437;
 }
 
-#dashboard #dashEvents input[type=checkbox] { 
-	display:none; 
+
+/* ------------------------------------ -->
+<!-- ------- CREATION D'EVENT --------- -->
+<!-- ------------------------------------ */
+
+#edit {
+	background-color: white;
+    margin: 18px 30px;
+    box-shadow: 1px 0px 4px rgb(112, 112, 112);
 }
 
-#dashboard #dashEvents input[type=checkbox] + label:before, #dashboard #dashEvents label {
+#edit h3 {
+	padding-top: 20px;
+	color: #a93049;
+	text-align: center;
+}
+
+#edit #msgErrorCreat {
+	color: red;
+	margin-bottom: 10px;
+}
+
+#edit #msgErrorCreat i {
+	margin-right: 5px;
+}
+
+#edit #formCreatEvent {
+	padding: 30px;
+}
+
+#edit #formSalles {
+	margin-bottom: -20px;
+}
+
+#edit .input-group-prepend {
 	cursor: pointer;
 }
 
-#dashboard #dashEvents input[type=checkbox] + label:before { 
-  	font-family: FontAwesome;
-  	display: inline-block;
-	content: "\f096"; 
-	color: #a93049;	
+.iconInput:after {
+	font-family: FontAwesome;
+    display: inline-block;
+    content: "\f153";
+    color: rgb(112, 112, 112);
     font-size: 18px;
-    margin: 0 0 -1px 4px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
 }
 
-#dashboard #dashEvents input[type=checkbox] + label:before { letter-spacing: 5px; }
+#edit #formRess .form-row {
+	margin: 10px 0 20px 0;
+	padding: 20px 10px 0 10px;
+	border: 1px solid #a93049;
+	border-radius: 10px;
+	box-shadow: 1px 0px 4px rgb(112, 112, 112);
+}
 
-#dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
-#dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+#edit #formRess, #divDesc {
+	margin-top: 30px;
+}
+
+#edit #btnFormEvent {
+	text-align: end;
+	padding-top: 30px;
+}
