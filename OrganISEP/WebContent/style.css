@@ -231,8 +231,7 @@ nav {
 #dashboard .etiquette .creat_content {
 	position: absolute;
     top: 15px;
-    right: 15px;
-    width: 70px;
+    right: 20px;
     text-align: center;
 }
 
@@ -313,8 +312,9 @@ nav {
 	color: rgb(112, 112, 112);
 }
 
-#detail ol p:hover{
+#detail ol .link:hover{
 	cursor: pointer;
+	color: #A8334A!important;
 }
 
 #detail .event_details{

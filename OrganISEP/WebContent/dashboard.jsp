@@ -1,5 +1,5 @@
 <div id="filtre_statut">
-	<a href="#" class="active">Tous les événements</a> | <a href="#">Mes évènments</a> | <a href="#">Brouillons</a>
+	<a href="#" class="active">Tous les événements</a> | <a href="#">Mes évènements</a> | <a href="#">Brouillons</a>
 </div>
 
 <div id="dashEvents">
@@ -26,6 +26,7 @@
 
 	function displayEvents(r) {
 		for (var i = 0; i < r.events.length; i++) {
+			
 			var validation = "";
 			var etiquette = document.createElement("div");
 			etiquette.classList.add("etiquette");
@@ -67,11 +68,10 @@
 			var titre_event = document.createElement("h3");
 			titre_event.classList.add("titre_event");
 			titre_event.innerText = r.events[i].titre;
-			
-			var localCount = r.events[i]; // Using a local copy in case `count` is modified
-			titre_event.onclick = function() {
-				getEvent(localCount);
-			};
+			let event = r.events[i];
+			titre_event.addEventListener('click', function(){
+			    getEvent(event);
+			});
 			
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");

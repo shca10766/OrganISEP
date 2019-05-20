@@ -1,8 +1,8 @@
 <div id="detail">
 	<ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a onclick="returnDash()" class="sousTitre_event">Tableau de bord</a></li>
+	    <li class="breadcrumb-item link"><a onclick="returnDash()" class="sousTitre_event">Tableau de bord</a></li>
 	    <li class="breadcrumb-item active sousTitre_event" id=eventTitre aria-current="page"></li>
-	    <li id="modif"> Modifier l'événement</li>
+	    <li class="link" id="modif"> Modifier l'événement</li>
 	</ol>
 	<div class="etiquette" id="etiquette">
 		<div class="content_img">
@@ -49,7 +49,7 @@ function displayDetails(event) {
 		etiquette.classList.add("valide");
 		validation = "Validé";
 	}
-	else if (event == 2) { 
+	else if (event.validation == 2) { 
 		etiquette.classList.add("vsr");
 		validation = "Validé sous réserve";
 	}
@@ -92,7 +92,7 @@ function displayDetails(event) {
 	
 	document.getElementById("validation_content").innerText = validation;
 	
-	document.getElementById("description").innerText = event.descriptionEvent;
+	document.getElementById("description").innerText = event.description;
 }
 
 /*function removePrecedentEvent(){
