@@ -1,24 +1,37 @@
 package organisep.bean;
 
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class EventBean {
 	private ArrayList<String> salles;
-	private Date date;
+	private String date;
+	private String time;
 	private String titre;
 	private String creat;
 	private String image;
 	private String imCreat;
 	
+	private int participants;
+	private int budget;
+	private String lien;
+	private ArrayList<String> ressources;
+	private String description;
+	
 	private int validation;
 	private int statut;
+
 	private int etat;
 		
-	public EventBean(String titreEvent, Date dateEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent) {
+	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent) {
 		salles = sallesEvent;
-		date = dateEvent;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat tf = new SimpleDateFormat("HH:mm");
+	    date = df.format(dateEvent);
+		time = tf.format(timeEvent);
 		titre = titreEvent;
 		creat = creatEvent;
 		image = imEvent;
@@ -28,14 +41,42 @@ public class EventBean {
 		statut = statutEvent;
 		
 		Date auj = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		if (date.compareTo(auj) > 0) {
+		if (dateEvent.compareTo(auj) > 0) {
             etat = 1;
         }
 		else {
 			etat = 0;
 		}
+	}
+	
+	public EventBean(String titreEvent, String dateEvent, String timeEvent, String imEvent, 
+					String creatEvent, int participantsEvent, 
+					int budgetEvent, String lienEvent, ArrayList<String> ressourcesEvent, String descEvent) {
+		
+		date = dateEvent;
+		time = timeEvent;
+		titre = titreEvent;
+		creat = creatEvent;
+		image = imEvent;
+		
+		validation = 3;
+		etat = 1;
+		statut = 1;
+		
+		participants = participantsEvent;
+		budget = budgetEvent;
+		lien = lienEvent;
+		ressources = ressourcesEvent;
+		description = descEvent;
+	}
+	
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public ArrayList<String> getSalles() {
@@ -46,11 +87,11 @@ public class EventBean {
 		this.salles = salles;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -108,5 +149,45 @@ public class EventBean {
 
 	public void setEtat(int etat) {
 		this.etat = etat;
+	}
+
+	public int getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(int participants) {
+		this.participants = participants;
+	}
+
+	public int getBudget() {
+		return budget;
+	}
+
+	public void setBudget(int budget) {
+		this.budget = budget;
+	}
+
+	public String getLien() {
+		return lien;
+	}
+
+	public void setLien(String lien) {
+		this.lien = lien;
+	}
+
+	public ArrayList<String> getRessources() {
+		return ressources;
+	}
+
+	public void setRessources(ArrayList<String> ressources) {
+		this.ressources = ressources;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
