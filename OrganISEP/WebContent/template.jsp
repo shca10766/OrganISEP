@@ -31,7 +31,7 @@
 			<div id="content_template">
 				<!-- List group -->
 				<div class="list-group" id="list_nav" role="tablist">
-					  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#dashboard" id="item_dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
+					  <a class="list-group-item list-group-item-action active" onclick="returnDash()" data-toggle="list" href="#dashboard" id="item_dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
 					  <% } %>
@@ -41,9 +41,16 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					  <div class="tab-pane active" id="dashboard" role="tabpanel">
-					  	<jsp:include page="dashboard.jsp" >
-						  	<jsp:param name="creat" value="<%= user.getNom() %>" />
-						</jsp:include>
+					  	<div>
+					  		<jsp:include page="dashboard.jsp" >
+							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+							</jsp:include>
+					  	</div>
+					  	<div style="display: none;">
+					  		<jsp:include page="event.jsp" >
+							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+							</jsp:include>
+					  	</div>
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
@@ -64,10 +71,14 @@
 		
 		<script>
 			window.addEventListener("load", function(event) {
-		    	var action = "<%= request.getAttribute("action") %>" ;
+		    	var action = "<%= request.getAttribute("action") %>";
 		    	getData();
 		    	
-		    	if (action == "Tableau de bord" || action == "Evenement") { var result = "dashboard"; }
+		    	pageActive(action);
+		  	});
+			
+			function pageActive(action) {
+				if (action == "Tableau_de_bord" || action == "Evenement") { var result = "dashboard"; }
 		    	else if (action == "Nouveau Evènement") { var result = "edit"; }
 		    	else { var result = "settings"; }
 		    	
@@ -82,8 +93,14 @@
 	    				document.getElementById(result).classList.remove("active");
 	    			}
 	    		}
-		  	});
+			}
+			
+			function returnDash() {
+				var pageDash = document.getElementById("dashboard").children;
+				pageDash[0].style.display = "block";
+				pageDash[1].style.display = "none";
+			}
 	  	</script>
 		
-  </body>
+</body>
 </html>
