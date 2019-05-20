@@ -54,7 +54,9 @@
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
-					  		<%@include file="newEvent.jsp" %>
+					  		<jsp:include page="newEvent.jsp" >
+							  	<jsp:param name="id" value="<%= user.getId() %>" />
+							</jsp:include>
 					  	</div>
 					  <% } %>
 					  <div class="tab-pane" id="settings" role="tabpanel">
@@ -73,27 +75,7 @@
 			window.addEventListener("load", function(event) {
 		    	var action = "<%= request.getAttribute("action") %>";
 		    	getData();
-		    	
-		    	pageActive(action);
 		  	});
-			
-			function pageActive(action) {
-				if (action == "Tableau_de_bord" || action == "Evenement") { var result = "dashboard"; }
-		    	else if (action == "Nouveau Evènement") { var result = "edit"; }
-		    	else { var result = "settings"; }
-		    	
-		    	var listItems = document.getElementById("list_nav").children;
-	    		for (var i = 0; i < listItems.length; i++) {
-	    			if (!listItems[i].classList.contains("active") && listItems[i].id == "item_" + result) {
-	    				listItems[i].classList.add("active");
-	    				document.getElementById(result).classList.add("active");
-	    			}
-	    			else if (listItems[i].classList.contains("active") && listItems[i].id != "item_" + result) {
-	    				listItems[i].classList.remove("active");
-	    				document.getElementById(result).classList.remove("active");
-	    			}
-	    		}
-			}
 			
 			function returnDash() {
 				var pageDash = document.getElementById("dashboard").children;
