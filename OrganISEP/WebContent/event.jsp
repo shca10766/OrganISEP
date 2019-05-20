@@ -36,7 +36,29 @@
 			<span>Demande de materiel : </span>
 			<p id="materiel"></p>
 		</div>
+		<div class="comment">
+			<i class="fas fa-comment-alt"></i><span id="comment" data-toggle="modal" data-target="#commentModal" onclick="displayComment()"> Commenter</span>
+		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog .modal-dialog-scrollable modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Commentaires</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        	<button type="button" class="btnModal" data-dismiss="modal">Envoyer</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -93,14 +115,22 @@ function displayDetails(event) {
 	document.getElementById("validation_content").innerText = validation;
 	
 	document.getElementById("description").innerText = event.description;
+	
+	var comment = document.getElementById("comment");
+	comment.innerText = "Commenter";
+	comment.setAttribute("style", "color:rgb(112, 112, 112); font-weight: bold");
+	for (var j = 0; j < event.comments.length; j++) {
+		if (!event.comments[j].read && "<%= request.getParameter("creat")%>" != event.comments[j].creat) {
+			comment.innerText = "Commentaire non lu";
+			comment.setAttribute("style", "color:#A8334A; font-weight: bold");
+			break;
+		}
+	}
 }
 
-/*function removePrecedentEvent(){
-	var content = document.getElementById("detail");
-	while (content.firstChild) {
-		content.removeChild(content.firstChild);
-	}
-}*/
+function displayComment(){
+	
+}
 
 function returnDash() {
 	var pageDash = document.getElementById("dashboard").children;

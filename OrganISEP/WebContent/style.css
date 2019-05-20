@@ -15,17 +15,19 @@ body {
 	height: 100%;
 }
 
-.btn {
+.btn, .btnModal, .btnForm {
 	background-color: #A8334A;
 	color: white;
 	font-weight: bold;
 	border: none;
-	border-radius: 20px;
+	border-radius: 10px;
 	cursor: pointer;
 	height: 30px;
+	font-size: 13.5px;
+	font-family: Segoe UI; 
 }
 
-.btn:hover {
+.btn:hover, .btnModal:hover, .btnForm:hover {
 	background-color: #5D0012;
 }
 
@@ -48,6 +50,48 @@ input:focus {
 	font-size: 13px;
 	margin-left: 5px;
 }
+
+/* ------------------------------------ -->
+<!-- --------- CSS MODAL ------------- -->
+<!-- ------------------------------------ */
+.modal-header {
+	background-color: #a93049;
+	border-radius: 0!important;
+    font-family: Segoe UI;
+    padding: 10px!important;
+}
+
+.modal-title, .modal-header button, .modal-header button:hover {
+	color: white;
+	opacity: 1;
+	font-size: 15px;
+}
+
+.modal-header button:focus, .btnModal:focus, .btnForm:focus {
+	outline: none;
+}
+
+.modal-body {
+	color: rgb(112, 112, 112);
+	background-color: rgba(104,169,151,0.09);
+}
+
+.modal-body .text_modal {
+    margin-bottom: 14px;
+}
+
+.modal-footer {
+	background-color: rgba(104,169,151,0.09);
+}
+
+.btnModal, .btnForm {
+	padding: 10px 20px!important;
+    min-width: 100px;
+    height: auto;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
 
 /* ------------------------------------ -->
 <!-- --------- CSS TEMPLATE ------------- -->
@@ -333,4 +377,25 @@ nav {
 
 #detail span{
 	font-weight: bold;
+}
+
+#detail .comment{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#detail .comment{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#detail .comment i{
+	color: #A8334A;
+	margin-right: 5px;
+}
+
+#detail .comment:hover{
+	cursor: pointer;
 }
