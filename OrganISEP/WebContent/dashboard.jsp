@@ -1,20 +1,20 @@
 <div id="filtre_statut">
-	<a href="#" class="active">Tous les événements</a> | <a href="#">Mes évènements</a> | <a href="#">Brouillons</a>
+	<a href="#" class="active" onclick="display_myEtiq(this, 'all')">Tous les événements</a> | <a href="#" onclick="display_myEtiq(this, 'my')">Mes événements</a> | <a href="#">Brouillons</a>
 </div>
 
 <div id="dashEvents">
 	<div id="filtre_events">
 		<div id="filtre_date">
 			Date : 
-			<input type="checkbox" id="passe" name="passe"><label for="passe">Passé</label>
-			<input type="checkbox" id="futur" name="futur" checked><label for="futur">A venir</label>
+			<input type="checkbox" id="passe" name="passe" onclick="filtre_function()"><label for="passe">Passé</label>
+			<input type="checkbox" id="futur" name="futur" onclick="filtre_function()" checked><label for="futur">A venir</label>
 		</div>
 		<div id="filtre_validation">
 			Statut : 
-			<input type="checkbox" id="statut_val" name="statut_val" checked><label for="statut_val">Validé</label>
-			<input type="checkbox" id="statut_vsr" name="statut_vsr"><label for="statut_vsr">Validé sous réserve</label>
-			<input type="checkbox" id="statut_cours" name="statut_cours"><label for="statut_cours">En cours</label>
-			<input type="checkbox" id="statut_ref" name="statut_ref"><label for="statut_ref">Refusé</label>
+			<input type="checkbox" id="statut_val" name="statut_val" onclick="filtre_function()" checked><label for="statut_val">Validé</label>
+			<input type="checkbox" id="statut_vsr" name="statut_vsr" onclick="filtre_function()"><label for="statut_vsr">Validé sous réserve</label>
+			<input type="checkbox" id="statut_cours" name="statut_cours" onclick="filtre_function()"><label for="statut_cours">En cours</label>
+			<input type="checkbox" id="statut_ref" name="statut_ref" onclick="filtre_function()"><label for="statut_ref">Refusé</label>
 		</div>
 	</div>
 	<div id="list_events">
@@ -26,25 +26,24 @@
 
 	function displayEvents(r) {
 		for (var i = 0; i < r.length; i++) {
-			
 			var validation = "";
 			var etiquette = document.createElement("div");
 			etiquette.classList.add("etiquette");
 			
 			if (r[i].validation == 1) { 
-				etiquette.classList.add("valide");
+				etiquette.classList.add("statut_val");
 				validation = "Validé";
 			}
 			else if (r[i].validation == 2) { 
-				etiquette.classList.add("vsr");
+				etiquette.classList.add("statut_vsr");
 				validation = "Validé sous réserve";
 			}
 			else if (r[i].validation == 3) { 
-				etiquette.classList.add("cours"); 
+				etiquette.classList.add("statut_cours"); 
 				validation = "En cours";
 			}
 			else { 
-				etiquette.classList.add("refuse"); 
+				etiquette.classList.add("statut_ref"); 
 				validation = "Refusé";
 			}
 			
@@ -75,7 +74,8 @@
 			
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");
-			sousTitre_event.innerText = "Le " +  r[i].date;
+			var myDate = new Date("\'" + r[i].date + "\'");
+			sousTitre_event.innerText = "Le " +  r[i].date + " à " + r[i].time;
 			
 			var salle_event = document.createElement("div");
 			salle_event.classList.add("salle_event");
@@ -162,22 +162,64 @@
 		var box_date = document.getElementById("filtre_date").getElementsByTagName("input");
 		var box_statut = document.getElementById("filtre_validation").getElementsByTagName("input");
 		
+		var filtre_date = [];
 		for (var i = 0; i < box_date.length; i++) {
-			if (box_date[i].checked && box_date[i].id == "futur") {
-				//display_etiquette("futur");
+			if (box_date[i].checked) {
+				filtre_date.push(box_date[i].id);
+			}
+		}
+		var filtre_statut = [];
+		for (var j = 0; j < box_statut.length; j++) {
+			if (box_statut[j].checked) {
+				filtre_statut.push(box_statut[j].id);
+			}
+		}
+		display_etiquette(filtre_date, filtre_statut);
+	}
+	
+	function display_etiquette(filtre_date, filtre_statut) {
+		var etiquettes = document.getElementsByClassName("etiquette");
+		for (var i = 0 ; i < etiquettes.length; i++) {
+			etiquettes[i].style.display = "none";
+			for (var j = 0 ; j < filtre_date.length ; j++) {
+				for (var k = 0; k < filtre_statut.length ; k++) {
+					if (etiquettes[i].classList.contains(filtre_date[j]) && etiquettes[i].classList.contains(filtre_statut[k])) {
+						etiquettes[i].style.display = "flex";
+					}
+				}
 			}
 		}
 	}
 	
-	function display_etiquette(filtre) {
+	function display_myEtiq(e, type) {
+		if (!e.classList.contains("active")) {
+			var filtres = document.getElementById("filtre_statut").children;
+			for (var i = 0; i < filtres.length; i++) {
+				if (filtres[i].classList.contains("active")) {
+					filtres[i].classList.remove("active");
+				}
+			}
+			e.classList.add("active");
+		}
 		var etiquettes = document.getElementsByClassName("etiquette");
-		for (var i = 0 ; i < etiquettes.length; i++) {
-			if (etiquettes[i].classList.contains(filtre)) {
-					etiquettes[i].style.display = "flex";
+		filtre_feature();
+		if (type == "my") {
+			for (var j = 0; j < etiquettes.length; j++) {
+				if (!etiquettes[j].classList.contains("creat")) {
+					etiquettes[j].style.display = "none";
+				}
 			}
-			else {
-				etiquettes[i].style.display = "none";
-			}
+		}
+	}
+	
+	function filtre_function() {
+		var statut = document.getElementById("filtre_statut").children;
+		console.log(statut[0].classList);
+		if (statut[0].classList.contains("active")) {
+			display_myEtiq(statut[0], 'all');
+		}
+		else {
+			display_myEtiq(statut[1], 'my');
 		}
 	}
 	
@@ -189,6 +231,4 @@
 		displayDetails(event);
 	}
 </script>
-
-
 

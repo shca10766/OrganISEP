@@ -374,6 +374,7 @@ nav {
 
 #detail .etiquette {
 	padding: 20px;
+	display: flex!important;
 }
 
 #detail .etiquette .content_event .titre_event:hover{
