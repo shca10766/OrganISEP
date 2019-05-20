@@ -266,6 +266,7 @@ nav {
 	color: rgb(112, 112, 112);
 	position: relative;
 	min-width: 900px;
+	flex-wrap: wrap;
 }
 
 #dashboard .etiquette .content_img {
@@ -284,6 +285,11 @@ nav {
 	font-weight: bold;
 }
 
+#dashboard .etiquette .content_event .titre_event:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 #dashboard .etiquette .content_event .sousTitre_event {
 	margin-bottom: 30px;
 	font-weight: bold;
@@ -292,8 +298,7 @@ nav {
 #dashboard .etiquette .creat_content {
 	position: absolute;
     top: 15px;
-    right: 15px;
-    width: 70px;
+    right: 20px;
     text-align: center;
 }
 
@@ -377,4 +382,90 @@ nav {
 #edit #btnFormEvent {
 	text-align: end;
 	padding-top: 30px;
+}
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+
+/* ------------------------------------ -->
+<!-- --------- CSS EVENT ------------- -->
+<!-- ------------------------------------ */
+
+#detail .etiquette {
+	padding: 20px;
+	display: flex!important;
+}
+
+#detail .etiquette .content_event .titre_event:hover{
+	cursor: default;
+	text-decoration: none;
+}
+
+#detail .etiquette .content_img {
+	width: 30%;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">"!important;
+    color: #A8334A!important;
+    font-weight: bold;
+}
+
+#detail ol{
+	background-color: #f1f7f6;
+}
+
+#detail li{
+	font-weight: bold;
+	color: rgb(112, 112, 112);
+}
+
+#detail ol #modif{
+	position: absolute;
+	right: 10px;
+	font-weight: bold;
+	color: rgb(112, 112, 112);
+}
+
+#detail ol .link:hover{
+	cursor: pointer;
+	color: #A8334A!important;
+}
+
+#detail .event_details{
+	margin-top : 20px;
+	width: 100%;
+}
+
+#detail .sousTitre_detail{
+	font-style: italic;
+}
+
+#detail .verticalLine{
+	width: 100%;
+	border-top: 1px solid rgb(112, 112, 112);
+}
+
+#detail span{
+	font-weight: bold;
+}
+
+#detail .comment{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#detail .comment{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#detail .comment i{
+	color: #A8334A;
+	margin-right: 5px;
+}
+
+#detail .comment:hover{
+	cursor: pointer;
 }

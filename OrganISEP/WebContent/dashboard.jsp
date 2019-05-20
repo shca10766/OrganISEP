@@ -67,6 +67,10 @@
 			var titre_event = document.createElement("h3");
 			titre_event.classList.add("titre_event");
 			titre_event.innerText = r[i].titre;
+			let event = r[i];
+			titre_event.addEventListener('click', function(){
+			    getEvent(event);
+			});
 			
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");
@@ -198,14 +202,12 @@
 			e.classList.add("active");
 		}
 		var etiquettes = document.getElementsByClassName("etiquette");
-		for (var j  = 0; j < etiquettes.length; j++) {
-			if (type == "all") {
-				etiquettes[j].style.display = "flex";
-				filtre_feature();
-			}
-			else if (type == "my" && !etiquettes[j].classList.contains("creat")) {
-				filtre_feature();
-				etiquettes[j].style.display = "none";
+		filtre_feature();
+		if (type == "my") {
+			for (var j = 0; j < etiquettes.length; j++) {
+				if (!etiquettes[j].classList.contains("creat")) {
+					etiquettes[j].style.display = "none";
+				}
 			}
 		}
 	}
@@ -219,6 +221,14 @@
 		else {
 			display_myEtiq(statut[1], 'my');
 		}
+	}
+	
+	function getEvent(event) {
+		
+		var pageDash = document.getElementById("dashboard").children;
+		pageDash[0].style.display = "none";
+		pageDash[1].style.display = "block";
+		displayDetails(event);
 	}
 </script>
 

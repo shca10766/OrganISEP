@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import organisep.bean.CommentBean;
 import organisep.bean.EventBean;
 import organisep.model.BDConnexion;
 
@@ -34,15 +35,16 @@ public class EventDao {
  				Date dateEvent = resultSet.getDate("evenement_date");
  				Time timeEvent = resultSet.getTime("evenement_time");
  				String imEvent = resultSet.getString("evenement_image");
+ 				String descriptionEvent = resultSet.getString("evenement_description");
  				ArrayList<String> salles = getSalle(idEvent);
+ 				ArrayList<CommentBean> commentsEvent = getComment(idEvent);
  				String creat = getCreateur(idCreat, "nom");
  				String imCreat = getCreateur(idCreat, "image");
  				
  				int valEvent = resultSet.getInt("evenement_validation");
  				int statutEvent = resultSet.getInt("evenement_statut");
  				
- 				
- 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent);
+ 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
  				events.add(event);
  			}
  		}
@@ -73,6 +75,38 @@ public class EventDao {
  			e.printStackTrace();
  		}
 		return salles;
+	}
+	
+	public ArrayList<CommentBean> getComment(int idEvent) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+ 		ResultSet rs = null;
+ 		ArrayList<CommentBean> comments = new ArrayList<CommentBean>();
+ 
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "SELECT * FROM commentaires WHERE evenement_id = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setInt(1, idEvent);
+ 			rs = preparedStatement.executeQuery();
+ 
+ 			while(rs.next()) { 
+ 				int idCreat = rs.getInt("utilisateur_id");
+ 				
+ 				String contentComment = rs.getString("commentaire_contenu");
+ 				Date dateComment = rs.getDate("commentaire_date");	
+ 				Boolean readComment = rs.getBoolean("commentaire_lu");
+ 				String nameCreat = getCreateur(idCreat, "nom");
+ 				
+ 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment);
+ 				comments.add(comment);
+ 			}
+ 		}
+ 		catch(SQLException e) {
+ 			e.printStackTrace();
+ 		}
+		return comments;
 	}
 	
 	public String getCreateur(int idCreat, String type) {
@@ -120,8 +154,8 @@ public class EventDao {
  		}
 		return salles;
 	}
-	
-	public int createEvent(EventBean e, int idCreat) throws ParseException {
+
+	public int createEvent(EventBean e, int idCreat) throws ParseException, java.text.ParseException {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		

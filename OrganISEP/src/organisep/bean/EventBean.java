@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class EventBean {
 	private ArrayList<String> salles;
+	private ArrayList<CommentBean> comments;
 	private String date;
 	private String time;
 	private String titre;
@@ -26,8 +27,9 @@ public class EventBean {
 
 	private int etat;
 		
-	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent) {
+	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, ArrayList<CommentBean> commentsEvent) {
 		salles = sallesEvent;
+		comments = commentsEvent;
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat tf = new SimpleDateFormat("HH:mm");
 	    date = df.format(dateEvent);
@@ -189,5 +191,13 @@ public class EventBean {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public ArrayList<CommentBean> getComments() {
+		return comments;
+	}
+
+	public void setComments(ArrayList<CommentBean> comments) {
+		this.comments = comments;
 	}
 }
