@@ -58,6 +58,7 @@ public class LoginDao {
  				loginBean.setNom(resultSet.getString("utilisateur_nom"));
  				loginBean.setStatut(resultSet.getInt("utilisateur_statut"));
  				loginBean.setImage(resultSet.getString("utilisateur_image"));
+ 				loginBean.setId(resultSet.getInt("utilisateur_id"));
  			}
  		}
  		catch(SQLException e) {

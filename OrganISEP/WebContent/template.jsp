@@ -54,7 +54,9 @@
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
-					  		<%@include file="newEvent.jsp" %>
+					  		<jsp:include page="newEvent.jsp" >
+							  	<jsp:param name="id" value="<%= user.getId() %>" />
+							</jsp:include>
 					  	</div>
 					  <% } %>
 					  <div class="tab-pane" id="settings" role="tabpanel">
@@ -73,6 +75,7 @@
 			window.addEventListener("load", function(event) {
 		    	var action = "<%= request.getAttribute("action") %>";
 		    	getData();
+<<<<<<< HEAD
 		    	
 		    	pageActive(action);
 		  	});
@@ -94,6 +97,9 @@
 	    			}
 	    		}
 			}
+=======
+		  	});
+>>>>>>> refs/remotes/origin/master
 			
 			function returnDash() {
 				var pageDash = document.getElementById("dashboard").children;
@@ -102,5 +108,5 @@
 			}
 	  	</script>
 		
-  </body>
+</body>
 </html>

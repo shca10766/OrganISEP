@@ -127,11 +127,17 @@ function displayDetails(event) {
 		}
 	}
 }
+<<<<<<< HEAD
 
 function displayComment(){
 	
 }
 
+=======
+function displayComment(){
+	
+}
+>>>>>>> refs/remotes/origin/master
 function returnDash() {
 	var pageDash = document.getElementById("dashboard").children;
 	pageDash[0].style.display = "block";

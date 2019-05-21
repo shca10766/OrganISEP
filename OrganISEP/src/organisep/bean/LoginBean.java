@@ -1,6 +1,7 @@
 package organisep.bean;
 
 public class LoginBean {
+	private int id;
 	private String email;
 	private String mdp;
 	private String nom;
@@ -11,6 +12,9 @@ public class LoginBean {
 		this.email = email;
 		this.mdp = mdp;
 	}
+	
+	public int getId() { return id; }
+	public void setId(int id) { this.id = id; }
 	
 	public String getEmail() { return email; }
 	public void setEmail(String email) { this.email = email; }
