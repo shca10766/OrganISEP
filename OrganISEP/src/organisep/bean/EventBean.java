@@ -9,17 +9,12 @@ import java.util.Date;
 public class EventBean {
 	private ArrayList<String> salles;
 	private ArrayList<CommentBean> comments;
-<<<<<<< HEAD
-	private Date date;
-=======
 	private String date;
 	private String time;
->>>>>>> refs/remotes/origin/master
 	private String titre;
 	private String creat;
 	private String image;
 	private String imCreat;
-	private String description;
 	
 	private int participants;
 	private int budget;
@@ -29,24 +24,17 @@ public class EventBean {
 	
 	private int validation;
 	private int statut;
-
 	private int etat;
 		
-<<<<<<< HEAD
-	public EventBean(String titreEvent, Date dateEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, ArrayList<CommentBean> commentsEvent) {
-=======
-	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, ArrayList<CommentBean> commentsEvent) {
->>>>>>> refs/remotes/origin/master
+	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, 
+			String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, 
+			ArrayList<CommentBean> commentsEvent, int participantsEvent, int budgetEvent, ArrayList<String> ressourcesEvent) {
 		salles = sallesEvent;
 		comments = commentsEvent;
-<<<<<<< HEAD
-		date = dateEvent;
-=======
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat tf = new SimpleDateFormat("HH:mm");
 	    date = df.format(dateEvent);
 		time = tf.format(timeEvent);
->>>>>>> refs/remotes/origin/master
 		titre = titreEvent;
 		creat = creatEvent;
 		image = imEvent;
@@ -55,6 +43,10 @@ public class EventBean {
 		
 		validation = valEvent;
 		statut = statutEvent;
+		
+		participants = participantsEvent;
+		budget = budgetEvent;
+		ressources = ressourcesEvent;
 		
 		Date auj = new Date();
 
@@ -103,26 +95,13 @@ public class EventBean {
 		this.salles = salles;
 	}
 
-<<<<<<< HEAD
-	
-	public ArrayList<CommentBean> getComments() {
-		return comments;
-	}
-
-	public void setComments(ArrayList<CommentBean> comments) {
-		this.comments = comments;
-	}
-
-	public Date getDate() {
-=======
 	public String getDate() {
->>>>>>> refs/remotes/origin/master
 		return date;
 	}
 
 	public void setDate(String date) {
 		this.date = date;
-	}
+}
 
 	public String getTitre() {
 		return titre;
@@ -179,19 +158,7 @@ public class EventBean {
 	public void setEtat(int etat) {
 		this.etat = etat;
 	}
-
-<<<<<<< HEAD
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	
-	
-}
-=======
 	public int getParticipants() {
 		return participants;
 	}
@@ -240,4 +207,3 @@ public class EventBean {
 		this.comments = comments;
 	}
 }
->>>>>>> refs/remotes/origin/master

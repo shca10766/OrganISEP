@@ -7,12 +7,14 @@ public class CommentBean {
 	private Date date;
 	private String creat;
 	private Boolean read;
+	private int event;
 	
-	public CommentBean(String contentComment, Date dateComment, String nameCreat, Boolean readEvent){
+	public CommentBean(String contentComment, Date dateComment, String nameCreat, Boolean readComment, int eventComment){
 		content = contentComment;
 		date = dateComment;
 		creat = nameCreat;
-		read = readEvent;
+		read = readComment;
+		event = eventComment;
 	}
 	 
 	public String getContent() {
@@ -38,4 +40,22 @@ public class CommentBean {
 	public void setCreat(String creat) {
 		this.creat = creat;
 	}
+
+	public Boolean getRead() {
+		return read;
+	}
+
+	public void setRead(Boolean read) {
+		this.read = read;
+	}
+
+	public int getEvent() {
+		return event;
+	}
+
+	public void setEvent(int event) {
+		this.event = event;
+	}
+	
+	
 }

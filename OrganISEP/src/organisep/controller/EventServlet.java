@@ -40,10 +40,9 @@ public class EventServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		String action = request.getParameter("action");
 		
-<<<<<<< HEAD
-=======
 		if (action.equals("etiquettes")) {
 			EventDao eventDao = new EventDao();
 			ArrayList<EventBean> listEvents = new ArrayList<EventBean>();
@@ -54,23 +53,7 @@ public class EventServlet extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().write(events);
 		}
->>>>>>> refs/remotes/origin/master
-		
-<<<<<<< HEAD
-		if (action.equals("Event")) {
-		}
-		else {
-			EventsBean eventsBean = new EventsBean();
-			EventDao eventDao = new EventDao();
-				
-			eventsBean = eventDao.getEvents(eventsBean);
-			String events = this.gson.toJson(eventsBean);
-			
-			response.setContentType("application/json");
-			response.getWriter().write(events);	
-		}
-		
-=======
+
 		else if (action.equals("salle")) {
 			String date = request.getParameter("date");
 			String type = request.getParameter("type");
@@ -88,7 +71,6 @@ public class EventServlet extends HttpServlet {
 				response.getWriter().write("1");
 			}
 		}
->>>>>>> refs/remotes/origin/master
 	}
 
 	/**

@@ -10,11 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-<<<<<<< HEAD
-=======
 import com.google.protobuf.TextFormat.ParseException;
 
->>>>>>> refs/remotes/origin/master
 import organisep.bean.CommentBean;
 import organisep.bean.EventBean;
 import organisep.model.BDConnexion;
@@ -45,17 +42,17 @@ public class EventDao {
  				String creat = getCreateur(idCreat, "nom");
  				String imCreat = getCreateur(idCreat, "image");
  				
+ 				int participants = resultSet.getInt("evenement_participant"); 
+ 				int budget = resultSet.getInt("evenement_budget");
+ 				
  				int valEvent = resultSet.getInt("evenement_validation");
  				int statutEvent = resultSet.getInt("evenement_statut");
+ 				ArrayList<String> ressources = getRessources(idEvent);
  				
  				
-<<<<<<< HEAD
- 				EventBean event = new EventBean(titreEvent, dateEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
- 				events.addEvent(event);
-=======
- 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
+ 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, 
+ 						statutEvent, descriptionEvent, commentsEvent, participants, budget, ressources);
  				events.add(event);
->>>>>>> refs/remotes/origin/master
  			}
  		}
  		catch(SQLException e) {
@@ -108,8 +105,9 @@ public class EventDao {
  				Date dateComment = rs.getDate("commentaire_date");	
  				Boolean readComment = rs.getBoolean("commentaire_lu");
  				String nameCreat = getCreateur(idCreat, "nom");
+ 				int eventComment = rs.getInt("evenement_id");
  				
- 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment);
+ 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment, eventComment);
  				comments.add(comment);
  			}
  		}
@@ -172,7 +170,6 @@ public class EventDao {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String d = e.getDate();
 		Date dat = new java.sql.Date(sdf.parse(d).getTime());
-		String Test = dat.toString();
 		
 		try {
  			con = BDConnexion.createConnection();
@@ -247,5 +244,41 @@ public class EventDao {
  		catch(SQLException ex) {
  			ex.printStackTrace();
  		}
+	}
+	
+	public EventBean getEvent(String eventTitle) {
+		EventBean event;
+		ArrayList<EventBean> listEvents = new ArrayList<EventBean>();
+		listEvents = getEvents(listEvents);
+		for(int i = 0 ; i<listEvents.size(); i++) {
+			if (listEvents.get(i).getTitre().equals(eventTitle)){
+				event = listEvents.get(i);
+				return event;
+			}
+		}
+		return null;
+	}
+	
+	private ArrayList<String> getRessources(int idEvent) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+ 		ResultSet rs = null;
+ 		ArrayList<String> ressources = new ArrayList<String>();
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "SELECT ressource_nom FROM ressources WHERE evenement_id = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setInt(1, idEvent);
+ 			rs = preparedStatement.executeQuery();
+ 
+ 			while(rs.next()) { 
+ 				ressources.add(rs.getString("ressource_nom"));
+ 			}
+ 		}
+ 		catch(SQLException e) {
+ 			e.printStackTrace();
+ 		}
+		return ressources;
 	}
 }

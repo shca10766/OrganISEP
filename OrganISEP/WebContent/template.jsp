@@ -48,15 +48,19 @@
 					  	</div>
 					  	<div style="display: none;">
 					  		<jsp:include page="event.jsp" >
-							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+							  	<jsp:param name="creatNom" value="<%= user.getNom() %>" />
+							  	<jsp:param name="idCreat" value="<%= user.getId() %>" />
+							  	<jsp:param name="creatStatut" value="<%= user.getStatut() %>" />
 							</jsp:include>
 					  	</div>
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
-					  		<jsp:include page="newEvent.jsp" >
-							  	<jsp:param name="id" value="<%= user.getId() %>" />
-							</jsp:include>
+					  		<div>
+					  			<jsp:include page="newEvent.jsp" >
+							  		<jsp:param name="id" value="<%= user.getId() %>" />
+								</jsp:include>
+					  		</div>
 					  	</div>
 					  <% } %>
 					  <div class="tab-pane" id="settings" role="tabpanel">
@@ -75,31 +79,7 @@
 			window.addEventListener("load", function(event) {
 		    	var action = "<%= request.getAttribute("action") %>";
 		    	getData();
-<<<<<<< HEAD
-		    	
-		    	pageActive(action);
 		  	});
-			
-			function pageActive(action) {
-				if (action == "Tableau_de_bord" || action == "Evenement") { var result = "dashboard"; }
-		    	else if (action == "Nouveau Evènement") { var result = "edit"; }
-		    	else { var result = "settings"; }
-		    	
-		    	var listItems = document.getElementById("list_nav").children;
-	    		for (var i = 0; i < listItems.length; i++) {
-	    			if (!listItems[i].classList.contains("active") && listItems[i].id == "item_" + result) {
-	    				listItems[i].classList.add("active");
-	    				document.getElementById(result).classList.add("active");
-	    			}
-	    			else if (listItems[i].classList.contains("active") && listItems[i].id != "item_" + result) {
-	    				listItems[i].classList.remove("active");
-	    				document.getElementById(result).classList.remove("active");
-	    			}
-	    		}
-			}
-=======
-		  	});
->>>>>>> refs/remotes/origin/master
 			
 			function returnDash() {
 				var pageDash = document.getElementById("dashboard").children;

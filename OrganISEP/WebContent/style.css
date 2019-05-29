@@ -115,48 +115,6 @@ input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; }
 }
 
 /* ------------------------------------ -->
-<!-- --------- CSS MODAL ------------- -->
-<!-- ------------------------------------ */
-.modal-header {
-	background-color: #a93049;
-	border-radius: 0!important;
-    font-family: Segoe UI;
-    padding: 10px!important;
-}
-
-.modal-title, .modal-header button, .modal-header button:hover {
-	color: white;
-	opacity: 1;
-	font-size: 15px;
-}
-
-.modal-header button:focus, .btnModal:focus, .btnForm:focus {
-	outline: none;
-}
-
-.modal-body {
-	color: rgb(112, 112, 112);
-	background-color: rgba(104,169,151,0.09);
-}
-
-.modal-body .text_modal {
-    margin-bottom: 14px;
-}
-
-.modal-footer {
-	background-color: rgba(104,169,151,0.09);
-}
-
-.btnModal, .btnForm {
-	padding: 10px 20px!important;
-    min-width: 100px;
-    height: auto;
-    font-weight: 600;
-    margin-left: 15px;
-}
-
-
-/* ------------------------------------ -->
 <!-- --------- CSS TEMPLATE ------------- -->
 <!-- ------------------------------------ */
 
@@ -365,36 +323,36 @@ nav {
 <!-- ------- CREATION D'EVENT --------- -->
 <!-- ------------------------------------ */
 
-#edit {
+#editEvent {
 	background-color: white;
     margin: 18px 30px;
     box-shadow: 1px 0px 4px rgb(112, 112, 112);
 }
 
-#edit h3 {
+#editEvent h3 {
 	padding-top: 20px;
 	color: #a93049;
 	text-align: center;
 }
 
-#edit #msgErrorCreat {
+#editEvent #msgErrorCreat {
 	color: red;
 	margin-bottom: 10px;
 }
 
-#edit #msgErrorCreat i {
+#editEvent #msgErrorCreat i {
 	margin-right: 5px;
 }
 
-#edit #formCreatEvent {
+#editEvent #formCreatEvent {
 	padding: 30px;
 }
 
-#edit #formSalles {
+#editEvent #formSalles {
 	margin-bottom: -20px;
 }
 
-#edit .input-group-prepend {
+#editEvent .input-group-prepend {
 	cursor: pointer;
 }
 
@@ -404,32 +362,33 @@ nav {
     content: "\f153";
     color: rgb(112, 112, 112);
     font-size: 18px;
-    position: absolute;
-    right: 20px;
-    top: 50%;
+    margin: 0 0 -1px 4px;
 }
 
-#edit #formRess .form-row {
-	margin: 10px 0 20px 0;
-	padding: 20px 10px 0 10px;
-	border: 1px solid #a93049;
-	border-radius: 10px;
-	box-shadow: 1px 0px 4px rgb(112, 112, 112);
-}
-
-<<<<<<< HEAD
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
-=======
-#edit #formRess, #divDesc {
-	margin-top: 30px;
+
+
+#edit ol{
+	background-color: #f1f7f6;
 }
 
-#edit #btnFormEvent {
-	text-align: end;
-	padding-top: 30px;
+#edit li{
+	font-weight: bold;
+	color: rgb(112, 112, 112);
 }
->>>>>>> refs/remotes/origin/master
+
+#edit ol #modif{
+	position: absolute;
+	right: 10px;
+	font-weight: bold;
+	color: rgb(112, 112, 112);
+}
+
+#edit ol .link:hover{
+	cursor: pointer;
+	color: #A8334A!important;
+}
 
 /* ------------------------------------ -->
 <!-- --------- CSS EVENT ------------- -->
@@ -437,6 +396,7 @@ nav {
 
 #detail .etiquette {
 	padding: 20px;
+	display: flex!important;
 }
 
 #detail .etiquette .content_event .titre_event:hover{
@@ -503,6 +463,7 @@ nav {
 	position: absolute;
 	right: 10px;
 	bottom: 10px;
+	display: flex; 
 }
 
 #detail .comment i{
@@ -512,4 +473,33 @@ nav {
 
 #detail .comment:hover{
 	cursor: pointer;
+}
+
+/* ------------------------------------ -->
+<!-- --------- CSS EVENT MODAL ------------- -->
+<!-- ------------------------------------ */
+
+
+.modal #discussion .messageIn{
+	border: solid 1px rgb(112, 112, 112);
+	background-color: white;
+	border-radius: 100px;
+	padding: 10px 25px;
+	width: 350px;
+}
+
+.modal #discussion .messageOut{
+	border-radius: 100px;
+	background-color: #da9aa7;
+	color: white;
+	padding: 10px 25px;
+	width: 350px;
+	position: relative;
+  	left: 75px;
+}
+
+.modal #discussion .infoOut{
+	color: #A8334A;
+	position: relative;
+  	left: 85px;
 }
