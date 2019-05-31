@@ -23,6 +23,7 @@
 </div>
 
 <script>
+
 	function displayEvents(r) {
 		for (var i = 0; i < r.length; i++) {
 			var validation = "";
