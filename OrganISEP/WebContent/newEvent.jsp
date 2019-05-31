@@ -39,6 +39,12 @@
       		<label for="inputLien">Lien de l'événement</label>
       		<input type="text" class="form-control" id="inputLien" >
     	</div>
+  	</div>  	
+  	<div class="form-row">
+  		<div class="form-group col-md-12 custom-file">
+    		<label for="inputImage" class="custom-file-label">Choisir une image</label>
+    		<input type="file" class="custom-file-input" id="inputImage" name="inputImage" onchange="modifLabel(this)">
+  		</div>
   	</div>
   	<div id="formRess">
   		Ressources
@@ -83,7 +89,6 @@
     	<textarea class="form-control" id="textDesc" rows="3"></textarea>
   	</div>  	
   	<div id="btnFormEvent">
-		<button class="btnForm">Enregistrer (Brouillon)</button>
 		<button class="btnForm" id="addEventForm">Enregistrer et Envoyer</button>
 	</div>
 </form>
@@ -113,6 +118,7 @@
 
 
 <script>
+
 $('#modalSalle').on('show.bs.modal', function (event) {
 	var date = $('#inputDate').val();
     $.get('EventServlet', {
@@ -123,6 +129,7 @@ $('#modalSalle').on('show.bs.modal', function (event) {
     	selectSalles(responseText);
     });
 })
+
 function selectSalles(l_salles) {
 	var form = document.getElementById("formSalles");
 	if (!form.classList.contains("loadData")) {
@@ -148,6 +155,7 @@ function selectSalles(l_salles) {
 		}
 	}
 }
+
 function displaySalles() {
 	var divInput = document.getElementById("formSalles").children;
 	var salles = "";
@@ -158,6 +166,7 @@ function displaySalles() {
 	}
 	document.getElementById("inputSalle").value = salles;
 }
+
 function addRess() {
 	var contentRess = document.getElementById("formRess").children[0];
 	var nRess = contentRess.children.length + 1;
@@ -182,6 +191,7 @@ function addRess() {
 	div.appendChild(input);
 	div.appendChild(label);	
 }
+
 $('#addEventForm').click(function(event) {
 	event.preventDefault();
     
@@ -190,6 +200,9 @@ $('#addEventForm').click(function(event) {
     var date = $('#inputDate').val();
     var time = $('#inputTime').val();
     var budget = $('#inputBudget').val();
+    
+    var splitImage = $('#inputImage').val().split('\\');
+	var image = splitImage[splitImage.length - 1];
     
     if (nom != "" && nbrPart != "" && date != "" && time != "") {
     	var allSalles = [];
@@ -201,12 +214,14 @@ $('#addEventForm').click(function(event) {
         
         var lien = $('#inputLien').val();
         
+
     	var allRess = [];
         $('#list_ress > div').each(function() {
         	if($(this)[0].children[0].checked) {
         		allRess.push($(this)[0].innerText);
         	}
         });
+
     	var desc = $('#textDesc').val();
     	
     	$.post('EventServlet', {
@@ -217,6 +232,7 @@ $('#addEventForm').click(function(event) {
         	Budget: budget,
         	Salles: allSalles,
         	Lien: lien,
+        	Image: image,
         	Ress: allRess,
         	Desc: desc,
         	IdCreat: "<%= request.getParameter("id")%>"
@@ -232,4 +248,10 @@ $('#addEventForm').click(function(event) {
 	}
     
 });
+
+function modifLabel(e) {
+	var image = e.value.split('\\');
+	e.parentElement.children[0].innerText = image[image.length - 1];
+}
+
 </script>

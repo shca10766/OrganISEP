@@ -362,12 +362,29 @@ nav {
     content: "\f153";
     color: rgb(112, 112, 112);
     font-size: 18px;
-    margin: 0 0 -1px 4px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
 }
 
+#edit #formRess .form-row {
+	margin: 10px 0 20px 0;
+	padding: 20px 10px 0 10px;
+	border: 1px solid #a93049;
+	border-radius: 10px;
+	box-shadow: 1px 0px 4px rgb(112, 112, 112);
+}
+
+#edit #formRess, #divDesc {
+	margin-top: 30px;
+}
+
+#edit #btnFormEvent {
+	text-align: end;
+	padding-top: 30px;
+}
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
-
 
 /* ------------------------------------ -->
 <!-- --------- CSS EVENT ------------- -->
@@ -442,7 +459,6 @@ nav {
 	position: absolute;
 	right: 10px;
 	bottom: 10px;
-	display: flex; 
 }
 
 #detail .comment i{

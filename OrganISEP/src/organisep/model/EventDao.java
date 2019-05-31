@@ -6,11 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.google.protobuf.TextFormat.ParseException;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 import organisep.bean.CommentBean;
 import organisep.bean.EventBean;
@@ -170,6 +179,7 @@ public class EventDao {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String d = e.getDate();
 		Date dat = new java.sql.Date(sdf.parse(d).getTime());
+		String Test = dat.toString();
 		
 		try {
  			con = BDConnexion.createConnection();
@@ -244,6 +254,40 @@ public class EventDao {
  		catch(SQLException ex) {
  			ex.printStackTrace();
  		}
+	}
+	
+	public void sendHTMLEmail(EventBean event) throws MessagingException {
+		Properties props = new Properties();
+	      props.put("mail.smtp.auth", "true");
+	      props.put("mail.smtp.starttls.enable", "true");
+	      props.put("mail.smtp.host", "smtp.live.com");
+	      props.put("mail.smtp.port", "587");
+
+		// Get the Session object.
+		Session session = Session.getInstance(props, new Authenticator() {
+		    @Override
+		    protected PasswordAuthentication getPasswordAuthentication() {
+		        return new PasswordAuthentication("iseporgan@hotmail.com", "passOrgan");
+		    }
+		});
+
+		try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("iseporgan@hotmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse("iseporgan@hotmail.com")
+            );
+            message.setSubject("Demande de validation d'événement");
+            message.setText(event.getCreat() + " a créé l'événement " + event.getTitre() + " et requiert votre validation"
+                    + "\n\n Merci d'aller sur l'application Organ'Isep pour ce faire!");
+
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	public EventBean getEvent(String eventTitle) {

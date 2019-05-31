@@ -2,7 +2,7 @@
 	<ol class="breadcrumb">
 	    <li class="breadcrumb-item link"><a onclick="returnDash()" class="sousTitre_event">Tableau de bord</a></li>
 	    <li class="breadcrumb-item active sousTitre_event" id=eventTitre aria-current="page"></li>
-	    <li class="link" id="modif"> Modifier l'événement</li>
+	    <li class="link" id="modif"> Modifier l'Ã©vÃ©nement</li>
 	</ol>
 	<div class="etiquette" id="etiquette">
 		<div class="content_img">
@@ -19,11 +19,11 @@
 			<div class="validation_content" id="validation_content"></div>
 		</div>
 		<div class="event_details">
-			<h6 class="sousTitre_detail">Informations supplémentaires</h6>
+			<h6 class="sousTitre_detail">Informations supplÃ©mentaires</h6>
 			<div class="verticalLine"></div>
 			<span>Description : </span>
 			<p id="description"></p>
-			<span>Ressources demandées : </span>
+			<span>Ressources demandÃ©es : </span>
 			<p id="ressources"></p>
 			<span>Budget : </span>
 			<p id="budget"></p>
@@ -80,11 +80,11 @@ function displayDetails(event) {
 	var validation ="";
 	if (event.validation == 1) { 
 		etiquette.classList.add("valide");
-		validation = "Validé";
+		validation = "ValidÃ©";
 	}
 	else if (event.validation == 2) { 
 		etiquette.classList.add("vsr");
-		validation = "Validé sous réserve";
+		validation = "ValidÃ© sous rÃ©serve";
 	}
 	else if (event.validation == 3) { 
 		etiquette.classList.add("cours"); 
@@ -92,7 +92,7 @@ function displayDetails(event) {
 	}
 	else { 
 		etiquette.classList.add("refuse"); 
-		validation = "Refusé";
+		validation = "RefusÃ©";
 	}
 	
 	if (event.etat == 1) { etiquette.classList.add("futur"); }
@@ -109,7 +109,11 @@ function displayDetails(event) {
 	
 	document.getElementById("eventTitleDetail").innerText = event.titre;
 	
+<<<<<<< HEAD
 	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " à " + event.time;
+=======
+	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " Ã  " + event.time;
+>>>>>>> refs/remotes/origin/master
 	
 	var salle_event = document.getElementById("salle_event");
 	salle_event.innerText = "Salles : ";
@@ -255,4 +259,8 @@ $('#commentModal').on('hidden.bs.modal', function(event) {
 });
     
 
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> refs/remotes/origin/master
