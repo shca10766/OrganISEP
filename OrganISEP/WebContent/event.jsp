@@ -100,6 +100,7 @@ function displayDetails(event) {
 	
 	if ("<%= request.getParameter("creatNom")%>" == event.creat) {
 		etiquette.classList.add("creat");
+		document.getElementById("modif").style.display = "block";
 	}
 	else {
 		document.getElementById("modif").style.display = "none";
@@ -115,10 +116,10 @@ function displayDetails(event) {
 	salle_event.innerText = "Salles : ";
 	for (var j = 0; j < event.salles.length; j++) {
 		if (j == event.salles.length - 1) {
-			salle_event.innerText += event.salles[j];
+			salle_event.innerText += " " + event.salles[j];
 		}
 		else {
-			salle_event.innerText += event.salles[j] + " | ";
+			salle_event.innerText += " " + event.salles[j] + " |";
 		}
 	}
 	
