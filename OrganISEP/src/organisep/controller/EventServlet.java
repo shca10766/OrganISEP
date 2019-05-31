@@ -1,13 +1,13 @@
 package organisep.controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -82,6 +82,7 @@ public class EventServlet extends HttpServlet {
 		String t = request.getParameter("Time");
 		String lien = request.getParameter("Lien");		
 		String desc = request.getParameter("Desc");
+		String image = request.getParameter("Image");
 		
 		int idCreat = 0;
 		if (!request.getParameter("IdCreat").equals("")) {
@@ -113,6 +114,9 @@ public class EventServlet extends HttpServlet {
 		}
 		
 		String imageEvent = "img/imgEvent/noImage.png";
+		if (!image.equals("")) {
+			imageEvent = "img/imgEvent/" + image ;
+		}
 		
 		SimpleDateFormat old_sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -132,9 +136,13 @@ public class EventServlet extends HttpServlet {
 			for (int k = 0; k < listRessources.size(); k++) {
 				eventDao.reservRess(listRessources.get(k), idEvent);
 			}
+			eventDao.sendHTMLEmail(eventBean);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

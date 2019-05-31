@@ -6,11 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.google.protobuf.TextFormat.ParseException;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 import organisep.bean.CommentBean;
 import organisep.bean.EventBean;
@@ -42,11 +51,16 @@ public class EventDao {
  				String creat = getCreateur(idCreat, "nom");
  				String imCreat = getCreateur(idCreat, "image");
  				
+ 				int participants = resultSet.getInt("evenement_participant"); 
+ 				int budget = resultSet.getInt("evenement_budget");
+ 				
  				int valEvent = resultSet.getInt("evenement_validation");
  				int statutEvent = resultSet.getInt("evenement_statut");
+ 				ArrayList<String> ressources = getRessources(idEvent);
  				
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
+ 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, 
+ 						statutEvent, descriptionEvent, commentsEvent, participants, budget, ressources);
  				events.add(event);
  			}
  		}
@@ -100,8 +114,9 @@ public class EventDao {
  				Date dateComment = rs.getDate("commentaire_date");	
  				Boolean readComment = rs.getBoolean("commentaire_lu");
  				String nameCreat = getCreateur(idCreat, "nom");
+ 				int eventComment = rs.getInt("evenement_id");
  				
- 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment);
+ 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment, eventComment);
  				comments.add(comment);
  			}
  		}
@@ -156,7 +171,7 @@ public class EventDao {
  		}
 		return salles;
 	}
-	
+
 	public int createEvent(EventBean e, int idCreat) throws ParseException, java.text.ParseException {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
@@ -239,5 +254,75 @@ public class EventDao {
  		catch(SQLException ex) {
  			ex.printStackTrace();
  		}
+	}
+	
+	public void sendHTMLEmail(EventBean event) throws MessagingException {
+		Properties props = new Properties();
+	      props.put("mail.smtp.auth", "true");
+	      props.put("mail.smtp.starttls.enable", "true");
+	      props.put("mail.smtp.host", "smtp.live.com");
+	      props.put("mail.smtp.port", "587");
+
+		// Get the Session object.
+		Session session = Session.getInstance(props, new Authenticator() {
+		    @Override
+		    protected PasswordAuthentication getPasswordAuthentication() {
+		        return new PasswordAuthentication("iseporgan@hotmail.com", "passOrgan");
+		    }
+		});
+
+		try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("iseporgan@hotmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse("iseporgan@hotmail.com")
+            );
+            message.setSubject("Demande de validation d'événement");
+            message.setText(event.getCreat() + " a créé l'événement " + event.getTitre() + " et requiert votre validation"
+                    + "\n\n Merci d'aller sur l'application Organ'Isep pour ce faire!");
+
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public EventBean getEvent(String eventTitle) {
+		EventBean event;
+		ArrayList<EventBean> listEvents = new ArrayList<EventBean>();
+		listEvents = getEvents(listEvents);
+		for(int i = 0 ; i<listEvents.size(); i++) {
+			if (listEvents.get(i).getTitre().equals(eventTitle)){
+				event = listEvents.get(i);
+				return event;
+			}
+		}
+		return null;
+	}
+	
+	private ArrayList<String> getRessources(int idEvent) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+ 		ResultSet rs = null;
+ 		ArrayList<String> ressources = new ArrayList<String>();
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "SELECT ressource_nom FROM ressources WHERE evenement_id = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setInt(1, idEvent);
+ 			rs = preparedStatement.executeQuery();
+ 
+ 			while(rs.next()) { 
+ 				ressources.add(rs.getString("ressource_nom"));
+ 			}
+ 		}
+ 		catch(SQLException e) {
+ 			e.printStackTrace();
+ 		}
+		return ressources;
 	}
 }

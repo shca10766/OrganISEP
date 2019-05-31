@@ -39,6 +39,12 @@
       		<label for="inputLien">Lien de l'événement</label>
       		<input type="text" class="form-control" id="inputLien" >
     	</div>
+  	</div>  	
+  	<div class="form-row">
+  		<div class="form-group col-md-12 custom-file">
+    		<label for="inputImage" class="custom-file-label">Choisir une image</label>
+    		<input type="file" class="custom-file-input" id="inputImage" name="inputImage" onchange="modifLabel(this)">
+  		</div>
   	</div>
   	<div id="formRess">
   		Ressources
@@ -83,7 +89,6 @@
     	<textarea class="form-control" id="textDesc" rows="3"></textarea>
   	</div>  	
   	<div id="btnFormEvent">
-		<button class="btnForm">Enregistrer (Brouillon)</button>
 		<button class="btnForm" id="addEventForm">Enregistrer et Envoyer</button>
 	</div>
 </form>
@@ -196,6 +201,9 @@ $('#addEventForm').click(function(event) {
     var time = $('#inputTime').val();
     var budget = $('#inputBudget').val();
     
+    var splitImage = $('#inputImage').val().split('\\');
+	var image = splitImage[splitImage.length - 1];
+    
     if (nom != "" && nbrPart != "" && date != "" && time != "") {
     	var allSalles = [];
         $('#formSalles > div').each(function() {
@@ -224,6 +232,7 @@ $('#addEventForm').click(function(event) {
         	Budget: budget,
         	Salles: allSalles,
         	Lien: lien,
+        	Image: image,
         	Ress: allRess,
         	Desc: desc,
         	IdCreat: "<%= request.getParameter("id")%>"
@@ -239,5 +248,10 @@ $('#addEventForm').click(function(event) {
 	}
     
 });
+
+function modifLabel(e) {
+	var image = e.value.split('\\');
+	e.parentElement.children[0].innerText = image[image.length - 1];
+}
 
 </script>

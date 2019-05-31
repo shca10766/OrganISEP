@@ -1,20 +1,20 @@
 <div id="filtre_statut">
-	<a href="#" class="active" onclick="display_myEtiq(this, 'all')">Tous les événements</a> | <a href="#" onclick="display_myEtiq(this, 'my')">Mes événements</a> | <a href="#">Brouillons</a>
+	<a href="#" class="active" onclick="display_myEtiq(this, 'all')">Tous les Ã©vÃ©nements</a> | <a href="#" onclick="display_myEtiq(this, 'my')">Mes Ã©vÃ©nements</a> | <a href="#">Brouillons</a>
 </div>
 
 <div id="dashEvents">
 	<div id="filtre_events">
 		<div id="filtre_date">
 			Date : 
-			<input type="checkbox" id="passe" name="passe" onclick="filtre_function()"><label for="passe">Passé</label>
+			<input type="checkbox" id="passe" name="passe" onclick="filtre_function()"><label for="passe">PassÃ©</label>
 			<input type="checkbox" id="futur" name="futur" onclick="filtre_function()" checked><label for="futur">A venir</label>
 		</div>
 		<div id="filtre_validation">
 			Statut : 
-			<input type="checkbox" id="statut_val" name="statut_val" onclick="filtre_function()" checked><label for="statut_val">Validé</label>
-			<input type="checkbox" id="statut_vsr" name="statut_vsr" onclick="filtre_function()"><label for="statut_vsr">Validé sous réserve</label>
+			<input type="checkbox" id="statut_val" name="statut_val" onclick="filtre_function()" checked><label for="statut_val">ValidÃ©</label>
+			<input type="checkbox" id="statut_vsr" name="statut_vsr" onclick="filtre_function()"><label for="statut_vsr">ValidÃ© sous rÃ©serve</label>
 			<input type="checkbox" id="statut_cours" name="statut_cours" onclick="filtre_function()"><label for="statut_cours">En cours</label>
-			<input type="checkbox" id="statut_ref" name="statut_ref" onclick="filtre_function()"><label for="statut_ref">Refusé</label>
+			<input type="checkbox" id="statut_ref" name="statut_ref" onclick="filtre_function()"><label for="statut_ref">RefusÃ©</label>
 		</div>
 	</div>
 	<div id="list_events">
@@ -32,11 +32,11 @@
 			
 			if (r[i].validation == 1) { 
 				etiquette.classList.add("statut_val");
-				validation = "Validé";
+				validation = "ValidÃ©";
 			}
 			else if (r[i].validation == 2) { 
 				etiquette.classList.add("statut_vsr");
-				validation = "Validé sous réserve";
+				validation = "ValidÃ© sous rÃ©serve";
 			}
 			else if (r[i].validation == 3) { 
 				etiquette.classList.add("statut_cours"); 
@@ -44,7 +44,7 @@
 			}
 			else { 
 				etiquette.classList.add("statut_ref"); 
-				validation = "Refusé";
+				validation = "RefusÃ©";
 			}
 			
 			if (r[i].etat == 1) { etiquette.classList.add("futur"); }
@@ -75,7 +75,7 @@
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");
 			var myDate = new Date("\'" + r[i].date + "\'");
-			sousTitre_event.innerText = "Le " +  r[i].date + " à " + r[i].time;
+			sousTitre_event.innerText = "Le " +  r[i].date + " Ã  " + r[i].time;
 			
 			var salle_event = document.createElement("div");
 			salle_event.classList.add("salle_event");
@@ -132,7 +132,6 @@
 				displayEvents(result);
 	        }
 		};
-
 		xhr.open("GET", "EventServlet?action=etiquettes", true);
 		xhr.send(null);
 	}
@@ -224,11 +223,9 @@
 	}
 	
 	function getEvent(event) {
-		
 		var pageDash = document.getElementById("dashboard").children;
 		pageDash[0].style.display = "none";
 		pageDash[1].style.display = "block";
 		displayDetails(event);
 	}
 </script>
-
