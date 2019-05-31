@@ -33,7 +33,7 @@
 				<div class="list-group" id="list_nav" role="tablist">
 					  <a class="list-group-item list-group-item-action active" onclick="returnDash()" data-toggle="list" href="#dashboard" id="item_dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
 					  <% if( user.getStatut() == 2 ) { %>
-					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> CrÃ©er un Ã©vÃ©nement</a>
+					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
 					  <% } %>
 				</div>
 				
