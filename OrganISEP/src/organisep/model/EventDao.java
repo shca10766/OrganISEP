@@ -54,7 +54,7 @@ public class EventDao {
  				int valEvent = resultSet.getInt("evenement_validation");
  				int statutEvent = resultSet.getInt("evenement_statut");
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
+ 				EventBean event = new EventBean(idEvent, titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
  				events.add(event);
  			}
  		}
@@ -282,4 +282,17 @@ public class EventDao {
             e.printStackTrace();
         }
 	}
+	
+	/*public void updateEvent(int id, int val) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "UPDATE utilisateur SET ' .$type. ' = ? WHERE code = ?";
+ 		}
+ 		catch(SQLException ex) {
+ 			ex.printStackTrace();
+ 		}
+	}*/
 }

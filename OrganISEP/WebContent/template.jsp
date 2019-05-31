@@ -50,6 +50,7 @@
 					  	<div style="display: none;">
 					  		<jsp:include page="event.jsp" >
 							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+							  	<jsp:param name="statutUser" value="<%= user.getStatut() %>" />
 							</jsp:include>
 					  	</div>
 					  </div>

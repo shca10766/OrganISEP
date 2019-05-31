@@ -70,6 +70,16 @@ public class EventServlet extends HttpServlet {
 				response.getWriter().write("1");
 			}
 		}
+		
+		else if (action.equals("updateStatut")) {
+			String comm = request.getParameter("Com");
+			
+			int id = Integer.parseInt(request.getParameter("id"));
+			int val = Integer.parseInt(request.getParameter("Val"));
+			
+			EventDao eventDao = new EventDao();
+			//eventDao.updateEvent(id, val);
+		}
 	}
 
 	/**
