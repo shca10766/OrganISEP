@@ -34,7 +34,7 @@ public class EventDao {
 		try {
  			con = BDConnexion.createConnection();
  			statement = con.createStatement();
- 			resultSet = statement.executeQuery("select * from evenements ORDER BY evenement_date DESC");
+ 			resultSet = statement.executeQuery("select * from evenements");
  
  			while(resultSet.next()) { 
  				
@@ -51,10 +51,16 @@ public class EventDao {
  				String creat = getCreateur(idCreat, "nom");
  				String imCreat = getCreateur(idCreat, "image");
  				
+ 				int participants = resultSet.getInt("evenement_participant"); 
+ 				int budget = resultSet.getInt("evenement_budget");
+ 				
  				int valEvent = resultSet.getInt("evenement_validation");
  				int statutEvent = resultSet.getInt("evenement_statut");
+ 				ArrayList<String> ressources = getRessources(idEvent);
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, statutEvent, descriptionEvent, commentsEvent);
+ 				
+ 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, 
+ 						statutEvent, descriptionEvent, commentsEvent, participants, budget, ressources);
  				events.add(event);
  			}
  		}
@@ -272,8 +278,8 @@ public class EventDao {
                     Message.RecipientType.TO,
                     InternetAddress.parse("iseporgan@hotmail.com")
             );
-            message.setSubject("Demande de validation d'événement");
-            message.setText(event.getCreat() + " a créé l'événement " + event.getTitre() + " et requiert votre validation"
+            message.setSubject("Demande de validation d'Ã©vÃ©nement");
+            message.setText(event.getCreat() + " a crÃ©Ã© l'Ã©vÃ©nement " + event.getTitre() + " et requiert votre validation"
                     + "\n\n Merci d'aller sur l'application Organ'Isep pour ce faire!");
 
             Transport.send(message);
@@ -281,5 +287,41 @@ public class EventDao {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+	}
+	
+	public EventBean getEvent(String eventTitle) {
+		EventBean event;
+		ArrayList<EventBean> listEvents = new ArrayList<EventBean>();
+		listEvents = getEvents(listEvents);
+		for(int i = 0 ; i<listEvents.size(); i++) {
+			if (listEvents.get(i).getTitre().equals(eventTitle)){
+				event = listEvents.get(i);
+				return event;
+			}
+		}
+		return null;
+	}
+	
+	private ArrayList<String> getRessources(int idEvent) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+ 		ResultSet rs = null;
+ 		ArrayList<String> ressources = new ArrayList<String>();
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "SELECT ressource_nom FROM ressources WHERE evenement_id = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setInt(1, idEvent);
+ 			rs = preparedStatement.executeQuery();
+ 
+ 			while(rs.next()) { 
+ 				ressources.add(rs.getString("ressource_nom"));
+ 			}
+ 		}
+ 		catch(SQLException e) {
+ 			e.printStackTrace();
+ 		}
+		return ressources;
 	}
 }
