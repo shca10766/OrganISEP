@@ -35,7 +35,6 @@
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
 					  <% } %>
-					  <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" id="item_settings" role="tab"><i class="fas fa-cog"></i> Paramètres</a>
 				</div>
 				
 				<!-- Tab panes -->
@@ -66,9 +65,6 @@
 							</jsp:include>
 					  	</div>
 					  <% } %>
-					  <div class="tab-pane" id="settings" role="tabpanel">
-					  	<%@include file="settings.jsp" %>
-					  </div>
 				</div>
 			</div>
 		
