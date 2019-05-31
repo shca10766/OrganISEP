@@ -115,7 +115,7 @@ public class EventDao {
  				Boolean readComment = rs.getBoolean("commentaire_lu");
  				String nameCreat = getCreateur(idCreat, "nom");
  				
- 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment);
+ 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment, eventComment);
  				comments.add(comment);
  			}
  		}
