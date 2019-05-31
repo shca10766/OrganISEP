@@ -72,7 +72,7 @@ function displayDetails(event) {
 	document.getElementById("modif").addEventListener('click', function(){
 		var pageDash = document.getElementById("dashboard").children;
 		pageDash[1].style.display = "none";
-		document.getElementById("edit").style.display = "block";
+		pageDash[2].style.display = "block";
 	    modifyEvent(event);
 	});
 	
@@ -218,12 +218,6 @@ function cleanComments(discussion){
 	while (discussion.firstChild) {
 		discussion.removeChild(discussion.firstChild);
 	}
-}
-
-function returnDash() {
-	var pageDash = document.getElementById("dashboard").children;
-	pageDash[0].style.display = "block";
-	pageDash[1].style.display = "none";
 }
 
 $('#formNewComment').click(function(event) {

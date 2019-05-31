@@ -323,36 +323,36 @@ nav {
 <!-- ------- CREATION D'EVENT --------- -->
 <!-- ------------------------------------ */
 
-#editEvent {
+#edit {
 	background-color: white;
     margin: 18px 30px;
     box-shadow: 1px 0px 4px rgb(112, 112, 112);
 }
 
-#editEvent h3 {
+#edit h3 {
 	padding-top: 20px;
 	color: #a93049;
 	text-align: center;
 }
 
-#editEvent #msgErrorCreat {
+#edit #msgErrorCreat {
 	color: red;
 	margin-bottom: 10px;
 }
 
-#editEvent #msgErrorCreat i {
+#edit #msgErrorCreat i {
 	margin-right: 5px;
 }
 
-#editEvent #formCreatEvent {
+#edit #formCreatEvent {
 	padding: 30px;
 }
 
-#editEvent #formSalles {
+#edit #formSalles {
 	margin-bottom: -20px;
 }
 
-#editEvent .input-group-prepend {
+#edit .input-group-prepend {
 	cursor: pointer;
 }
 
@@ -368,27 +368,6 @@ nav {
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
 #dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
 
-
-#edit ol{
-	background-color: #f1f7f6;
-}
-
-#edit li{
-	font-weight: bold;
-	color: rgb(112, 112, 112);
-}
-
-#edit ol #modif{
-	position: absolute;
-	right: 10px;
-	font-weight: bold;
-	color: rgb(112, 112, 112);
-}
-
-#edit ol .link:hover{
-	cursor: pointer;
-	color: #A8334A!important;
-}
 
 /* ------------------------------------ -->
 <!-- --------- CSS EVENT ------------- -->
@@ -414,23 +393,23 @@ nav {
     font-weight: bold;
 }
 
-#detail ol{
+#dashboard ol{
 	background-color: #f1f7f6;
 }
 
-#detail li{
+.breadcrumb li{
 	font-weight: bold;
 	color: rgb(112, 112, 112);
 }
 
-#detail ol #modif{
+#dashboard ol #modif{
 	position: absolute;
 	right: 10px;
 	font-weight: bold;
 	color: rgb(112, 112, 112);
 }
 
-#detail ol .link:hover{
+#dashboard ol .link:hover{
 	cursor: pointer;
 	color: #A8334A!important;
 }
@@ -503,3 +482,52 @@ nav {
 	position: relative;
   	left: 85px;
 }
+
+/* ------------------------------------ -->
+<!-- --------- CSS MODIFY EVENT ------------- -->
+<!-- ------------------------------------ */
+
+#modifyEvent {
+	background-color: white;
+    margin: 18px 30px;
+    box-shadow: 1px 0px 4px rgb(112, 112, 112);
+}
+
+#modifyEvent h3 {
+	padding-top: 20px;
+	color: #a93049;
+	text-align: center;
+}
+
+#modifyEvent #msgErrorCreat {
+	color: red;
+	margin-bottom: 10px;
+}
+
+#modifyEvent #msgErrorCreat i {
+	margin-right: 5px;
+}
+
+#modifyEvent #formCreatEvent {
+	padding: 30px;
+}
+
+#modifyEvent #formSalles {
+	margin-bottom: -20px;
+}
+
+#modifyEvent .input-group-prepend {
+	cursor: pointer;
+}
+
+.iconInput:after {
+	font-family: FontAwesome;
+    display: inline-block;
+    content: "\f153";
+    color: rgb(112, 112, 112);
+    font-size: 18px;
+    margin: 0 0 -1px 4px;
+}
+
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 

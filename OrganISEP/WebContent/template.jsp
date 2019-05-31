@@ -53,14 +53,17 @@
 							  	<jsp:param name="creatStatut" value="<%= user.getStatut() %>" />
 							</jsp:include>
 					  	</div>
+					  	<div style="display: none;">
+					  		<jsp:include page="modifyEvent.jsp" >
+							  	<jsp:param name="idCreat" value="<%= user.getId() %>" />
+							</jsp:include>
+					  	</div>
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
-					  		<div>
-					  			<jsp:include page="newEvent.jsp" >
-							  		<jsp:param name="id" value="<%= user.getId() %>" />
-								</jsp:include>
-					  		</div>
+					  		<jsp:include page="newEvent.jsp" >
+						  		<jsp:param name="id" value="<%= user.getId() %>" />
+							</jsp:include>
 					  	</div>
 					  <% } %>
 					  <div class="tab-pane" id="settings" role="tabpanel">
@@ -85,6 +88,7 @@
 				var pageDash = document.getElementById("dashboard").children;
 				pageDash[0].style.display = "block";
 				pageDash[1].style.display = "none";
+				pageDash[2].style.display = "none";
 			}
 	  	</script>
 		
