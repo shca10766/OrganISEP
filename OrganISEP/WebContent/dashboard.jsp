@@ -1,5 +1,5 @@
 <div id="filtre_statut">
-	<a href="#" class="active" onclick="display_myEtiq(this, 'all')">Tous les événements</a> | <a href="#" onclick="display_myEtiq(this, 'my')">Mes événements</a> | <a href="#">Brouillons</a>
+	<a href="#" class="active" onclick="display_myEtiq(this, 'all')">Tous les événements</a> | <a href="#" onclick="display_myEtiq(this, 'my')">Mes événements</a>
 </div>
 
 <div id="dashEvents">
