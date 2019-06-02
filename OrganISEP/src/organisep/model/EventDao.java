@@ -59,7 +59,7 @@ public class EventDao {
  				ArrayList<String> ressources = getRessources(idEvent);
  				
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, 
+ 				EventBean event = new EventBean(idEvent, titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, 
  						statutEvent, descriptionEvent, commentsEvent, participants, budget, ressources);
  				events.add(event);
  			}
