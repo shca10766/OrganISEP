@@ -2,7 +2,12 @@
 	<ol class="breadcrumb">
 	    <li class="breadcrumb-item link"><a onclick="returnDash()" class="sousTitre_event">Tableau de bord</a></li>
 	    <li class="breadcrumb-item active sousTitre_event" id=eventTitre aria-current="page"></li>
-	    <li class="link" id="modif">Modifier l'ÈvÈnement</li>
+	    <% if(request.getParameter("statutUser").equals("1") ) { %>
+	    	<li data-toggle="modal" data-target="#modalValidation" class="link linkAbsolute">Valider l'√©v√©nement</li>
+		<% }
+	    else { %>
+	    	<li class="link linkAbsolute" id="modif"> Modifier l'√©v√©nement</li>
+	    <% } %>	
 	</ol>
 	<div class="etiquette" id="etiquette">
 		<div class="content_img">
@@ -19,20 +24,25 @@
 			<div class="validation_content" id="validation_content"></div>
 		</div>
 		<div class="event_details">
-			<h6 class="sousTitre_detail">Informations supplÈmentaires</h6>
+			<h6 class="sousTitre_detail">Informations suppl√©mentaires</h6>
 			<div class="verticalLine"></div>
 			<span>Description : </span>
 			<p id="description"></p>
-			<span>Ressources demandÈes : </span>
+			<span>Ressources demand√©es : </span>
 			<p id="ressources"></p>
-			<span>Budget : </span>
-			<p id="budget"></p>
-			<span>Nombre de participants : </span>
-			<p id="participant"></p>
 		</div>
-
+		<div class="event_details">
+			<h6 class="sousTitre_detail">Coordonn√©es</h6>
+			<div class="verticalLine"></div>
+			<span>Reservation de salle : </span>
+			<p id="salle"></p>
+			<span>Demande de personnel : </span>
+			<p id="personnel"></p>
+			<span>Demande de materiel : </span>
+			<p id="materiel"></p>
+		</div>
 		<div class="comment">
-			<i id="commentI" class="fas fa-comment-alt"></i><span id="comment" data-toggle="modal" data-target="#commentModal"> Commenter</span>
+			<i class="fas fa-comment-alt"></i><span id="comment" data-toggle="modal" data-target="#commentModal" onclick="displayComment()"> Commenter</span>
 		</div>
 	</div>
 </div>
@@ -64,6 +74,41 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalValidation" tabindex="-1" role="dialog" aria-labelledby="modalValidation" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<h5 class="modal-title" id="titleModalValidation">Validation</h5>
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          			<span aria-hidden="true">&times;</span>
+        		</button>
+      		</div>
+      		<div class="modal-body">
+      			<form id="formValidation">
+      				<div class="form-row" id="list_validation">
+						<div class="form-group col-md-3">
+							<input type="radio" id="validationVal" name="validationValue"><label for="validationVal">Valid√©</label>
+						</div>
+						<div class="form-group col-md-5">
+							<input type="radio" id="validationMiVal" name="validationValue"><label for="validationMiVal">Valid√© sous r√©serve</label>
+						</div>
+						<div class="form-group col-md-3">
+							<input type="radio" id="validationRef" name="validationValue"><label for="validationRef">Refus√©</label>
+						</div>
+					</div>
+					<div class="form-group" id="valiationCom">
+    					<label for="textCom">Ajouter un commentaire</label>
+    					<textarea class="form-control" id="textCom" rows="3"></textarea>
+  					</div>
+      			</form>
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btnModal" data-dismiss="modal" id="validerEvent">Valider</button>
+      		</div>
+    	</div>
+  	</div>
+</div>
+
 <script>
 
 function displayDetails(event) {
@@ -80,11 +125,11 @@ function displayDetails(event) {
 	var validation ="";
 	if (event.validation == 1) { 
 		etiquette.classList.add("valide");
-		validation = "ValidÈ";
+		validation = "Valid√©";
 	}
 	else if (event.validation == 2) { 
 		etiquette.classList.add("vsr");
-		validation = "ValidÈ sous rÈserve";
+		validation = "Valid√© sous r√©serve";
 	}
 	else if (event.validation == 3) { 
 		etiquette.classList.add("cours"); 
@@ -92,7 +137,7 @@ function displayDetails(event) {
 	}
 	else { 
 		etiquette.classList.add("refuse"); 
-		validation = "RefusÈ";
+		validation = "Refus√©";
 	}
 	
 	if (event.etat == 1) { etiquette.classList.add("futur"); }
@@ -110,7 +155,7 @@ function displayDetails(event) {
 	
 	document.getElementById("eventTitleDetail").innerText = event.titre;
 	
-	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " ‡ " + event.time;
+	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " √† " + event.time;
 	
 	var salle_event = document.getElementById("salle_event");
 	salle_event.innerText = "Salles : ";
@@ -255,5 +300,30 @@ $('#commentModal').on('hidden.bs.modal', function(event) {
     	});
 });
     
-
+$('#validerEvent').click(function(event) {
+	if ($('input[name=validationValue]:checked', '#formValidation').val()) {
+		var inputValidation = $('input[name=validationValue]:checked', '#formValidation')[0].id;	
+		var comment = $('#textCom').val();
+		var idnoSplit = document.getElementById("etiquette").getElementsByClassName("content_event")[0].id;
+		
+		if (inputValidation == "validationVal") { var validation = 1; }
+		else if (inputValidation == "validationMiVal" && comment != "") { var validation = 2; }
+		else if (inputValidation == "validationRef") { var validation = 4; }
+		else { var validation = 3; }
+		
+		var splitId = idnoSplit.split('_');
+		var idEvent = splitId[splitId.length - 1];
+		
+		if (validation != 3) {
+			$.get('EventServlet', {
+	        	Val: validation,
+	        	Com: comment,
+	        	action: "updateStatut",
+	        	id: idEvent
+	        }, function(responseText) {
+	       		document.location.reload(true);
+	        });
+		}
+	}
+});
 </script>
