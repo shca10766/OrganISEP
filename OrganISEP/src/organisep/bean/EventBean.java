@@ -29,9 +29,9 @@ public class EventBean {
 	private int etat;
 		
 	public EventBean(int idEvent, String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, 
-		id = idEvent;
 		String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, 
 		ArrayList<CommentBean> commentsEvent, int participantsEvent, int budgetEvent, ArrayList<String> ressourcesEvent) {
+		id = idEvent;
 		salles = sallesEvent;
 		comments = commentsEvent;
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
