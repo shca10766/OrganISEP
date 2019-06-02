@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EventBean {
+	private int id;
 	private ArrayList<String> salles;
 	private ArrayList<CommentBean> comments;
 	private String date;
@@ -27,7 +28,8 @@ public class EventBean {
 
 	private int etat;
 		
-	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, 
+	public EventBean(int idEvent, String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, 
+		id = idEvent;
 		String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, 
 		ArrayList<CommentBean> commentsEvent, int participantsEvent, int budgetEvent, ArrayList<String> ressourcesEvent) {
 		salles = sallesEvent;
@@ -78,6 +80,14 @@ public class EventBean {
 		lien = lienEvent;
 		ressources = ressourcesEvent;
 		description = descEvent;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getTime() {
