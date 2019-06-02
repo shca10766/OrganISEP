@@ -10,7 +10,7 @@
 		<div id="msgErrorCreat"  style="display: none;"><i class="fas fa-exclamation-triangle"></i>Les champs comportant une * sont obligatoires</div>
 		<div class="form-row">
 	    	<div class="form-group col-md-8">
-	    		<label for="inputNom">Nom de l'Ã©vÃ©nement *</label>
+	    		<label for="inputNom">Nom de l'événement *</label>
 	    		<input type="text" class="form-control" id="inputNom">
 	    	</div>
 	    	<div class="form-group col-md-4">
@@ -24,7 +24,7 @@
 	      		<input type="date" class="form-control" id="inputDate">
 	    	</div>
 	    	<div class="form-group col-md-4">
-	      		<label for="inputTime">Heure de dÃ©but *</label>
+	      		<label for="inputTime">Heure de début *</label>
 	      		<input type="time" class="form-control" id="inputTime">
 	    	</div>
 	    	<div class="form-group col-md-4">
@@ -39,11 +39,11 @@
 	        		<div class="input-group-prepend">
 	          			<div data-toggle="modal" data-target="#modalSalle" class="input-group-text"><i class="fas fa-list"></i></div>
 	        		</div>
-	        		<input type="text" class="form-control" id="inputSalle" placeholder="Cliquer sur l'icÃ´ne pour rÃ©server une salle" disabled>
+	        		<input type="text" class="form-control" id="inputSalle" placeholder="Cliquer sur l'icône pour réserver une salle" disabled>
 	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-6">
-	      		<label for="inputLien">Lien de l'Ã©vÃ©nement</label>
+	      		<label for="inputLien">Lien de l'événement</label>
 	      		<input type="text" class="form-control" id="inputLien" >
 	    	</div>
 	  	</div>
@@ -51,28 +51,28 @@
 	  		Ressources
 			<div class="form-row " id="list_ress">
 				<div class="form-group col-md-3">
-					<input type="checkbox" id="ressWifi" name="ressWifi"><label for="ressWifi">AccÃ¨s Wifi</label>
+					<input type="checkbox" id="ressWifi" name="ressWifi"><label for="ressWifi">Accès Wifi</label>
 				</div>
 				<div class="form-group col-md-3">
-					<input type="checkbox" id="ressReseaux" name="ressReseaux"><label for="ressReseaux">Fournitures RÃ©seaux</label>
+					<input type="checkbox" id="ressReseaux" name="ressReseaux"><label for="ressReseaux">Fournitures Réseaux</label>
 				</div>
 				<div class="form-group col-md-3">
 					<input type="checkbox" id="ressGardien" name="ressGardien"><label for="ressGardien">Gardien</label>
 				</div>
 				<div class="form-group col-md-3">
-					<input type="checkbox" id="ressCarEtab" name="ressCarEtab"><label for="ressCarEtab">Voitures dans l'Ã©tablissement</label>
+					<input type="checkbox" id="ressCarEtab" name="ressCarEtab"><label for="ressCarEtab">Voitures dans l'établissement</label>
 				</div>
 				<div class="form-group col-md-3">
 					<input type="checkbox" id="ressElec" name="ressElec"><label for="ressElec">Chauffage & Eclairage</label>
 				</div>
 				<div class="form-group col-md-3">
-					<input type="checkbox" id="ressPersonExt" name="ressPersonExt"><label for="ressPersonExt">EntrÃ©e autorisÃ©e aux personnes extÃ©rieures</label>
+					<input type="checkbox" id="ressPersonExt" name="ressPersonExt"><label for="ressPersonExt">Entrée autorisée aux personnes extérieures</label>
 				</div>
 				<div class="form-group col-md-3">
-					<input type="checkbox" id="ressChaise" name="ressChaise"><label for="ressChaise">SupplÃ©ment de chaises</label>
+					<input type="checkbox" id="ressChaise" name="ressChaise"><label for="ressChaise">Supplément de chaises</label>
 				</div>
 				<div class="form-group col-md-3">
-					<input type="checkbox" id="ressTable" name="ressTable"><label for="ressTable">SupplÃ©ment de tables</label>
+					<input type="checkbox" id="ressTable" name="ressTable"><label for="ressTable">Supplément de tables</label>
 				</div>
 			</div>
 		</div>
@@ -86,7 +86,7 @@
 	    	</div>
 	  	</div>
 		<div class="form-group" id="divDesc">
-	    	<label for="textDesc">Description de l'Ã©vÃ©nement</label>
+	    	<label for="textDesc">Description de l'événement</label>
 	    	<textarea class="form-control" id="textDesc" rows="3"></textarea>
 	  	</div>  	
 	  	<div id="btnFormEvent">
@@ -100,13 +100,13 @@
   	<div class="modal-dialog" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<h5 class="modal-title" id="titleModalSalle">RÃ©servation de salles</h5>
+        		<h5 class="modal-title" id="titleModalSalle">Réservation de salles</h5>
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           			<span aria-hidden="true">&times;</span>
         		</button>
       		</div>
       		<div class="modal-body">
-      			<div class="text_modal">Cliquer sur les salles que vous souhaitez rÃ©server</div>
+      			<div class="text_modal">Cliquer sur les salles que vous souhaitez réserver</div>
         		<form>
         			<div id="formSalles" class="form-row">
         			</div>
@@ -262,7 +262,7 @@ function modifyEvent(event) {
 			pageDash[2].style.display = "none";
 		});
 	
-	document.getElementById("titre").innerText = "Modification de l'Ã©vÃ©nement " + event.titre;
+	document.getElementById("titre").innerText = "Modification de l'événement " + event.titre;
 	document.getElementById("inputNom").value = event.titre;
 	document.getElementById("inputPart").value = event.participant;
 	document.getElementById("inputDate").value = event.date;

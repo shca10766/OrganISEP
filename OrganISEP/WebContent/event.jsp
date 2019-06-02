@@ -2,12 +2,14 @@
 	<ol class="breadcrumb">
 	    <li class="breadcrumb-item link"><a onclick="returnDash()" class="sousTitre_event">Tableau de bord</a></li>
 	    <li class="breadcrumb-item active sousTitre_event" id=eventTitre aria-current="page"></li>
-	    <% if(request.getParameter("statutUser").equals("1") ) { %>
-	    	<li data-toggle="modal" data-target="#modalValidation" class="link linkAbsolute">Valider l'√©v√©nement</li>
-		<% }
-	    else { %>
-	    	<li class="link linkAbsolute" id="modif"> Modifier l'√©v√©nement</li>
-	    <% } %>	
+	    <div id="modif">
+	    	<% if(request.getParameter("creatStatut").equals("1") ) { %>
+	    		<li data-toggle="modal" data-target="#modalValidation" class="link linkAbsolute">Valider l'ÈvÈnement</li>
+			<% }
+	    	else { %>
+	    		<li class="link linkAbsolute"> Modifier l'ÈvÈnement</li>
+	    	<% } %>	
+	    </div>
 	</ol>
 	<div class="etiquette" id="etiquette">
 		<div class="content_img">
@@ -24,25 +26,20 @@
 			<div class="validation_content" id="validation_content"></div>
 		</div>
 		<div class="event_details">
-			<h6 class="sousTitre_detail">Informations suppl√©mentaires</h6>
+			<h6 class="sousTitre_detail">Informations supplÈmentaires</h6>
 			<div class="verticalLine"></div>
 			<span>Description : </span>
 			<p id="description"></p>
-			<span>Ressources demand√©es : </span>
+			<span>Ressources demandÈes : </span>
 			<p id="ressources"></p>
+			<span>Budget : </span>
+			<p id="budget"></p>
+			<span>Nombre de participants : </span>
+			<p id="participant"></p>
 		</div>
-		<div class="event_details">
-			<h6 class="sousTitre_detail">Coordonn√©es</h6>
-			<div class="verticalLine"></div>
-			<span>Reservation de salle : </span>
-			<p id="salle"></p>
-			<span>Demande de personnel : </span>
-			<p id="personnel"></p>
-			<span>Demande de materiel : </span>
-			<p id="materiel"></p>
-		</div>
+
 		<div class="comment">
-			<i class="fas fa-comment-alt"></i><span id="comment" data-toggle="modal" data-target="#commentModal" onclick="displayComment()"> Commenter</span>
+			<i id="commentI" class="fas fa-comment-alt"></i><span id="comment" data-toggle="modal" data-target="#commentModal"> Commenter</span>
 		</div>
 	</div>
 </div>
@@ -87,13 +84,13 @@
       			<form id="formValidation">
       				<div class="form-row" id="list_validation">
 						<div class="form-group col-md-3">
-							<input type="radio" id="validationVal" name="validationValue"><label for="validationVal">Valid√©</label>
+							<input type="radio" id="validationVal" name="validationValue"><label for="validationVal">ValidÈ</label>
 						</div>
 						<div class="form-group col-md-5">
-							<input type="radio" id="validationMiVal" name="validationValue"><label for="validationMiVal">Valid√© sous r√©serve</label>
+							<input type="radio" id="validationMiVal" name="validationValue"><label for="validationMiVal">ValidÈ sous rÈserve</label>
 						</div>
 						<div class="form-group col-md-3">
-							<input type="radio" id="validationRef" name="validationValue"><label for="validationRef">Refus√©</label>
+							<input type="radio" id="validationRef" name="validationValue"><label for="validationRef">RefusÈ</label>
 						</div>
 					</div>
 					<div class="form-group" id="valiationCom">
@@ -114,22 +111,15 @@
 function displayDetails(event) {
 	document.getElementById("eventTitre").innerText = event.titre;
 	
-	document.getElementById("modif").addEventListener('click', function(){
-		var pageDash = document.getElementById("dashboard").children;
-		pageDash[1].style.display = "none";
-		pageDash[2].style.display = "block";
-	    modifyEvent(event);
-	});
-	
 	var etiquette = document.getElementById("etiquette")
 	var validation ="";
 	if (event.validation == 1) { 
 		etiquette.classList.add("valide");
-		validation = "Valid√©";
+		validation = "ValidÈ";
 	}
 	else if (event.validation == 2) { 
 		etiquette.classList.add("vsr");
-		validation = "Valid√© sous r√©serve";
+		validation = "ValidÈ sous rÈserve";
 	}
 	else if (event.validation == 3) { 
 		etiquette.classList.add("cours"); 
@@ -137,7 +127,7 @@ function displayDetails(event) {
 	}
 	else { 
 		etiquette.classList.add("refuse"); 
-		validation = "Refus√©";
+		validation = "RefusÈ";
 	}
 	
 	if (event.etat == 1) { etiquette.classList.add("futur"); }
@@ -145,6 +135,16 @@ function displayDetails(event) {
 	
 	if ("<%= request.getParameter("creatNom")%>" == event.creat) {
 		etiquette.classList.add("creat");
+		document.getElementById("modif").style.display = "block";
+		
+		document.getElementById("modif").addEventListener('click', function(){
+			var pageDash = document.getElementById("dashboard").children;
+			pageDash[1].style.display = "none";
+			pageDash[2].style.display = "block";
+		    modifyEvent(event);
+		});
+	}
+	else if ("<%= request.getParameter("creatStatut")%>" == 1) {
 		document.getElementById("modif").style.display = "block";
 	}
 	else {
@@ -155,7 +155,7 @@ function displayDetails(event) {
 	
 	document.getElementById("eventTitleDetail").innerText = event.titre;
 	
-	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " √† " + event.time;
+	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " ‡ " + event.time;
 	
 	var salle_event = document.getElementById("salle_event");
 	salle_event.innerText = "Salles : ";
@@ -164,7 +164,7 @@ function displayDetails(event) {
 			salle_event.innerText += " " + event.salles[j];
 		}
 		else {
-			salle_event.innerText += " " + event.salles[j] + " |";
+			salle_event.innerText += " " + event.salles[j] + " | ";
 		}
 	}
 	

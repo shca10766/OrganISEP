@@ -51,27 +51,28 @@ input:focus {
 	margin-left: 5px;
 }
 
-input[type=checkbox] { 
+input[type=checkbox], input[type=radio] { 
 	display:none; 
 }
 
-input[type=checkbox] + label:before, label {
+input[type=checkbox] + label:before, label, input[type=radio] + label:before {
 	cursor: pointer;
 }
 
-input[type=checkbox] + label:before { 
+input[type=checkbox] + label:before, input[type=radio] + label:before { 
   	font-family: FontAwesome;
   	display: inline-block;
 	content: "\f096"; 
 	color: #a93049;	
     font-size: 18px;
     margin: 0 0 -1px 4px;
+    letter-spacing: 5px;
 }
 
-input[type=checkbox] + label:before { letter-spacing: 5px; }
-
-input[type=checkbox]:checked + label:before { content: "\f046"; }
-input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+input[type=checkbox]:checked + label:before, input[type=radio]:checked + label:before { 
+	content: "\f046";
+	letter-spacing: 2.5px;
+}
 
 /* ------------------------------------ -->
 <!-- --------- CSS MODAL ------------- -->
@@ -453,12 +454,8 @@ nav {
 	position: absolute;
 	right: 10px;
 	bottom: 10px;
-}
-
-#detail .comment{
-	position: absolute;
-	right: 10px;
-	bottom: 10px;
+	display: flex;
+    align-items: center;
 }
 
 #detail .comment i{
