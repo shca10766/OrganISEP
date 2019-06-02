@@ -78,7 +78,7 @@ public class EventServlet extends HttpServlet {
 			int val = Integer.parseInt(request.getParameter("Val"));
 			
 			EventDao eventDao = new EventDao();
-			//eventDao.updateEvent(id, val);
+			eventDao.updateEvent(id, val);
 		}
 	}
 
