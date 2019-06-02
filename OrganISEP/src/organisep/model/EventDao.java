@@ -325,4 +325,23 @@ public class EventDao {
  		}
 		return ressources;
 	}
+	
+	public void updateEvent(int id, int val) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			con = BDConnexion.createConnection();
+			String selectSQL = "UPDATE evenements SET evenement_validation = ? WHERE evenement_id = ?";
+			preparedStatement = con.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, val);
+ 			preparedStatement.setInt(2, id);
+ 		
+ 			
+ 			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
