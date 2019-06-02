@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
     	<!-- Required meta tags -->
     	<meta charset="utf-8">
@@ -33,8 +33,9 @@
 				<div class="list-group" id="list_nav" role="tablist">
 					  <a class="list-group-item list-group-item-action active" onclick="returnDash()" data-toggle="list" href="#dashboard" id="item_dashboard" role="tab"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
 					  <% if( user.getStatut() == 2 ) { %>
-					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> Créer un événement</a>
+					  	<a class="list-group-item list-group-item-action" data-toggle="list" href="#edit" id="item_edit" role="tab"><i class="fas fa-pen"></i> CrÃ©er un Ã©vÃ©nement</a>
 					  <% } %>
+					  <a class="list-group-item" href="/OrganISEP/LoginServlet" id="btn_deco"><i class="fas fa-power-off"></i> DÃ©connexion</a>
 				</div>
 				
 				<!-- Tab panes -->
@@ -47,21 +48,15 @@
 					  	</div>
 					  	<div style="display: none;">
 					  		<jsp:include page="event.jsp" >
-							  	<jsp:param name="creatNom" value="<%= user.getNom() %>" />
-							  	<jsp:param name="idCreat" value="<%= user.getId() %>" />
-							  	<jsp:param name="creatStatut" value="<%= user.getStatut() %>" />
-							</jsp:include>
-					  	</div>
-					  	<div style="display: none;">
-					  		<jsp:include page="modifyEvent.jsp" >
-							  	<jsp:param name="idCreat" value="<%= user.getId() %>" />
+							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
+							  	<jsp:param name="statutUser" value="<%= user.getStatut() %>" />
 							</jsp:include>
 					  	</div>
 					  </div>
 					  <% if( user.getStatut() == 2 ) { %>
 					  	<div class="tab-pane" id="edit" role="tabpanel">
 					  		<jsp:include page="newEvent.jsp" >
-						  		<jsp:param name="id" value="<%= user.getId() %>" />
+							  	<jsp:param name="id" value="<%= user.getId() %>" />
 							</jsp:include>
 					  	</div>
 					  <% } %>
@@ -84,7 +79,6 @@
 				var pageDash = document.getElementById("dashboard").children;
 				pageDash[0].style.display = "block";
 				pageDash[1].style.display = "none";
-				pageDash[2].style.display = "none";
 			}
 	  	</script>
 		
