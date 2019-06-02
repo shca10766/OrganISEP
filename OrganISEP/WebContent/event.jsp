@@ -221,6 +221,8 @@ function displayDetails(event) {
 	    });
 	})
 	
+	etiquette.getElementsByClassName("content_event")[0].id = "etiquette_" + event.id;
+	
 }
 
 function displayComment(event){
