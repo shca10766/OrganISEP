@@ -48,8 +48,15 @@
 					  	</div>
 					  	<div style="display: none;">
 					  		<jsp:include page="event.jsp" >
-							  	<jsp:param name="creat" value="<%= user.getNom() %>" />
-							  	<jsp:param name="statutUser" value="<%= user.getStatut() %>" />
+
+							  	<jsp:param name="creatNom" value="<%= user.getNom() %>" />
+							  	<jsp:param name="idCreat" value="<%= user.getId() %>" />
+							  	<jsp:param name="creatStatut" value="<%= user.getStatut() %>" />
+							</jsp:include>
+					  	</div>
+					  	<div style="display: none;">
+					  		<jsp:include page="modifyEvent.jsp" >
+							  	<jsp:param name="idCreat" value="<%= user.getId() %>" />
 							</jsp:include>
 					  	</div>
 					  </div>

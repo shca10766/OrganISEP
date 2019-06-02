@@ -454,12 +454,8 @@ nav {
 	position: absolute;
 	right: 10px;
 	bottom: 10px;
-}
-
-#detail .comment{
-	position: absolute;
-	right: 10px;
-	bottom: 10px;
+	display: flex;
+    align-items: center;
 }
 
 #detail .comment i{
@@ -470,3 +466,81 @@ nav {
 #detail .comment:hover{
 	cursor: pointer;
 }
+
+/* ------------------------------------ -->
+<!-- --------- CSS EVENT MODAL ------------- -->
+<!-- ------------------------------------ */
+
+
+.modal #discussion .messageIn{
+	border: solid 1px rgb(112, 112, 112);
+	background-color: white;
+	border-radius: 100px;
+	padding: 10px 25px;
+	width: 350px;
+}
+
+.modal #discussion .messageOut{
+	border-radius: 100px;
+	background-color: #da9aa7;
+	color: white;
+	padding: 10px 25px;
+	width: 350px;
+	position: relative;
+  	left: 75px;
+}
+
+.modal #discussion .infoOut{
+	color: #A8334A;
+	position: relative;
+  	left: 85px;
+}
+
+/* ------------------------------------ -->
+<!-- --------- CSS MODIFY EVENT ------------- -->
+<!-- ------------------------------------ */
+
+#modifyEvent {
+	background-color: white;
+    margin: 18px 30px;
+    box-shadow: 1px 0px 4px rgb(112, 112, 112);
+}
+
+#modifyEvent h3 {
+	padding-top: 20px;
+	color: #a93049;
+	text-align: center;
+}
+
+#modifyEvent #msgErrorCreat {
+	color: red;
+	margin-bottom: 10px;
+}
+
+#modifyEvent #msgErrorCreat i {
+	margin-right: 5px;
+}
+
+#modifyEvent #formCreatEvent {
+	padding: 30px;
+}
+
+#modifyEvent #formSalles {
+	margin-bottom: -20px;
+}
+
+#modifyEvent .input-group-prepend {
+	cursor: pointer;
+}
+
+.iconInput:after {
+	font-family: FontAwesome;
+    display: inline-block;
+    content: "\f153";
+    color: rgb(112, 112, 112);
+    font-size: 18px;
+    margin: 0 0 -1px 4px;
+}
+
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
+#dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 

@@ -28,27 +28,34 @@ public class EventBean {
 
 	private int etat;
 		
-	public EventBean(int idEvent, String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, ArrayList<CommentBean> commentsEvent) {
+	public EventBean(int idEvent, String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, 
+		String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, 
+		ArrayList<CommentBean> commentsEvent, int participantsEvent, int budgetEvent, ArrayList<String> ressourcesEvent) {
 		id = idEvent;
 		salles = sallesEvent;
 		comments = commentsEvent;
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat tf = new SimpleDateFormat("HH:mm");
-	    date = df.format(dateEvent);
+	    	date = df.format(dateEvent);
 		time = tf.format(timeEvent);
 		titre = titreEvent;
 		creat = creatEvent;
 		image = imEvent;
 		imCreat = imCreatEvent;
+		description = descriptionEvent;
 		
 		validation = valEvent;
 		statut = statutEvent;
 		
+		participants = participantsEvent;
+		budget = budgetEvent;
+		ressources = ressourcesEvent;
+		
 		Date auj = new Date();
 
 		if (dateEvent.compareTo(auj) > 0) {
-            etat = 1;
-        }
+            		etat = 1;
+        	}
 		else {
 			etat = 0;
 		}
