@@ -309,18 +309,21 @@ $('#validerEvent').click(function(event) {
 		var idnoSplit = document.getElementById("etiquette").getElementsByClassName("content_event")[0].id;
 		
 		if (inputValidation == "validationVal") { var validation = 1; }
-		else if (inputValidation == "validationMiVal" && comment != "") { var validation = 2; }
+		else if (inputValidation == "validationMiVal" && comment != "") { 
+			var validation = 2; 
+		}
 		else if (inputValidation == "validationRef") { var validation = 4; }
 		else { var validation = 3; }
 		
 		var splitId = idnoSplit.split('_');
 		var idEvent = splitId[splitId.length - 1];
 		
-		if (validation != 3) {
+		if (validation != 3) {	        
 			$.get('EventServlet', {
 	        	Val: validation,
-	        	Com: comment,
 	        	action: "updateStatut",
+	        	Comment : comment,
+	        	IdCreat: "<%= request.getParameter("idCreat")%>", 
 	        	id: idEvent
 	        }, function(responseText) {
 	       		document.location.reload(true);
