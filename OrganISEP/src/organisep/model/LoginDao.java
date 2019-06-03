@@ -1,5 +1,6 @@
 package organisep.model;
 
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import organisep.model.BDConnexion;
 public class LoginDao {
 	public String authenticateUser(LoginBean loginBean) {
  		String mail = loginBean.getEmail();
- 		String mdp = loginBean.getMdp();
+ 		String mdp = MD5(loginBean.getMdp());
  
  		Connection con = null;
  		Statement statement = null;
@@ -65,4 +66,18 @@ public class LoginDao {
  			e.printStackTrace();
  		}
 	}
+	
+	public String MD5(String mdp) {
+		   try {
+		        MessageDigest md5 = MessageDigest.getInstance("MD5");
+		        byte[] mdpEncrypt = md5.digest(mdp.getBytes());
+		        StringBuffer mdpEncryptString = new StringBuffer();
+		        for (int i = 0; i < mdpEncrypt.length; ++i) {
+		        	mdpEncryptString.append(Integer.toHexString((mdpEncrypt[i] & 0xFF) | 0x100).substring(1,3));
+		       }
+		        return mdpEncryptString.toString();
+		    } catch (java.security.NoSuchAlgorithmException e) {
+		    }
+		    return null;
+		}
  }
