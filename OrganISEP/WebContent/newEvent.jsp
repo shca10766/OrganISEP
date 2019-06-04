@@ -118,7 +118,6 @@
 
 
 <script>
-
 $('#modalSalle').on('show.bs.modal', function (event) {
 	var date = $('#inputDate').val();
     $.get('EventServlet', {
@@ -129,7 +128,6 @@ $('#modalSalle').on('show.bs.modal', function (event) {
     	selectSalles(responseText);
     });
 })
-
 function selectSalles(l_salles) {
 	var form = document.getElementById("formSalles");
 	if (!form.classList.contains("loadData")) {
@@ -155,7 +153,6 @@ function selectSalles(l_salles) {
 		}
 	}
 }
-
 function displaySalles() {
 	var divInput = document.getElementById("formSalles").children;
 	var salles = "";
@@ -166,7 +163,6 @@ function displaySalles() {
 	}
 	document.getElementById("inputSalle").value = salles;
 }
-
 function addRess() {
 	var contentRess = document.getElementById("formRess").children[0];
 	var nRess = contentRess.children.length + 1;
@@ -190,8 +186,9 @@ function addRess() {
 	contentRess.appendChild(div);
 	div.appendChild(input);
 	div.appendChild(label);	
+	
+	$('.form-row input[id=' + idRess + ']').prop('checked', true);
 }
-
 $('#addEventForm').click(function(event) {
 	event.preventDefault();
     
@@ -214,17 +211,15 @@ $('#addEventForm').click(function(event) {
         
         var lien = $('#inputLien').val();
         
-
     	var allRess = [];
         $('#list_ress > div').each(function() {
         	if($(this)[0].children[0].checked) {
         		allRess.push($(this)[0].innerText);
         	}
         });
-
     	var desc = $('#textDesc').val();
     	
-    	$.post('EventServlet', {
+    	$.post('EventServlet?action=creat', {
         	Nom : nom,
         	Nbr : nbrPart,
         	Date: date,
@@ -248,10 +243,8 @@ $('#addEventForm').click(function(event) {
 	}
     
 });
-
 function modifLabel(e) {
 	var image = e.value.split('\\');
 	e.parentElement.children[0].innerText = image[image.length - 1];
 }
-
 </script>

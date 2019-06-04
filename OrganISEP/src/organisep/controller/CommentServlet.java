@@ -72,12 +72,13 @@ public class CommentServlet extends HttpServlet {
 				CommentDao commentDao = new CommentDao();
 				EventDao eventDao = new EventDao();
 				String creat = eventDao.getCreateur(idCreat, "nom");
-				int eventId = commentDao.getEvent(event);
+				int eventId = eventDao.getEvent(event);
 				CommentBean commentBean = new CommentBean(comment, date, creat, read, eventId);
 				commentDao.createComment(commentBean, idCreat);
 				
-				EventBean wholeEvent = eventDao.getEvent(event);
+				EventBean wholeEvent = eventDao.getEventInEvents(event);
 				event = this.gson.toJson(wholeEvent);
+				response.setContentType("application/json");
 				response.getWriter().write(event);
 				
 			} catch (ParseException e1) {
@@ -93,8 +94,9 @@ public class CommentServlet extends HttpServlet {
 				EventDao eventDao = new EventDao();
 				commentDao.readComment(event, idCreat);
 				
-				EventBean wholeEvent = eventDao.getEvent(event);
+				EventBean wholeEvent = eventDao.getEventInEvents(event);
 				event = this.gson.toJson(wholeEvent);
+				response.setContentType("application/json");
 				response.getWriter().write(event);
 				
 			} catch (ParseException e1) {

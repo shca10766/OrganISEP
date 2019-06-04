@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.protobuf.TextFormat.ParseException;
 
@@ -44,31 +46,44 @@ public class CommentDao {
 		return 0;
 	}
 	
-	public int getEvent(String event) throws ParseException, java.text.ParseException  {
+	public ArrayList<CommentBean> getComment(int idEvent) {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
  		ResultSet rs = null;
- 		int eventId = 0;
+ 		ArrayList<CommentBean> comments = new ArrayList<CommentBean>();
+ 
 		
 		try {
  			con = BDConnexion.createConnection();
- 			String selectSQL = "SELECT evenement_id FROM evenements WHERE evenement_titre = ?";
+ 			String selectSQL = "SELECT * FROM commentaires WHERE evenement_id = ?";
  			preparedStatement = con.prepareStatement(selectSQL);
- 			preparedStatement.setString(1, event);
+ 			preparedStatement.setInt(1, idEvent);
  			rs = preparedStatement.executeQuery();
  
  			while(rs.next()) { 
- 				eventId = rs.getInt("evenement_id");		
+ 				int idCreat = rs.getInt("utilisateur_id");
+ 				
+ 				EventDao eventDao = new EventDao();
+ 				String contentComment = rs.getString("commentaire_contenu");
+ 				Date dateComment = rs.getDate("commentaire_date");	
+ 				Boolean readComment = rs.getBoolean("commentaire_lu");
+ 				String nameCreat = eventDao.getCreateur(idCreat, "nom");
+ 				int eventComment = rs.getInt("evenement_id");
+ 				
+ 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment, eventComment);
+ 				comments.add(comment);
  			}
  		}
  		catch(SQLException e) {
  			e.printStackTrace();
  		}
-		return eventId;
+		return comments;
 	}
 	
 	public void readComment(String event, int idCreat) throws ParseException, java.text.ParseException  {
-		int eventId = getEvent(event);
+		EventDao eventDao = new EventDao();
+		
+		int eventId = eventDao.getEvent(event);
 		
 		Connection con = null;
 		PreparedStatement preparedStatement = null;

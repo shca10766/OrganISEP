@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class EventBean {
@@ -25,15 +26,17 @@ public class EventBean {
 	private int validation;
 	private int statut;
 	private int etat;
+	private int id;
 		
-	public EventBean(String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent,
+	public EventBean(int idEvent, String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent,
 			String creatEvent, String imCreatEvent, int valEvent, int statutEvent, String descriptionEvent, 
 			ArrayList<CommentBean> commentsEvent, int participantsEvent, int budgetEvent, ArrayList<String> ressourcesEvent) {
+		setId(idEvent);
 		salles = sallesEvent;
 		comments = commentsEvent;
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat tf = new SimpleDateFormat("HH:mm");
-	    	date = df.format(dateEvent);
+	    date = df.format(dateEvent);
 		time = tf.format(timeEvent);
 		titre = titreEvent;
 		creat = creatEvent;
@@ -77,6 +80,19 @@ public class EventBean {
 		lien = lienEvent;
 		ressources = ressourcesEvent;
 		description = descEvent;
+	}
+	
+	public void updateEvent(String nomEvent, String timeEvent, String descEvent, int nbr_participant, int budgetEvent,
+			ArrayList<String> sallesEvent, ArrayList<String> ressourcesEvent, String dateEvent, String imEvent) {
+		this.titre = nomEvent;
+		this.time = timeEvent;
+		this.description = descEvent;
+		this.participants = nbr_participant;
+		this.budget = budgetEvent;
+		this.salles = sallesEvent;
+		this.ressources = ressourcesEvent;
+		this.date = dateEvent;
+		this.image = imEvent;
 	}
 	
 	public String getTime() {
@@ -205,5 +221,13 @@ public class EventBean {
 
 	public void setComments(ArrayList<CommentBean> comments) {
 		this.comments = comments;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
