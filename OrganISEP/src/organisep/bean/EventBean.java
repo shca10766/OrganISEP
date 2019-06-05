@@ -92,7 +92,10 @@ public class EventBean {
 		this.salles = sallesEvent;
 		this.ressources = ressourcesEvent;
 		this.date = dateEvent;
-		this.image = imEvent;
+		
+		if(this.image != "img/imgEvent/noImage.png" && imEvent != "") {
+			this.image = imEvent;
+		}
 	}
 	
 	public String getTime() {

@@ -196,7 +196,7 @@ public class EventServlet extends HttpServlet {
 				} 
 				
 			}
-			String imageEvent = "img/imgEvent/noImage.png";
+			String imageEvent = "";
 			if (!image.equals("")) {
 				imageEvent = "img/imgEvent/" + image ;
 			}
@@ -224,14 +224,14 @@ public class EventServlet extends HttpServlet {
 				event = this.gson.toJson(eventBean);
 				response.setContentType("application/json");
 				response.getWriter().write(event);
-				//eventDao.sendHTMLEmail(eventBean, "update");
+				eventDao.sendHTMLEmail(eventBean, "update");
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} /*catch (MessagingException e) {
+			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}*/
+			}
 		}
 	}
 
