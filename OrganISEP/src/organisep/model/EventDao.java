@@ -59,7 +59,7 @@ public class EventDao {
  				ArrayList<String> ressources = getRessources(idEvent);
  				
  				
- 				EventBean event = new EventBean(titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, 
+ 				EventBean event = new EventBean(idEvent, titreEvent, dateEvent, timeEvent, imEvent, salles, creat, imCreat, valEvent, 
  						statutEvent, descriptionEvent, commentsEvent, participants, budget, ressources);
  				events.add(event);
  			}
@@ -324,5 +324,24 @@ public class EventDao {
  			e.printStackTrace();
  		}
 		return ressources;
+	}
+	
+	public void updateEvent(int id, int val) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			con = BDConnexion.createConnection();
+			String selectSQL = "UPDATE evenements SET evenement_validation = ? WHERE evenement_id = ?";
+			preparedStatement = con.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, val);
+ 			preparedStatement.setInt(2, id);
+ 		
+ 			
+ 			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -2,7 +2,14 @@
 	<ol class="breadcrumb">
 	    <li class="breadcrumb-item link"><a onclick="returnDash()" class="sousTitre_event">Tableau de bord</a></li>
 	    <li class="breadcrumb-item active sousTitre_event" id=eventTitre aria-current="page"></li>
-	    <li class="link" id="modif"> Modifier l'Ã©vÃ©nement</li>
+	    <div id="modif">
+	    	<% if(request.getParameter("creatStatut").equals("1") ) { %>
+	    		<li data-toggle="modal" data-target="#modalValidation" class="link linkAbsolute">Valider l'événement</li>
+			<% }
+	    	else { %>
+	    		<li class="link linkAbsolute"> Modifier l'événement</li>
+	    	<% } %>	
+	    </div>
 	</ol>
 	<div class="etiquette" id="etiquette">
 		<div class="content_img">
@@ -19,11 +26,11 @@
 			<div class="validation_content" id="validation_content"></div>
 		</div>
 		<div class="event_details">
-			<h6 class="sousTitre_detail">Informations supplÃ©mentaires</h6>
+			<h6 class="sousTitre_detail">Informations supplémentaires</h6>
 			<div class="verticalLine"></div>
 			<span>Description : </span>
 			<p id="description"></p>
-			<span>Ressources demandÃ©es : </span>
+			<span>Ressources demandées : </span>
 			<p id="ressources"></p>
 			<span>Budget : </span>
 			<p id="budget"></p>
@@ -64,27 +71,55 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalValidation" tabindex="-1" role="dialog" aria-labelledby="modalValidation" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<h5 class="modal-title" id="titleModalValidation">Validation</h5>
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          			<span aria-hidden="true">&times;</span>
+        		</button>
+      		</div>
+      		<div class="modal-body">
+      			<form id="formValidation">
+      				<div class="form-row" id="list_validation">
+						<div class="form-group col-md-3">
+							<input type="radio" id="validationVal" name="validationValue"><label for="validationVal">Validé</label>
+						</div>
+						<div class="form-group col-md-5">
+							<input type="radio" id="validationMiVal" name="validationValue"><label for="validationMiVal">Validé sous réserve</label>
+						</div>
+						<div class="form-group col-md-3">
+							<input type="radio" id="validationRef" name="validationValue"><label for="validationRef">Refusé</label>
+						</div>
+					</div>
+					<div class="form-group" id="valiationCom">
+    					<label for="textCom">Ajouter un commentaire</label>
+    					<textarea class="form-control" id="textCom" rows="3"></textarea>
+  					</div>
+      			</form>
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btnModal" data-dismiss="modal" id="validerEvent">Valider</button>
+      		</div>
+    	</div>
+  	</div>
+</div>
+
 <script>
 
 function displayDetails(event) {
 	document.getElementById("eventTitre").innerText = event.titre;
 	
-	document.getElementById("modif").addEventListener('click', function(){
-		var pageDash = document.getElementById("dashboard").children;
-		pageDash[1].style.display = "none";
-		pageDash[2].style.display = "block";
-	    modifyEvent(event);
-	});
-	
 	var etiquette = document.getElementById("etiquette")
 	var validation ="";
 	if (event.validation == 1) { 
 		etiquette.classList.add("valide");
-		validation = "ValidÃ©";
+		validation = "Validé";
 	}
 	else if (event.validation == 2) { 
 		etiquette.classList.add("vsr");
-		validation = "ValidÃ© sous rÃ©serve";
+		validation = "Validé sous réserve";
 	}
 	else if (event.validation == 3) { 
 		etiquette.classList.add("cours"); 
@@ -92,7 +127,7 @@ function displayDetails(event) {
 	}
 	else { 
 		etiquette.classList.add("refuse"); 
-		validation = "RefusÃ©";
+		validation = "Refusé";
 	}
 	
 	if (event.etat == 1) { etiquette.classList.add("futur"); }
@@ -100,6 +135,17 @@ function displayDetails(event) {
 	
 	if ("<%= request.getParameter("creatNom")%>" == event.creat) {
 		etiquette.classList.add("creat");
+		document.getElementById("modif").style.display = "block";
+		
+		document.getElementById("modif").addEventListener('click', function(){
+			var pageDash = document.getElementById("dashboard").children;
+			pageDash[1].style.display = "none";
+			pageDash[2].style.display = "block";
+		    modifyEvent(event);
+		});
+	}
+	else if ("<%= request.getParameter("creatStatut")%>" == 1) {
+		document.getElementById("modif").style.display = "block";
 	}
 	else {
 		document.getElementById("modif").style.display = "none";
@@ -109,16 +155,16 @@ function displayDetails(event) {
 	
 	document.getElementById("eventTitleDetail").innerText = event.titre;
 	
-	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " Ã  " + event.time;
+	document.getElementById("sousTitre_event").innerText = "Le " +  event.date + " à " + event.time;
 	
 	var salle_event = document.getElementById("salle_event");
 	salle_event.innerText = "Salles : ";
 	for (var j = 0; j < event.salles.length; j++) {
 		if (j == event.salles.length - 1) {
-			salle_event.innerText += event.salles[j];
+			salle_event.innerText += " " + event.salles[j];
 		}
 		else {
-			salle_event.innerText += event.salles[j] + " | ";
+			salle_event.innerText += " " + event.salles[j] + " | ";
 		}
 	}
 	
@@ -143,7 +189,7 @@ function displayDetails(event) {
 		ressources.innerText = " / ";
 	}
 	
-	document.getElementById("budget").innerText = event.budget;
+	document.getElementById("budget").innerText = event.budget + " euros";
 	
 	document.getElementById("participant").innerText = event.participants;
 	
@@ -174,6 +220,8 @@ function displayDetails(event) {
 	    	displayComment(event);
 	    });
 	})
+	
+	etiquette.getElementsByClassName("content_event")[0].id = "etiquette_" + event.id;
 	
 }
 
@@ -254,5 +302,33 @@ $('#commentModal').on('hidden.bs.modal', function(event) {
     	});
 });
     
-
+$('#validerEvent').click(function(event) {
+	if ($('input[name=validationValue]:checked', '#formValidation').val()) {
+		var inputValidation = $('input[name=validationValue]:checked', '#formValidation')[0].id;	
+		var comment = $('#textCom').val();
+		var idnoSplit = document.getElementById("etiquette").getElementsByClassName("content_event")[0].id;
+		
+		if (inputValidation == "validationVal") { var validation = 1; }
+		else if (inputValidation == "validationMiVal" && comment != "") { 
+			var validation = 2; 
+		}
+		else if (inputValidation == "validationRef") { var validation = 4; }
+		else { var validation = 3; }
+		
+		var splitId = idnoSplit.split('_');
+		var idEvent = splitId[splitId.length - 1];
+		
+		if (validation != 3) {	        
+			$.get('EventServlet', {
+	        	Val: validation,
+	        	action: "updateStatut",
+	        	Comment : comment,
+	        	IdCreat: "<%= request.getParameter("idCreat")%>", 
+	        	id: idEvent
+	        }, function(responseText) {
+	       		document.location.reload(true);
+	        });
+		}
+	}
+});
 </script>

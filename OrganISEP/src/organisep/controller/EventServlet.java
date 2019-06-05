@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import organisep.bean.CommentBean;
 import organisep.bean.EventBean;
+import organisep.model.CommentDao;
 import organisep.model.EventDao;
 
 /**
@@ -64,6 +66,36 @@ public class EventServlet extends HttpServlet {
 				
 				response.setContentType("application/json");
 				response.getWriter().write(salles);
+			}
+			else {
+				response.setContentType("text/plain");
+				response.getWriter().write("1");
+			}
+		}
+		
+		else if (action.equals("updateStatut")) {			
+			int id = Integer.parseInt(request.getParameter("id"));
+			int val = Integer.parseInt(request.getParameter("Val"));
+			String comment = request.getParameter("Comment");
+			
+			EventDao eventDao = new EventDao();
+			eventDao.updateEvent(id, val);
+			
+			if (!comment.equals("")) {
+				int idCreat = Integer.parseInt(request.getParameter("IdCreat"));
+				
+				Date date = new Date();
+				Boolean read = false;
+						
+				CommentDao commentDao = new CommentDao();
+				String creat = eventDao.getCreateur(idCreat, "nom");
+				CommentBean commentBean = new CommentBean(comment, date, creat, read, id);
+				try {
+					commentDao.createComment(commentBean, idCreat);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else {
 				response.setContentType("text/plain");
