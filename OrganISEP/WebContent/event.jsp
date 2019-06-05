@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <div id="detail">
 	<ol class="breadcrumb">
 	    <li class="breadcrumb-item link"><a onclick="returnDash()" class="sousTitre_event">Tableau de bord</a></li>
@@ -177,17 +178,20 @@ function displayDetails(event) {
 	document.getElementById("description").innerText = event.description;
 	
 	var ressources = document.getElementById("ressources");
+	
+	var selectedRessources = "";
 	for (var j = 0; j < event.ressources.length; j++) {
 		if (j == event.ressources.length - 1) {
-			ressources.innerText += event.ressources[j];
+			selectedRessources += event.ressources[j];
 		}
 		else {
-			ressources.innerText += event.ressources[j] + " | ";
+			selectedRessources += event.ressources[j] + " | ";
 		}
 	}
 	if (event.ressources.length == 0) {
-		ressources.innerText = " / ";
+		selectedRessources += " / ";
 	}
+	ressources.innerText = selectedRessources;
 	
 	document.getElementById("budget").innerText = event.budget + " euros";
 	
@@ -276,10 +280,9 @@ $('#formNewComment').click(function(event) {
     	$.post('CommentServlet?action=send', {
         	Comment : newComment,
         	Event : eventTitre,
-        	IdCreat: "<%= request.getParameter("idCreat")%>"
+        	IdCreat: "<%= request.getParameter("idCreat")%>",
         	}, function(responseText) {
-        		result = JSON.parse(responseText);
-        		displayDetails(result);
+        		displayDetails(responseText);
         	});
     }
 	else {
@@ -297,8 +300,7 @@ $('#commentModal').on('hidden.bs.modal', function(event) {
 		Event : eventTitre,
     	IdCreat: "<%= request.getParameter("idCreat")%>"
     	}, function(responseText) {
-    		result = JSON.parse(responseText);
-    		displayDetails(result);
+    		displayDetails(responseText);
     	});
 });
     

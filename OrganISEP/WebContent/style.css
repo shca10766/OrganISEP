@@ -411,23 +411,23 @@ nav {
     font-weight: bold;
 }
 
-#detail ol{
+#dashboard ol{
 	background-color: #f1f7f6;
 }
 
-#detail li{
+.breadcrumb li{
 	font-weight: bold;
 	color: rgb(112, 112, 112);
 }
 
-#detail ol #modif{
+#dashboard ol #modif{
 	position: absolute;
 	right: 10px;
 	font-weight: bold;
 	color: rgb(112, 112, 112);
 }
 
-#detail ol .link:hover{
+#dashboard ol .link:hover{
 	cursor: pointer;
 	color: #A8334A!important;
 }

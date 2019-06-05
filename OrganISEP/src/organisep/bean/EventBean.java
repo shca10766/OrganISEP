@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class EventBean {
@@ -25,7 +26,6 @@ public class EventBean {
 	
 	private int validation;
 	private int statut;
-
 	private int etat;
 		
 	public EventBean(int idEvent, String titreEvent, Date dateEvent, Time timeEvent, String imEvent, ArrayList<String> sallesEvent, 
@@ -36,7 +36,7 @@ public class EventBean {
 		comments = commentsEvent;
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat tf = new SimpleDateFormat("HH:mm");
-	    	date = df.format(dateEvent);
+	    date = df.format(dateEvent);
 		time = tf.format(timeEvent);
 		titre = titreEvent;
 		creat = creatEvent;
@@ -89,6 +89,22 @@ public class EventBean {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public void updateEvent(String nomEvent, String timeEvent, String descEvent, int nbr_participant, int budgetEvent,
+			ArrayList<String> sallesEvent, ArrayList<String> ressourcesEvent, String dateEvent, String imEvent) {
+		this.titre = nomEvent;
+		this.time = timeEvent;
+		this.description = descEvent;
+		this.participants = nbr_participant;
+		this.budget = budgetEvent;
+		this.salles = sallesEvent;
+		this.ressources = ressourcesEvent;
+		this.date = dateEvent;
+		
+		if(this.image != "img/imgEvent/noImage.png" && imEvent != "") {
+			this.image = imEvent;
+		}
+	}
 	
 	public String getTime() {
 		return time;
@@ -112,7 +128,7 @@ public class EventBean {
 
 	public void setDate(String date) {
 		this.date = date;
-	}
+}
 
 	public String getTitre() {
 		return titre;
@@ -169,7 +185,7 @@ public class EventBean {
 	public void setEtat(int etat) {
 		this.etat = etat;
 	}
-
+	
 	public int getParticipants() {
 		return participants;
 	}

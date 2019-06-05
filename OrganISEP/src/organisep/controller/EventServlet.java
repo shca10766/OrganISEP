@@ -79,7 +79,7 @@ public class EventServlet extends HttpServlet {
 			String comment = request.getParameter("Comment");
 			
 			EventDao eventDao = new EventDao();
-			eventDao.updateEvent(id, val);
+			eventDao.updateValidationEvent(id, val);
 			
 			if (!comment.equals("")) {
 				int idCreat = Integer.parseInt(request.getParameter("IdCreat"));
@@ -108,73 +108,162 @@ public class EventServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub		
-		String nom = request.getParameter("Nom");
-		String d = request.getParameter("Date");
-		String t = request.getParameter("Time");
-		String lien = request.getParameter("Lien");		
-		String desc = request.getParameter("Desc");
-		String image = request.getParameter("Image");
+		String action = request.getParameter("action");
 		
-		int idCreat = 0;
-		if (!request.getParameter("IdCreat").equals("")) {
-			idCreat = Integer.parseInt(request.getParameter("IdCreat"));
-		}
-		
-		int nbr_participant = 0;
-		if (!request.getParameter("Nbr").equals("")) {
-			nbr_participant = Integer.parseInt(request.getParameter("Nbr"));
-		}
-		
-		int budget = 0;
-		if (!request.getParameter("Budget").equals("")) {
-			budget = Integer.parseInt(request.getParameter("Budget"));
-		}
-		
-		String[] salles = request.getParameterValues("Salles[]");
-		ArrayList<Integer> listSalles = new ArrayList<Integer>();
-		if (salles != null) {
-			for (int i = 0; i < salles.length; i++) {
-				String[] idSalle = salles[i].split("_");
-				listSalles.add(Integer.parseInt(idSalle[1]));
-			}
-		}		
-		String[] ressources = request.getParameterValues("Ress[]");
-		ArrayList<String> listRessources = new ArrayList<String>();
-		if (ressources != null) {
-			listRessources = new ArrayList<String>(Arrays.asList(ressources));
-		}
-		
-		String imageEvent = "img/imgEvent/noImage.png";
-		if (!image.equals("")) {
-			imageEvent = "img/imgEvent/" + image ;
-		}
-		
-		SimpleDateFormat old_sdf = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-		Date da;
-		try {
-			da = old_sdf.parse(d);
-			d = sdf.format(da);
-			EventDao eventDao = new EventDao();
-			String creat = eventDao.getCreateur(idCreat, "nom");
-			EventBean eventBean = new EventBean(nom, d, t, imageEvent, creat, nbr_participant, budget, lien, listRessources, desc);
-			int idEvent = eventDao.createEvent(eventBean, idCreat);
+		if(action.equals("creat")) {
+			String nom = request.getParameter("Nom");
+			String d = request.getParameter("Date");
+			String t = request.getParameter("Time");
+			String lien = request.getParameter("Lien");		
+			String desc = request.getParameter("Desc");
+			String image = request.getParameter("Image");
 			
-			for (int j = 0; j < listSalles.size(); j++) {
-				eventDao.reservSalle(listSalles.get(j), idEvent);
+			int idCreat = 0;
+			if (!request.getParameter("IdCreat").equals("")) {
+				idCreat = Integer.parseInt(request.getParameter("IdCreat"));
 			}
-			for (int k = 0; k < listRessources.size(); k++) {
-				eventDao.reservRess(listRessources.get(k), idEvent);
+			
+			int nbr_participant = 0;
+			if (!request.getParameter("Nbr").equals("")) {
+				nbr_participant = Integer.parseInt(request.getParameter("Nbr"));
 			}
-			eventDao.sendHTMLEmail(eventBean);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			int budget = 0;
+			if (!request.getParameter("Budget").equals("")) {
+				budget = Integer.parseInt(request.getParameter("Budget"));
+			}
+			
+			String[] salles = request.getParameterValues("Salles[]");
+			ArrayList<Integer> listSalles = new ArrayList<Integer>();
+			if (salles != null) {
+				for (int i = 0; i < salles.length; i++) {
+					String[] idSalle = salles[i].split("_");
+					listSalles.add(Integer.parseInt(idSalle[1]));
+				}
+			}		
+			String[] ressources = request.getParameterValues("Ress[]");
+			ArrayList<String> listRessources = new ArrayList<String>();
+			if (ressources != null) {
+				listRessources = new ArrayList<String>(Arrays.asList(ressources));
+			}
+			
+			String imageEvent = "img/imgEvent/noImage.png";
+			if (!image.equals("")) {
+				imageEvent = "img/imgEvent/" + image ;
+			}
+			
+			SimpleDateFormat old_sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	
+			Date da;
+			try {
+				da = old_sdf.parse(d);
+				d = sdf.format(da);
+				EventDao eventDao = new EventDao();
+				String creat = eventDao.getCreateur(idCreat, "nom");
+				EventBean eventBean = new EventBean(nom, d, t, imageEvent, creat, nbr_participant, budget, lien, listRessources, desc);
+				int idEvent = eventDao.createEvent(eventBean, idCreat);
+				
+				for (int j = 0; j < listSalles.size(); j++) {
+					eventDao.reservSalle(listSalles.get(j), idEvent);
+				}
+				for (int k = 0; k < listRessources.size(); k++) {
+					eventDao.reservRess(listRessources.get(k), idEvent);
+				}
+				eventDao.sendHTMLEmail(eventBean, "creat");
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(action.equals("update")) {
+			int idEvent = Integer.parseInt(request.getParameter("IdEvent"));
+			String nom = request.getParameter("Nom");
+			String t = request.getParameter("Time");	
+			String desc = request.getParameter("Desc");
+			int nbr_participant = Integer.parseInt(request.getParameter("Nbr"));
+			String image = request.getParameter("Image");
+			
+			int budget = 0;
+			if (!request.getParameter("Budget").equals("")) {
+				budget = Integer.parseInt(request.getParameter("Budget"));
+			}
+			
+			String[] salles = request.getParameterValues("Salles[]");
+			ArrayList<Integer> listSallesId = new ArrayList<Integer>();
+			ArrayList<String> listSalles = new ArrayList<String>();
+			if (salles != null) {
+				for (int i = 0; i < salles.length; i++) {
+					String[] splitSalles = salles[i].split("_");
+					listSallesId.add(Integer.parseInt(splitSalles[1]));
+					listSalles.add(splitSalles[0]);
+				}
+			}		
+			
+			String[] ressources = request.getParameterValues("Ress[]");
+			ArrayList<String> listRessources = new ArrayList<String>();
+			if (ressources != null) {
+				listRessources = new ArrayList<String>(Arrays.asList(ressources));
+			}
+			
+			String date = "";
+			if (request.getParameter("Date").equals("")) {
+				date = request.getParameter("ActualDate");
+			} else {
+				date = request.getParameter("Date");
+				SimpleDateFormat old_sdf = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+				Date da;
+				try {
+					da = old_sdf.parse(date);
+					date = sdf.format(da);
+				}
+				catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				
+			}
+			String imageEvent = "";
+			if (!image.equals("")) {
+				imageEvent = "img/imgEvent/" + image ;
+			}
+			
+			
+			try {
+				
+				EventDao eventDao = new EventDao();
+				EventBean eventBean = eventDao.getEventInEventsById(idEvent);
+				eventBean.updateEvent(nom, t, desc, nbr_participant, budget, listSalles, listRessources, date, imageEvent);
+				eventDao.updateEvent(eventBean);
+				
+				eventDao.deleteSalle(idEvent);
+				for (int j = 0; j < listSallesId.size(); j++) {
+					eventDao.reservSalle(listSallesId.get(j), idEvent);
+				}
+				
+				eventDao.deleteRess(idEvent);
+				for (int k = 0; k < listRessources.size(); k++) {
+					eventDao.reservRess(listRessources.get(k), idEvent);
+				}
+				
+				
+				String event;
+				event = this.gson.toJson(eventBean);
+				response.setContentType("application/json");
+				response.getWriter().write(event);
+				eventDao.sendHTMLEmail(eventBean, "update");
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

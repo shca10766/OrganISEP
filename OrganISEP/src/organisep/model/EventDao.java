@@ -30,6 +30,8 @@ public class EventDao {
 		Connection con = null;
  		Statement statement = null;
  		ResultSet resultSet = null;
+ 		
+ 		CommentDao commentDao = new CommentDao();
 		
 		try {
  			con = BDConnexion.createConnection();
@@ -47,7 +49,7 @@ public class EventDao {
  				String imEvent = resultSet.getString("evenement_image");
  				String descriptionEvent = resultSet.getString("evenement_description");
  				ArrayList<String> salles = getSalle(idEvent);
- 				ArrayList<CommentBean> commentsEvent = getComment(idEvent);
+ 				ArrayList<CommentBean> commentsEvent = commentDao.getComment(idEvent);
  				String creat = getCreateur(idCreat, "nom");
  				String imCreat = getCreateur(idCreat, "image");
  				
@@ -91,39 +93,6 @@ public class EventDao {
  			e.printStackTrace();
  		}
 		return salles;
-	}
-	
-	public ArrayList<CommentBean> getComment(int idEvent) {
-		Connection con = null;
-		PreparedStatement preparedStatement = null;
- 		ResultSet rs = null;
- 		ArrayList<CommentBean> comments = new ArrayList<CommentBean>();
- 
-		
-		try {
- 			con = BDConnexion.createConnection();
- 			String selectSQL = "SELECT * FROM commentaires WHERE evenement_id = ?";
- 			preparedStatement = con.prepareStatement(selectSQL);
- 			preparedStatement.setInt(1, idEvent);
- 			rs = preparedStatement.executeQuery();
- 
- 			while(rs.next()) { 
- 				int idCreat = rs.getInt("utilisateur_id");
- 				
- 				String contentComment = rs.getString("commentaire_contenu");
- 				Date dateComment = rs.getDate("commentaire_date");	
- 				Boolean readComment = rs.getBoolean("commentaire_lu");
- 				String nameCreat = getCreateur(idCreat, "nom");
- 				int eventComment = rs.getInt("evenement_id");
- 				
- 				CommentBean comment = new CommentBean(contentComment, dateComment, nameCreat, readComment, eventComment);
- 				comments.add(comment);
- 			}
- 		}
- 		catch(SQLException e) {
- 			e.printStackTrace();
- 		}
-		return comments;
 	}
 	
 	public String getCreateur(int idCreat, String type) {
@@ -171,7 +140,7 @@ public class EventDao {
  		}
 		return salles;
 	}
-
+	
 	public int createEvent(EventBean e, int idCreat) throws ParseException, java.text.ParseException {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
@@ -256,7 +225,7 @@ public class EventDao {
  		}
 	}
 	
-	public void sendHTMLEmail(EventBean event) throws MessagingException {
+	public void sendHTMLEmail(EventBean event, String type) throws MessagingException {
 		Properties props = new Properties();
 	      props.put("mail.smtp.auth", "true");
 	      props.put("mail.smtp.starttls.enable", "true");
@@ -279,9 +248,17 @@ public class EventDao {
                     Message.RecipientType.TO,
                     InternetAddress.parse("iseporgan@hotmail.com")
             );
-            message.setSubject("Demande de validation d'Ã©vÃ©nement");
-            message.setText(event.getCreat() + " a crÃ©Ã© l'Ã©vÃ©nement " + event.getTitre() + " et requiert votre validation"
-                    + "\n\n Merci d'aller sur l'application Organ'Isep pour ce faire!");
+            if(type.equals("creat")) {
+            	message.setSubject("Demande de validation d'événement");
+                message.setText(event.getCreat() + " a créé l'événement " + event.getTitre() + " et requiert votre validation"
+                        + "\n\n Merci d'aller sur l'application Organ'Isep pour ce faire!");
+            }
+            else if(type.equals("update")) {
+            	message.setSubject("Modification d'un événement");
+                message.setText(event.getCreat() + " a modifier l'événement " + event.getTitre() + " et requiert votre validation"
+                        + "\n\n Merci d'aller sur l'application Organ'Isep pour ce faire!");
+            }
+            
 
             Transport.send(message);
 
@@ -290,7 +267,7 @@ public class EventDao {
         }
 	}
 	
-	public EventBean getEvent(String eventTitle) {
+	public EventBean getEventInEvents(String eventTitle) {
 		EventBean event;
 		ArrayList<EventBean> listEvents = new ArrayList<EventBean>();
 		listEvents = getEvents(listEvents);
@@ -301,6 +278,42 @@ public class EventDao {
 			}
 		}
 		return null;
+	}
+	
+	public EventBean getEventInEventsById(int eventId) {
+		EventBean event;
+		ArrayList<EventBean> listEvents = new ArrayList<EventBean>();
+		listEvents = getEvents(listEvents);
+		for(int i = 0 ; i<listEvents.size(); i++) {
+			if (listEvents.get(i).getId() == eventId){
+				event = listEvents.get(i);
+				return event;
+			}
+		}
+		return null;
+	}
+	
+	public int getEvent(String event) throws ParseException, java.text.ParseException  {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+ 		ResultSet rs = null;
+ 		int eventId = 0;
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "SELECT evenement_id FROM evenements WHERE evenement_titre = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setString(1, event);
+ 			rs = preparedStatement.executeQuery();
+ 
+ 			while(rs.next()) { 
+ 				eventId = rs.getInt("evenement_id");		
+ 			}
+ 		}
+ 		catch(SQLException e) {
+ 			e.printStackTrace();
+ 		}
+		return eventId;
 	}
 	
 	private ArrayList<String> getRessources(int idEvent) {
@@ -326,7 +339,7 @@ public class EventDao {
 		return ressources;
 	}
 	
-	public void updateEvent(int id, int val) {
+	public void updateValidationEvent(int id, int val) {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -343,5 +356,70 @@ public class EventDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public int updateEvent(EventBean e) throws ParseException, java.text.ParseException {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String d = e.getDate();
+		Date dat = new java.sql.Date(sdf.parse(d).getTime());
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "UPDATE evenements SET evenement_titre = ?, evenement_participant = ?, evenement_date = ?, evenement_time = ?, evenement_budget = ?, evenement_description = ?, evenement_image = ? WHERE evenement_id = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL, Statement.RETURN_GENERATED_KEYS);
+ 			preparedStatement.setString(1, e.getTitre());
+ 			preparedStatement.setInt(2, e.getParticipants());
+ 			preparedStatement.setDate(3, (java.sql.Date) dat);
+ 			preparedStatement.setString(4, e.getTime());
+ 			preparedStatement.setInt(5, e.getBudget());
+ 			preparedStatement.setString(6, e.getDescription());
+ 			preparedStatement.setString(7, e.getImage());
+ 			preparedStatement.setInt(8, e.getId());
+ 			
+ 			preparedStatement.executeUpdate();
+ 		}
+ 		catch(SQLException ex) {
+ 			ex.printStackTrace();
+ 		}
+		return 0;
+	}
+	
+	public void deleteSalle(int idEvent) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "DELETE FROM reservation_salle WHERE evenement_id = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setInt(1, idEvent);
+ 		
+ 			
+ 			preparedStatement.executeUpdate();
+ 		}
+ 		catch(SQLException ex) {
+ 			ex.printStackTrace();
+ 		}
+	}
+	
+	public void deleteRess(int idEvent) {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+ 			con = BDConnexion.createConnection();
+ 			String selectSQL = "DELETE FROM ressources WHERE evenement_id = ?";
+ 			preparedStatement = con.prepareStatement(selectSQL);
+ 			preparedStatement.setInt(1, idEvent);
+ 		
+ 			
+ 			preparedStatement.executeUpdate();
+ 		}
+ 		catch(SQLException ex) {
+ 			ex.printStackTrace();
+ 		}
 	}
 }

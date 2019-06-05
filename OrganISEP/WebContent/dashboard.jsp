@@ -7,6 +7,7 @@
 		<div id="filtre_date">
 			Date : 
 			<input type="checkbox" id="passe" name="passe" onclick="filtre_function()"><label for="passe">Passé</label>
+
 			<input type="checkbox" id="futur" name="futur" onclick="filtre_function()" checked><label for="futur">A venir</label>
 		</div>
 		<div id="filtre_validation">
@@ -74,6 +75,7 @@
 			
 			var sousTitre_event = document.createElement("h5");
 			sousTitre_event.classList.add("sousTitre_event");
+			
 			var myDate = new Date("\'" + r[i].date + "\'");
 			sousTitre_event.innerText = "Le " +  r[i].date + " à " + r[i].time;
 			
