@@ -478,6 +478,7 @@ nav {
 	border-radius: 100px;
 	padding: 10px 25px;
 	width: 350px;
+	margin-bottom: 15px;
 }
 
 .modal #discussion .messageOut{
@@ -488,12 +489,14 @@ nav {
 	width: 350px;
 	position: relative;
   	left: 75px;
+  	margin-bottom: 15px;
 }
 
 .modal #discussion .infoOut{
 	color: #A8334A;
-	position: relative;
-  	left: 85px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 40px;
 }
 
 /* ------------------------------------ -->
@@ -542,5 +545,24 @@ nav {
     margin: 0 0 -1px 4px;
 }
 
-#dashboard #dashEvents input[type=checkbox]:checked + label:before { content: "\f046"; }
-#dashboard #dashEvents input[type=checkbox]:checked + label:before { letter-spacing: 2.5px; } 
+#modifyEvent #edit_ress {
+	border: 1px solid #a93049;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+#modifyEvent #formRess {
+	margin-top: 20px;
+}
+
+#modifyEvent #btnFormEvent {
+	position: relative;
+	height: 40px;
+}
+
+#modifyEvent #updateEventForm {
+	position: absolute;
+    right: 0;
+    bottom: -14px;
+}

@@ -1,17 +1,20 @@
 package organisep.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CommentBean {
 	private String content;
-	private Date date;
+	private String date;
 	private String creat;
 	private Boolean read;
 	private int event;
 	
 	public CommentBean(String contentComment, Date dateComment, String nameCreat, Boolean readComment, int eventComment){
 		content = contentComment;
-		date = dateComment;
+		SimpleDateFormat sdf = new SimpleDateFormat("d MMMMM yyyy");
+		
+		date = sdf.format(dateComment);
 		creat = nameCreat;
 		read = readComment;
 		event = eventComment;
@@ -25,11 +28,11 @@ public class CommentBean {
 		this.content = content;
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	

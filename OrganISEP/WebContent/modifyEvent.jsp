@@ -82,7 +82,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-row">
+		<div class="form-row" style="padding: 10px 0 20px 0;">
 	    	<label for="editAutreRess" class="col-form-label">Ajouter une ressource</label>
 	    	<div class="form-group col-sm-4">
 	      		<input class="form-control" id="editAutreRess">

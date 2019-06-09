@@ -30,10 +30,6 @@
 					<input type="submit" value="Connexion" class="btn">
 				</div>
 			</form>
-			
-			<div>
-				<a href="#">Mot de passe oublié ?</a>
-			</div>
 		</div>
 	</body>
 	

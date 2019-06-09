@@ -54,7 +54,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="discussion">
+      <div class="modal-body" id="discussion" style="overflow-x: hidden;">
         
       </div>
       <div class="modal-footer">
@@ -238,7 +238,7 @@ function displayComment(event){
 		if ("<%= request.getParameter("creatNom")%>" == event.comments[i].creat) {
 			info = document.createElement("div");
 			info.classList.add("infoOut");
-			info.innerText = "le : " + event.comments[i].date;
+			info.innerText = "le " + event.comments[i].date;
 			
 			message = document.createElement("div");
 			message.classList.add("messageOut");
@@ -247,7 +247,7 @@ function displayComment(event){
 		else {
 			info = document.createElement("div");
 			info.classList.add("infoIn");
-			info.innerText = event.comments[i].creat + ", le : " + event.comments[i].date;
+			info.innerText = event.comments[i].creat + ", le " + event.comments[i].date;
 			
 			message = document.createElement("div");
 			message.classList.add("messageIn");
