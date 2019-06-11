@@ -53,7 +53,7 @@
 	    		<input type="file" class="custom-file-input" id="inputEditImage" name="inputEditImage" onchange="modifEditLabel(this)">
 	  		</div>
   		</div>
-	  	<div id="formRess">
+	  	<div id="formRessEdit">
 	  		Ressources
 			<div class="form-row " id="edit_ress">
 				<div class="form-group col-md-3">
@@ -267,7 +267,7 @@ function displayEditedSalles() {
 }
 
 function editRess() {
-	var contentRess = document.getElementById("formRess").children[0];
+	var contentRess = document.getElementById("formRessEdit").children[0];
 	var nRess = contentRess.children.length + 1;
 	var idRess = "ress" + nRess;
 	var ress = document.getElementById("editAutreRess").value;

@@ -36,7 +36,7 @@ public class EventDao {
 		try {
  			con = BDConnexion.createConnection();
  			statement = con.createStatement();
- 			resultSet = statement.executeQuery("select * from evenements");
+ 			resultSet = statement.executeQuery("select * from evenements ORDER BY evenement_date DESC");
  
  			while(resultSet.next()) { 
  				
