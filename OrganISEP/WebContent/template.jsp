@@ -85,6 +85,7 @@
 				var pageDash = document.getElementById("dashboard").children;
 				pageDash[0].style.display = "block";
 				pageDash[1].style.display = "none";
+				pageDash[2].style.display = "none";
 			}
 	  	</script>
 		
